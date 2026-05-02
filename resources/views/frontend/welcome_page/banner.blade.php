@@ -1,48 +1,40 @@
-<section id="banner" class="w-100">
-    <link rel="stylesheet" href="{{ asset('css/frontend/custom_banner.css') }}">
+<section class="banner-section">
+    <div class="banner-card">
 
-    <div id="slider" class="position-relative w-100 d-flex align-items-center justify-content-center text-center"
-        style="height:70vh; overflow:hidden;">
+        <div class="banner-container">
 
-        @php
-            $slides = [
-                [
-                    'title' => 'Welcome to Lifetime City Hospital',
-                    'subtitle' => 'Providing trusted, affordable, and quality healthcare services for everyone.',
-                ],
-                [
-                    'title' => 'Experienced Doctors & Modern Care',
-                    'subtitle' => 'Expert medical professionals dedicated to your health and recovery.',
-                ],
-                [
-                    'title' => 'Easy Appointments & Patient Management',
-                    'subtitle' => 'Smart hospital management system for faster service and better care.',
-                ],
-            ];
-        @endphp
+            <!-- Left Content -->
+            <div class="banner-left">
 
-        {{-- Slides --}}
-        @foreach ($slides as $index => $slide)
-            <div
-                class="slide {{ $index === 0 ? 'active' : '' }} position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
+                <div class="logo">
+                    <span class="icon">🩺</span>
+                    <h1>Sustho<span>Care+</span></h1>
+                </div>
 
-                <div class="text-white px-3">
-                    <h1 class="fw-bold mb-3" style="font-size: 2.8rem;">
-                        {{ $slide['title'] }}
-                    </h1>
-                    <p class="fs-5 opacity-90">
-                        {{ $slide['subtitle'] }}
-                    </p>
+                <div class="stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+
+                <h3 class="subtitle">Premium Healthcare</h3>
+                <h2 class="title">At Your Fingertips</h2>
+
+                <div class="features">
+                    <div class="feature">✔ Certified Specialists</div>
+                    <div class="feature">🕒 24/7 Availability</div>
+                    <div class="feature">🔒 Safe & Secure</div>
+                    <div class="feature">👨‍⚕️ 500+ Doctors</div>
+                </div>
+
+                <div class="buttons">
+                    <a href="#" class="btn primary">📅 Book Appointment</a>
+                    <a href="#" class="btn danger">📞 Emergency</a>
                 </div>
 
             </div>
-        @endforeach
 
-        {{-- Dots --}}
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 d-flex gap-2">
-            @foreach ($slides as $i => $slide)
-                <span class="dot" onclick="goToSlide({{ $i }})"></span>
-            @endforeach
+            <!-- Right Image -->
+            <div class="banner-right">
+                <img src="{{ asset('uploads/images/welcome_page/banner_section/banner.jpg') }}" alt="Doctors">
+            </div>
+
         </div>
 
     </div>

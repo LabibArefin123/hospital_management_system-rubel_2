@@ -1,40 +1,82 @@
-<!-- Simple Footer -->
-<footer class="bg-dark text-white py-4" id="contact">
-    <link rel="stylesheet" href="{{ asset('css/frontend/custom_footer.css') }}">
-
+<footer class="main-footer bg-white border-top pt-4">
     <div class="container">
-        <div class="row text-center text-md-start align-items-center">
+        <div class="row text-start">
 
-            <!-- Hospital Info -->
-            <div class="col-md-4 mb-3 mb-md-0">
-                <h5 class="fw-bold text-success">Lifetime City Hospital</h5>
-                <p class="small mb-0">
-                    Providing trusted and quality healthcare services with compassion and care.
+            <!-- Company Info -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold text-primary">SusthoCare</h5>
+                <p>
+                    Your trusted partner in healthcare innovation in Bangladesh. 
+                    We provide modern medical solutions with care, technology, and reliability.
                 </p>
-            </div>
 
-            <!-- Contact Info -->
-            <div class="col-md-4 mb-3 mb-md-0">
-                <h6 class="fw-semibold">Contact Us</h6>
-                <p class="small mb-1">📍 123 Main Road, City Center</p>
-                <p class="small mb-1">📞 +880 1700-000000</p>
-                <p class="small mb-0">✉ info@lifetimehospital.com</p>
+                <p class="mb-1">📞 +880 1712-345678</p>
+                <p class="mb-1">📧 info@susthocare.com</p>
+                <p>📍 Dhaka, Bangladesh</p>
             </div>
 
             <!-- Quick Links -->
-            <div class="col-md-4">
-                <h6 class="fw-semibold">Quick Links</h6>
-                <p class="small mb-1 text-white"><a href="#about" class="footer-link">About</a></p>
-                <p class="small mb-1 text-white"><a href="#departments" class="footer-link">Departments</a></p>
-                <p class="small mb-1 text-white"><a href="#services" class="footer-link">Services</a></p>
-                <p class="small mb-0 text-white"><a href="{{ route('login') }}" class="footer-link">Hospital Login</a></p>
+            <div class="col-md-2 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Doctors</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Appointments</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="col-md-3 mb-3">
+                <h6 class="fw-bold">Our Services</h6>
+                <ul class="list-unstyled">
+                    <li>Blood Pressure Check</li>
+                    <li>Blood Sugar Test</li>
+                    <li>Full Blood Count</li>
+                    <li>X-Ray Scan</li>
+                    <li>Health Consultation</li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-md-3 mb-3">
+                <h6 class="fw-bold">Stay Connected</h6>
+                <p>Get health tips and updates.</p>
+
+                <form>
+                    <input type="email" class="form-control mb-2" placeholder="Enter your email">
+                    <button class="btn btn-primary w-100">Subscribe</button>
+                </form>
             </div>
 
         </div>
 
+        <hr>
+
         <!-- Bottom -->
-        <div class="text-center small mt-4 pt-3 border-top border-secondary">
-            &copy; {{ date('Y') }} Lifetime City Hospital. All rights reserved.
+        <div class="text-center pb-2">
+            © {{ date('Y') }} <strong>SusthoCare</strong> | Hospital Management System | Bangladesh
         </div>
     </div>
 </footer>
+
+<style>
+.main-footer {
+    font-size: 14px;
+    color: #555;
+}
+
+.main-footer a {
+    color: #555;
+    text-decoration: none;
+}
+
+.main-footer a:hover {
+    color: #0d6efd;
+}
+
+.main-footer h5, .main-footer h6 {
+    margin-bottom: 10px;
+}
+</style>

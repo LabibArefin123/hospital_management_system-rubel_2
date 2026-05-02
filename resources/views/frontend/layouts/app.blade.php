@@ -12,7 +12,7 @@
         @hasSection('title')
             @yield('title')
         @else
-            {{ config('app.name', 'Lifeline City Hospital') }}
+            {{ config('app.name', 'SusthoCare') }}
         @endif
     </title>
 
@@ -27,6 +27,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/frontend/frontend.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/banner_section/custom_banner.css') }}">
 </head>
 
 <body>
