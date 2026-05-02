@@ -1,0 +1,23 @@
+/* =========================
+   SERVICE CARD
+========================= */
+
+.service-card {
+    background: #ffffff;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.service-card h6 {
+    margin-top: 10px;
+}
+
+.service-card p {
+    font-size: 0.9rem;
+}
