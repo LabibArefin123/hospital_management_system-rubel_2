@@ -1,0 +1,94 @@
+/* Navbar */
+.custom-navbar {
+    background: #ffffff;
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* Brand */
+.brand-text {
+    line-height: 1.1;
+}
+
+.logo-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #28a745;
+}
+
+.logo-company {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.logo-desc {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* Menu */
+.custom-link {
+    font-weight: 500;
+    color: #333 !important;
+    margin: 0 12px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.custom-link:hover {
+    color: #28a745 !important;
+}
+
+/* Active underline */
+.custom-link.active::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #28a745;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+/* Buttons */
+.custom-btn {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.custom-btn:hover {
+    background: #218838;
+}
+
+.custom-btn-outline {
+    border-radius: 25px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.custom-btn-outline:hover {
+    background: #28a745;
+    color: #fff;
+}
+
+/* Spacing */
+.gap-2 > * {
+    margin-left: 8px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .custom-link {
+        margin: 6px 0;
+    }
+
+    .brand-text {
+        font-size: 0.9rem;
+    }
+
+    .logo-title {
+        font-size: 1.1rem;
+    }
+}
