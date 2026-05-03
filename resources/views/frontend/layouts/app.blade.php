@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ asset('css/frontend/frontend.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/custom_layout/custom_navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/banner_section/custom_banner.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/trust_section/custom_trust.css') }}">
 </head>
 
 <body>

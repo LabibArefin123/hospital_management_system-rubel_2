@@ -17,8 +17,7 @@
 
     {{-- Hospital Services --}}
     @include('frontend.welcome_page.doctors')
-    
-    @include('frontend.welcome_page.services')
+    @include('frontend.welcome_page.trust')
 
     {{-- Footer --}}
     @include('frontend.welcome_page.footer')

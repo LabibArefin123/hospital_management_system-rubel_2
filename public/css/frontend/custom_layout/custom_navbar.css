@@ -1,94 +1,135 @@
-/* Navbar */
+/* ================= NAVBAR ================= */
 .custom-navbar {
     background: #ffffff;
     border-bottom: 1px solid #eaeaea;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-/* Brand */
+/* ================= BRAND ================= */
 .brand-text {
-    line-height: 1.1;
+    display: flex;
+    align-items: center;
 }
 
-.logo-title {
-    font-size: 1.4rem;
+/* Logo wrapper (controls size, not the image) */
+.logo-box {
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    /* border-radius: 12px; */
+    overflow: hidden; /* prevents overflow */
+    /* box-shadow: 0 2px 6px rgba(0,0,0,0.05); */
+}
+
+/* Actual image (can be large but contained) */
+.brand-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+/* Text spacing */
+.brand-text .ms-2 {
+    margin-left: 10px;
+}
+
+/* Company Name */
+.logo-company {
+    font-size: 1.05rem;
     font-weight: 700;
     color: #28a745;
+    line-height: 1.2;
 }
 
-.logo-company {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #333;
-}
-
+/* Tagline */
 .logo-desc {
     font-size: 0.75rem;
     color: #888;
+    line-height: 1;
 }
 
-/* Menu */
+/* ================= MENU ================= */
 .custom-link {
     font-weight: 500;
     color: #333 !important;
     margin: 0 12px;
     position: relative;
-    transition: 0.3s;
+    transition: all 0.25s ease;
 }
 
+/* Hover */
 .custom-link:hover {
     color: #28a745 !important;
 }
 
-/* Active underline */
-.custom-link.active::after {
-    content: '';
-    width: 100%;
+/* Active underline animation */
+.custom-link::after {
+    content: "";
+    width: 0%;
     height: 2px;
     background: #28a745;
     position: absolute;
     bottom: -5px;
     left: 0;
+    transition: width 0.3s ease;
 }
 
-/* Buttons */
-.custom-btn {
-    border-radius: 25px;
+.custom-link:hover::after,
+.custom-link.active::after {
+    width: 100%;
+}
+
+/* ================= BUTTONS ================= */
+.custom-btn,
+.custom-btn-outline {
+    border-radius: 30px;
     font-weight: 500;
-    transition: 0.3s;
+    padding: 6px 16px;
+    transition: all 0.3s ease;
 }
 
+/* Primary button */
 .custom-btn:hover {
     background: #218838;
 }
 
-.custom-btn-outline {
-    border-radius: 25px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
+/* Outline button */
 .custom-btn-outline:hover {
     background: #28a745;
     color: #fff;
 }
 
-/* Spacing */
+/* ================= SPACING ================= */
 .gap-2 > * {
     margin-left: 8px;
 }
 
-/* Mobile */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
+    /* Logo smaller on mobile */
+    .brand-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo-company {
+        font-size: 0.95rem;
+    }
+
+    .logo-desc {
+        font-size: 0.7rem;
+    }
 
     .custom-link {
         margin: 6px 0;
     }
 
-    .brand-text {
-        font-size: 0.9rem;
-    }
-
-    .logo-title {
-        font-size: 1.1rem;
+    /* Center align menu on mobile */
+    .navbar-nav {
+        text-align: center;
     }
 }

@@ -1,0 +1,125 @@
+/* ================= TRUST SECTION ================= */
+.trust-section {
+    background: #f8f9fa;
+}
+
+/* ================= TITLES ================= */
+.trust-title {
+    font-weight: 700;
+    color: #222;
+}
+
+.trust-subtitle {
+    color: #666;
+}
+
+.trust-group-title {
+    margin-bottom: 18px;
+    color: #28a745;
+    font-weight: 600;
+}
+
+/* ================= GLOBAL SAFETY FIX ================= */
+* {
+    box-sizing: border-box;
+}
+
+/* ================= TRUST BOX ================= */
+.trust-box {
+    background: #ffffff;
+    border: 2px solid rgba(40, 167, 69, 0.25);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    position: relative;
+    height: 100%;
+    overflow: hidden; /* 🔥 prevents border overflow issue */
+    transition: 0.3s ease;
+}
+
+/* Hover effect */
+.trust-box:hover {
+    border-color: rgba(40, 167, 69, 0.6);
+    transform: translateY(-3px);
+}
+
+/* Top glow line */
+.trust-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15px;
+    right: 15px;
+    height: 3px;
+    background: linear-gradient(90deg, #28a745, #8fd19e);
+    border-radius: 10px;
+}
+
+/* ================= SLIDER (FIXED INSIDE BOX) ================= */
+.trust-slider {
+    position: relative;
+    height: 240px; /* 🔥 reduced to prevent overflow */
+    overflow: hidden;
+}
+
+/* Slides */
+.trust-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+/* Active slide */
+.trust-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* ================= CARD ================= */
+.trust-card {
+    background: #fff;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    transition: 0.3s;
+    min-height: 85px;
+}
+
+/* Hover */
+.trust-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Text */
+.trust-card small {
+    display: block;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.trust-card p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .trust-slider {
+        height: 270px;
+    }
+
+    .trust-box {
+        margin-bottom: 20px; /* 🔥 prevents touching edges */
+    }
+
+    .trust-group-title {
+        margin-top: 10px;
+    }
+}

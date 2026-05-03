@@ -1,12 +1,21 @@
 <nav class="navbar navbar-expand-md navbar-light custom-navbar shadow-sm py-3">
     <div class="container">
-
         <!-- Brand Section -->
-        <a href="#" class="navbar-brand d-flex flex-column brand-text">
-            <small class="logo-company">SusthoCare</small>
-            <small class="logo-desc">Healthcare Solutions</small>
-        </a>
+        <a href="#" class="navbar-brand d-flex align-items-center brand-text">
 
+            <!-- Logo Image -->
+            <div class="logo-box">
+
+                <img src="{{ asset('uploads/images/logo2.png') }}" alt="SusthoCare Logo" class="brand-logo">
+            </div>
+
+            <!-- Text -->
+            <div class="ms-2">
+                <h5 class="logo-company mb-0">SusthoCare</h5>
+                <small class="logo-desc">Healthcare Solutions</small>
+            </div>
+
+        </a>
         <!-- Mobile Toggle -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
