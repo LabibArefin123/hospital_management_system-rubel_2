@@ -1,135 +1,77 @@
-/* ================= NAVBAR ================= */
-.custom-navbar {
-    background: #ffffff;
-    border-bottom: 1px solid #eaeaea;
-    padding-top: 10px;
-    padding-bottom: 10px;
+/* NAVBAR BACKGROUND (premium soft green gradient) */
+.premium-navbar {
+    background: linear-gradient(135deg, #e6f9f0, #f0fff7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-/* ================= BRAND ================= */
-.brand-text {
-    display: flex;
-    align-items: center;
-}
-
-/* Logo wrapper (controls size, not the image) */
-.logo-box {
-    width: 75px;
-    height: 75px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    /* border-radius: 12px; */
-    overflow: hidden; /* prevents overflow */
-    /* box-shadow: 0 2px 6px rgba(0,0,0,0.05); */
-}
-
-/* Actual image (can be large but contained) */
+/* BRAND */
 .brand-logo {
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
 }
 
-/* Text spacing */
-.brand-text .ms-2 {
-    margin-left: 10px;
+.brand-name {
+    font-size: 18px;
+    color: #14532d;
 }
 
-/* Company Name */
-.logo-company {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #28a745;
-    line-height: 1.2;
+.brand-tag {
+    font-size: 11px;
+    color: #6b7280;
 }
 
-/* Tagline */
-.logo-desc {
-    font-size: 0.75rem;
-    color: #888;
-    line-height: 1;
-}
-
-/* ================= MENU ================= */
-.custom-link {
+/* MENU */
+.nav-link {
+    color: #374151 !important;
     font-weight: 500;
-    color: #333 !important;
-    margin: 0 12px;
+    margin: 0 14px;
     position: relative;
-    transition: all 0.25s ease;
 }
 
-/* Hover */
-.custom-link:hover {
-    color: #28a745 !important;
+.nav-link:hover {
+    color: #16a34a !important;
 }
 
-/* Active underline animation */
-.custom-link::after {
+/* UNDERLINE ANIMATION */
+.nav-link::after {
     content: "";
     width: 0%;
     height: 2px;
-    background: #28a745;
+    background: #16a34a;
     position: absolute;
-    bottom: -5px;
+    bottom: -6px;
     left: 0;
-    transition: width 0.3s ease;
+    transition: 0.3s;
 }
 
-.custom-link:hover::after,
-.custom-link.active::after {
+.nav-link:hover::after,
+.nav-link.active::after {
     width: 100%;
 }
 
-/* ================= BUTTONS ================= */
-.custom-btn,
-.custom-btn-outline {
+/* BUTTONS */
+.btn-light-outline {
+    border: 1px solid #16a34a;
+    color: #16a34a;
     border-radius: 30px;
-    font-weight: 500;
     padding: 6px 16px;
-    transition: all 0.3s ease;
 }
 
-/* Primary button */
-.custom-btn:hover {
-    background: #218838;
-}
-
-/* Outline button */
-.custom-btn-outline:hover {
-    background: #28a745;
+.btn-light-outline:hover {
+    background: #16a34a;
     color: #fff;
 }
 
-/* ================= SPACING ================= */
-.gap-2 > * {
-    margin-left: 8px;
+.btn-success-solid {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    border-radius: 30px;
+    padding: 6px 18px;
+    border: none;
 }
 
-/* ================= MOBILE ================= */
-@media (max-width: 768px) {
-    /* Logo smaller on mobile */
-    .brand-logo {
-        width: 40px;
-        height: 40px;
-    }
-
-    .logo-company {
-        font-size: 0.95rem;
-    }
-
-    .logo-desc {
-        font-size: 0.7rem;
-    }
-
-    .custom-link {
-        margin: 6px 0;
-    }
-
-    /* Center align menu on mobile */
-    .navbar-nav {
-        text-align: center;
-    }
+.btn-success-solid:hover {
+    box-shadow: 0 6px 18px rgba(34,197,94,0.3);
 }

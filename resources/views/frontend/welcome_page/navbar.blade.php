@@ -1,64 +1,35 @@
-<nav class="navbar navbar-expand-md navbar-light custom-navbar shadow-sm py-3">
+<nav class="navbar navbar-expand-lg premium-navbar">
     <div class="container">
-        <!-- Brand Section -->
-        <a href="#" class="navbar-brand d-flex align-items-center brand-text">
 
-            <!-- Logo Image -->
-            <div class="logo-box">
-
-                <img src="{{ asset('uploads/images/logo2.png') }}" alt="SusthoCare Logo" class="brand-logo">
-            </div>
-
-            <!-- Text -->
+        <!-- Brand -->
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="{{ asset('uploads/images/logo2.png') }}" class="brand-logo">
             <div class="ms-2">
-                <h5 class="logo-company mb-0">SusthoCare</h5>
-                <small class="logo-desc">Healthcare Solutions</small>
+                <strong class="brand-name">SusthoCare</strong>
+                <small class="brand-tag">Digital Healthcare</small>
             </div>
-
         </a>
-        <!-- Mobile Toggle -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
+
+        <!-- Toggle -->
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            ☰
         </button>
 
-        <!-- Center Menu -->
-        <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+        <!-- Menu -->
+        <div class="collapse navbar-collapse justify-content-center" id="navMenu">
             <ul class="navbar-nav">
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link custom-link active">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link custom-link">Doctors</a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link custom-link">Services</a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link custom-link">Appointments</a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link custom-link">Contact</a>
-                </li>
-
+                <li><a class="nav-link active" href="#">Home</a></li>
+                <li><a class="nav-link" href="#">Doctors</a></li>
+                <li><a class="nav-link" href="#">Services</a></li>
+                <li><a class="nav-link" href="#">Appointments</a></li>
+                <li><a class="nav-link" href="#">Contact</a></li>
             </ul>
         </div>
 
-        <!-- Right Side Buttons -->
-        <div class="d-flex align-items-center gap-2">
-
-            <a href="#" class="btn btn-outline-success px-3 custom-btn-outline">
-                User Login
-            </a>
-
-            <a href="#" class="btn btn-success px-3 custom-btn">
-                Doctor Admin
-            </a>
-
+        <!-- Actions -->
+        <div class="nav-actions">
+            <a href="#" class="btn btn-light-outline">Login</a>
+            <a href="#" class="btn btn-success-solid">Doctor Panel</a>
         </div>
 
     </div>

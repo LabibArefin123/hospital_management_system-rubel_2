@@ -1,34 +1,39 @@
-/* =========================
-   FOOTER BASE
-========================= */
-
-footer {
-    font-size: 0.95rem;
+.premium-footer {
+    background: linear-gradient(135deg, #d1fae5, #ecfdf5);
+    padding: 50px 0;
+    color: #065f46;
 }
 
-footer h5,
-footer h6 {
+.premium-footer h5,
+.premium-footer h6 {
+    font-weight: 600;
+}
+
+/* LINKS */
+.premium-footer a {
+    text-decoration: none;
+    color: #065f46;
+}
+
+.premium-footer a:hover {
+    color: #16a34a;
+}
+
+/* INPUT */
+.premium-footer input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
     margin-bottom: 10px;
 }
 
-/* =========================
-   FOOTER LINKS
-========================= */
-
-.footer-link {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-    color: #198754;
-}
-
-/* =========================
-   BORDER LINE
-========================= */
-
-footer .border-top {
-    opacity: 0.4;
+/* BUTTON */
+.premium-footer button {
+    width: 100%;
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
 }

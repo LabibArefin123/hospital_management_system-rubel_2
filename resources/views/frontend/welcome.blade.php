@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Lifeline City Hospital')
+@section('title', 'SusthoCare - Healthcare Solutions')
 <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 @section('content')
     {{-- Header --}}
@@ -9,16 +9,7 @@
     {{-- Hero Banner --}}
     @include('frontend.welcome_page.banner')
 
-    {{-- About Lifeline City Hospital --}}
-    @include('frontend.welcome_page.about')
-
-    {{-- Our Departments --}}
-    @include('frontend.welcome_page.department')
-
-    {{-- Hospital Services --}}
-    @include('frontend.welcome_page.doctors')
     @include('frontend.welcome_page.trust')
-
     {{-- Footer --}}
     @include('frontend.welcome_page.footer')
 @endsection

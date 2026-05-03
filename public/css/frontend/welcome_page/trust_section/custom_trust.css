@@ -1,125 +1,118 @@
-/* ================= TRUST SECTION ================= */
+/* SECTION BACKGROUND */
 .trust-section {
-    background: #f8f9fa;
+    background: linear-gradient(135deg, #f0fff7, #ecfdf5);
 }
 
-/* ================= TITLES ================= */
+/* TITLES */
 .trust-title {
+    font-size: 32px;
     font-weight: 700;
-    color: #222;
+    color: #064e3b;
 }
 
 .trust-subtitle {
-    color: #666;
+    color: #6b7280;
+    max-width: 600px;
+    margin: auto;
 }
 
-.trust-group-title {
-    margin-bottom: 18px;
-    color: #28a745;
-    font-weight: 600;
-}
-
-/* ================= GLOBAL SAFETY FIX ================= */
-* {
-    box-sizing: border-box;
-}
-
-/* ================= TRUST BOX ================= */
+/* BOX */
 .trust-box {
-    background: #ffffff;
-    border: 2px solid rgba(40, 167, 69, 0.25);
-    border-radius: 16px;
-    padding: 18px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-    position: relative;
-    height: 100%;
-    overflow: hidden; /* 🔥 prevents border overflow issue */
-    transition: 0.3s ease;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* Hover effect */
-.trust-box:hover {
-    border-color: rgba(40, 167, 69, 0.6);
-    transform: translateY(-3px);
+/* GROUP TITLE */
+.trust-group-title {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #16a34a;
 }
 
-/* Top glow line */
-.trust-box::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 15px;
-    right: 15px;
-    height: 3px;
-    background: linear-gradient(90deg, #28a745, #8fd19e);
-    border-radius: 10px;
-}
-
-/* ================= SLIDER (FIXED INSIDE BOX) ================= */
+/* SLIDER */
 .trust-slider {
     position: relative;
-    height: 240px; /* 🔥 reduced to prevent overflow */
+    height: 220px;
     overflow: hidden;
 }
 
-/* Slides */
 .trust-slide {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateY(15px);
     transition: all 0.5s ease;
-    pointer-events: none;
 }
 
-/* Active slide */
 .trust-slide.active {
     opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+    transform: translateY(0);
 }
 
-/* ================= CARD ================= */
+/* CARD */
 .trust-card {
-    background: #fff;
-    padding: 14px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
     transition: 0.3s;
-    min-height: 85px;
 }
 
-/* Hover */
 .trust-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
 }
 
-/* Text */
+/* USER */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+/* AVATAR */
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #16a34a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.user-avatar {
+    background: #059669;
+}
+
+/* TEXT */
 .trust-card small {
     display: block;
-    color: #888;
-    margin-bottom: 5px;
+    color: #9ca3af;
+    font-size: 12px;
 }
 
 .trust-card p {
-    font-size: 0.9rem;
+    font-size: 14px;
+    color: #374151;
     margin: 0;
 }
 
-/* ================= RESPONSIVE ================= */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .trust-slider {
-        height: 270px;
+        height: auto;
     }
 
-    .trust-box {
-        margin-bottom: 20px; /* 🔥 prevents touching edges */
-    }
-
-    .trust-group-title {
-        margin-top: 10px;
+    .trust-slide {
+        position: relative;
+        opacity: 1;
+        transform: none;
     }
 }
