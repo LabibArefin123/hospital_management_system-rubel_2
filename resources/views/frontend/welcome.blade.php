@@ -6,9 +6,8 @@
     {{-- Header --}}
     @include('frontend.custom_layout.header')
 
-    {{-- Hero Banner --}}
     @include('frontend.welcome_page.banner')
-
+    @include('frontend.welcome_page.certify')
     @include('frontend.welcome_page.trust')
     {{-- Footer --}}
     @include('frontend.custom_layout.footer')

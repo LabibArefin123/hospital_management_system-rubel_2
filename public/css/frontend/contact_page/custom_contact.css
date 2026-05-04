@@ -1,0 +1,140 @@
+/* =========================
+   CONTACT PAGE
+========================= */
+
+.contact-section {
+    padding: 60px 20px;
+}
+
+/* INTRO */
+.contact-intro {
+    padding: 60px 20px 20px;
+}
+
+.contact-intro h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #14532d;
+}
+
+.contact-intro p {
+    color: #6b7280;
+}
+
+/* LAYOUT */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* ================= FORM ================= */
+
+.contact-form-box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form-box h4 {
+    margin-bottom: 20px;
+}
+
+/* ROW */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* GROUP */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #374151;
+}
+
+/* INPUT */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.2);
+}
+
+/* BUTTON */
+.btn-whatsapp {
+    width: 100%;
+    padding: 13px;
+    border-radius: 30px;
+    background: #25d366;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-whatsapp:hover {
+    background: #1da851;
+}
+
+/* ================= RIGHT SIDE ================= */
+
+.contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* CARD */
+.info-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.info-card h5 {
+    margin-bottom: 10px;
+    color: #14532d;
+}
+
+/* MAP */
+.map-card iframe {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    border: none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}

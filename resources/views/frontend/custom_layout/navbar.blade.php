@@ -20,7 +20,7 @@
                 <li><a class="nav-link" href="{{ route('doctor') }}">Doctors</a></li>
                 <li><a class="nav-link" href="#">Services</a></li>
                 <li><a class="nav-link" href="#">Appointments</a></li>
-                <li><a class="nav-link" href="#">Contact</a></li>
+                <li><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </div>
 

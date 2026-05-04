@@ -35,5 +35,9 @@ class WelcomePageController extends Controller
     {
         return view('frontend.doctor_page.doctor_information.doc_3');
     }
-    
+
+    public function contact()
+    {
+        return view('frontend.contact_page.contact');
+    }
 }

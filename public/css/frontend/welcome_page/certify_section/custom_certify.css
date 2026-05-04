@@ -1,0 +1,91 @@
+/* =========================
+   CERTIFIED SECTION
+========================= */
+.certified-section {
+    padding: 80px 20px;
+    background: #f9fafb;
+}
+
+/* HEADER */
+.certified-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #14532d;
+}
+
+.certified-header p {
+    color: #6b7280;
+    margin-top: 10px;
+}
+
+.certified-badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 20px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+}
+
+/* GRID */
+/* SLIDER WRAPPER */
+.certified-slider {
+    margin-top: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* TRACK */
+.certified-track {
+    display: flex;
+    gap: 25px;
+    width: max-content;
+    animation: scrollLeft 30s linear infinite;
+}
+
+/* CARD */
+.cert-card {
+    min-width: 200px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* IMAGE */
+.cert-img {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cert-img img {
+    max-height: 50px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* TEXT */
+.cert-card h5 {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* ANIMATION */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}

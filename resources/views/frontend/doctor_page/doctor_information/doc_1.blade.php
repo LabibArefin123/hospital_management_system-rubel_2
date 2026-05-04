@@ -79,7 +79,7 @@
 
                             <div class="info-box">
                                 <h5>Availability</h5>
-                                <p>Tue, Thu, Sat</p>
+                                <p>Available</p>
                             </div>
 
                         </div>
