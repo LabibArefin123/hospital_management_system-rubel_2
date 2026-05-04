@@ -1,0 +1,111 @@
+.service-details {
+    padding: 60px 20px;
+}
+
+/* IMAGE */
+.service-image-box img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+/* INFO CARD */
+.service-info-card {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.service-desc {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* PRICE */
+.service-price {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #14532d;
+}
+
+/* FORM */
+.booking-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.booking-card input,
+.booking-card select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* BUTTON GROUP */
+.select-group {
+    margin-top: 10px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.select-btn {
+    padding: 8px 15px;
+    border: 1px solid #22c55e;
+    border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.select-btn.active {
+    background: #22c55e;
+    color: #fff;
+}
+
+/* CONFIRM */
+.btn-confirm {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    background: #22c55e;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btn-confirm:disabled {
+    background: #ccc;
+}
+
+/* SUMMARY */
+.summary-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.summary-row.total {
+    font-weight: bold;
+}

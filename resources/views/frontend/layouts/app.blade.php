@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{ asset('uploads/images/logo.png') }}">
 
     <title>
         @hasSection('title')
@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/trust_section/custom_trust.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/certify_section/custom_certify.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/doctor_page/custom_doctor.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/service_page/custom_service.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/contact_page/custom_contact.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/custom_footer.css') }}">
 </head>

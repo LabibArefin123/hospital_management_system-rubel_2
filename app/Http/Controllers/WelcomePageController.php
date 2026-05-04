@@ -40,4 +40,14 @@ class WelcomePageController extends Controller
     {
         return view('frontend.contact_page.contact');
     }
+
+    public function service()
+    {
+        return view('frontend.service_page.service');
+    }
+
+    public function service_page_1()
+    {
+        return view('frontend.service_page.page_1.service_1');
+    }
 }
