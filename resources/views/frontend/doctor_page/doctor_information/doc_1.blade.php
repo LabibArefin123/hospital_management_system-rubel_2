@@ -8,63 +8,94 @@
 
     <!-- ================= FIRST SECTION (DOCTOR PROFILE) ================= -->
     <section class="doctor-profile">
-        <div class="container profile-container">
+        <div class="container">
 
-            <!-- LEFT -->
-            <div class="profile-left">
-                <div class="profile-img">
-                    <img src="{{ asset('uploads/images/doctor-page/D2.png') }}">
-                </div>
+            <div class="row align-items-center g-4">
 
-                <div class="profile-stats">
-                    <div class="stat-card">90% Success</div>
-                    <div class="stat-card">7 Years Exp</div>
-                    <div class="stat-card">2K+ Patients</div>
-                </div>
-            </div>
+                <!-- LEFT -->
+                <div class="col-md-6">
+                    <div class="profile-left">
 
-            <!-- RIGHT -->
-            <div class="profile-right">
-                <h2>Dr. Masud Khan</h2>
-                <p class="speciality">Cardiologist</p>
+                        <div class="profile-img">
+                            <img src="{{ asset('uploads/images/doctor-page/D2.png') }}">
+                        </div>
 
-                <!-- INFO GRID -->
-                <div class="info-grid">
-                    <div class="info-box">
-                        <strong>Qualifications</strong>
-                        <p>MBBS, MD (Cardiology)</p>
-                    </div>
+                        <!-- NEW STATS DESIGN -->
+                        <div class="profile-stats">
 
-                    <div class="info-box">
-                        <strong>Location</strong>
-                        <p>Dhaka Medical College</p>
-                    </div>
+                            <div class="stat-card success">
+                                <div class="icon">✔</div>
+                                <h4>90%</h4>
+                                <p>Success Rate</p>
+                            </div>
 
-                    <div class="info-box">
-                        <strong>Consultation Fee</strong>
-                        <p>1000 BDT</p>
-                    </div>
+                            <div class="stat-card experience">
+                                <div class="icon">⏳</div>
+                                <h4>7 Years</h4>
+                                <p>Experience</p>
+                            </div>
 
-                    <div class="info-box">
-                        <strong>Availability</strong>
-                        <p>Tue, Thu, Sat</p>
+                            <div class="stat-card patients">
+                                <div class="icon">👨‍⚕️</div>
+                                <h4>2K+</h4>
+                                <p>Patients</p>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- ABOUT -->
-                <div class="about-doctor">
-                    <h4>About Doctor</h4>
-                    <p>
-                        Dr. Masud Khan is a highly experienced cardiologist in Bangladesh with a strong track record
-                        of treating heart diseases. He has successfully treated thousands of patients and specializes
-                        in modern cardiac care and diagnostics.
-                    </p>
+                <!-- RIGHT -->
+                <div class="col-md-6">
+                    <div class="profile-right">
+
+                        <h2>Dr. Masud Khan</h2>
+                        <p class="speciality">Cardiologist</p>
+
+                        <!-- FIXED INFO CARDS -->
+                        <div class="info-grid">
+
+                            <div class="info-box">
+                                <h5>Qualifications</h5>
+                                <p>MBBS, MD (Cardiology)</p>
+                            </div>
+
+                            <div class="info-box">
+                                <h5>Location</h5>
+                                <p>Dhaka Medical College</p>
+                            </div>
+
+                            <div class="info-box">
+                                <h5>Consultation Fee</h5>
+                                <p>1000 BDT</p>
+                            </div>
+
+                            <div class="info-box">
+                                <h5>Availability</h5>
+                                <p>Tue, Thu, Sat</p>
+                            </div>
+
+                        </div>
+
+                        <!-- ABOUT -->
+                        <div class="about-doctor">
+                            <h4>About Doctor</h4>
+                            <p>
+                                Dr. Masud Khan is a highly experienced cardiologist in Bangladesh with a strong track record
+                                of treating heart diseases. He has successfully treated thousands of patients and
+                                specializes
+                                in modern cardiac care and diagnostic.
+                            </p>
+                        </div>
+
+                    </div>
                 </div>
+
             </div>
 
         </div>
     </section>
-
 
     <!-- ================= SECOND SECTION (BOOKING) ================= -->
     <section class="booking-section">
