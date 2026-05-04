@@ -24,6 +24,8 @@ use Illuminate\Http\Request;
 Route::get('/', [WelcomePageController::class, 'index'])->name('welcome');
 Route::get('/our-doctors', [WelcomePageController::class, 'doctor'])->name('doctor');
 Route::get('/doctor_1', [WelcomePageController::class, 'doctor_1'])->name('doc_1');
+Route::get('/doctor_2', [WelcomePageController::class, 'doctor_2'])->name('doc_2');
+Route::get('/doctor_3', [WelcomePageController::class, 'doctor_3'])->name('doc_3');
 
 Route::get('/user_profile', function () {
     return view('user_profile');

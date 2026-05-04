@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Book Appointment - Dr. Masud Khan')
+@section('title', 'Book Appointment - Dr. Tanvir Ahmed')
 <link rel="stylesheet" href="{{ asset('css/frontend/doctor_page/doctor_information/profile_section.css') }}">
 <link rel="stylesheet" href="{{ asset('css/frontend/doctor_page/doctor_information/profile_stat.css') }}">
 <link rel="stylesheet" href="{{ asset('css/frontend/doctor_page/doctor_information/profile_right.css') }}">
@@ -23,7 +23,7 @@
                     <div class="profile-left">
 
                         <div class="profile-img">
-                            <img src="{{ asset('uploads/images/doctor-page/D2.png') }}">
+                            <img src="{{ asset('uploads/images/doctor-page/D4.png') }}">
                         </div>
 
                         <!-- NEW STATS DESIGN -->
@@ -31,19 +31,19 @@
 
                             <div class="stat-card success">
                                 <div class="icon">✔</div>
-                                <h4>90%</h4>
+                                <h4>92%</h4>
                                 <p>Success Rate</p>
                             </div>
 
                             <div class="stat-card experience">
                                 <div class="icon">⏳</div>
-                                <h4>7 Years</h4>
+                                <h4>12 Years</h4>
                                 <p>Experience</p>
                             </div>
 
                             <div class="stat-card patients">
                                 <div class="icon">👨‍⚕️</div>
-                                <h4>2K+</h4>
+                                <h4>2.1K+</h4>
                                 <p>Patients</p>
                             </div>
 
@@ -56,30 +56,30 @@
                 <div class="col-md-6">
                     <div class="profile-right">
 
-                        <h2>Dr. Masud Khan</h2>
-                        <p class="speciality">Cardiologist</p>
+                        <h2>Dr. Tanvir Ahmed</h2>
+                        <p class="speciality">Neurologist</p>
 
                         <!-- FIXED INFO CARDS -->
                         <div class="info-grid">
 
                             <div class="info-box">
                                 <h5>Qualifications</h5>
-                                <p>MBBS, MD (Cardiology)</p>
+                                <p>MBBS, DDV</p>
                             </div>
 
                             <div class="info-box">
                                 <h5>Location</h5>
-                                <p>Dhaka Medical College</p>
+                                <p>Square Hospital</p>
                             </div>
 
                             <div class="info-box">
                                 <h5>Consultation Fee</h5>
-                                <p>1000 BDT</p>
+                                <p>800 BDT</p>
                             </div>
 
                             <div class="info-box">
                                 <h5>Availability</h5>
-                                <p>Tue, Thu, Sat</p>
+                                <p>Unavailable</p>
                             </div>
 
                         </div>
@@ -88,10 +88,11 @@
                         <div class="about-doctor">
                             <h4>About Doctor</h4>
                             <p>
-                                Dr. Masud Khan is a highly experienced cardiologist in Bangladesh with a strong track record
-                                of treating heart diseases. He has successfully treated thousands of patients and
-                                specializes
-                                in modern cardiac care and diagnostic.
+                                Dr. Tanvir Ahmed is a highly qualified neurologist specializing in disorders of the brain,
+                                spine, and nervous
+                                system. He has successfully treated patients with stroke, epilepsy, and chronic neurological
+                                conditions using
+                                modern diagnostic techniques and evidence-based treatment plans.
                             </p>
                         </div>
 
@@ -117,23 +118,18 @@
 
                         <!-- DATE SELECT -->
                         <div class="date-grid">
-                            <div class="date-card" data-date="2026-05-05 12:00:00">
-                                <span>Tuesday, May 5 2026</span>
-                                <h4>12</h4>
-                                <small>PM</small>
-                            </div>
-
-                            <div class="date-card" data-date="2026-05-07 10:00:00">
-                                <span>Thursday, May 7 2026</span>
-                                <h4>10</h4>
+                            <div class="date-card" data-date="2026-05-04 09:00:00">
+                                <span>Monday, May 4 2026</span>
+                                <h4>9</h4>
                                 <small>AM</small>
                             </div>
 
-                            <div class="date-card" data-date="2026-05-09 12:00:00">
-                                <span>Saturday, May 9 2026</span>
-                                <h4>12</h4>
+                            <div class="date-card" data-date="2026-05-07 15:00:00">
+                                <span>Wednesday, May 7 2026</span>
+                                <h4>3</h4>
                                 <small>PM</small>
                             </div>
+
                         </div>
 
                         <!-- FORM -->
@@ -184,11 +180,11 @@
                         <!-- SUMMARY CARD -->
                         <div class="summary-card">
 
-                            <p><strong>Doctor:</strong> <span>Dr. Masud Khan</span></p>
-                            <p><strong>Speciality:</strong> <span>Cardiologist</span></p>
+                            <p><strong>Doctor:</strong> <span>Dr. Tanvir Ahmed</span></p>
+                            <p><strong>Speciality:</strong> <span>Neurologist</span></p>
                             <p><strong>Date:</strong> <span id="selectedDate">Not Selected</span></p>
                             <p><strong>Time:</strong> <span id="selectedTime">Not Selected</span></p>
-                            <p><strong>Fee:</strong> <span>1000 BDT</span></p>
+                            <p><strong>Fee:</strong> <span>800 BDT</span></p>
 
                             <div class="payment">
                                 <button>Cash</button>
@@ -209,7 +205,6 @@
 
 
     @include('frontend.custom_layout.footer')
-
     <script>
         let selectedDate = "";
         let selectedTime = "";

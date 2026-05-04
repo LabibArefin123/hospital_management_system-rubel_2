@@ -25,5 +25,15 @@ class WelcomePageController extends Controller
     {
         return view('frontend.doctor_page.doctor_information.doc_1');
     }
+
+    public function doctor_2()
+    {
+        return view('frontend.doctor_page.doctor_information.doc_2');
+    }
+
+    public function doctor_3()
+    {
+        return view('frontend.doctor_page.doctor_information.doc_3');
+    }
     
 }

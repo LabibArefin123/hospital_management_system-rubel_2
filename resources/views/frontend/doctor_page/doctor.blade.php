@@ -41,7 +41,7 @@
                     <h5>Dr. Farhana Rahman</h5>
                     <p>Dermatologist</p>
                     <span>8 Years Experience</span>
-                    <a href="#" class="btn-book">Book Now</a>
+                    <a href="{{ route('doc_2') }}" class="btn-book">Book Now</a>
                 </div>
 
                 {{-- Doctor 3 --}}
@@ -52,7 +52,7 @@
                     <h5>Dr. Tanvir Ahmed</h5>
                     <p>Neurologist</p>
                     <span>12 Years Experience</span>
-                    <a href="#" class="btn-book">Book Now</a>
+                    <a href="{{ route('doc_3') }}" class="btn-book">Book Now</a>
                 </div>
 
                 {{-- Doctor 4 --}}
