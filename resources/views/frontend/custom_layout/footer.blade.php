@@ -26,7 +26,6 @@
                     <li><a href="{{ route('service_3') }}">Blood Pressure Check</a></li>
                     <li><a href="{{ route('service_4') }}">Blood Sugar Test</a></li>
                     <li><a href="{{ route('service_5') }}">Full Blood Count (CBC)</a></li>
-                  
                 </ul>
             </div>
 
