@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('title', 'SusthoCare - Healthcare Solutions')
-<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
 @section('content')
     {{-- Header --}}
     @include('frontend.custom_layout.header')

@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 Route::get('/', [WelcomePageController::class, 'index'])->name('welcome');
+Route::get('/our-doctors', [WelcomePageController::class, 'doctor'])->name('doctor');
 
 Route::get('/user_profile', function () {
     return view('user_profile');
