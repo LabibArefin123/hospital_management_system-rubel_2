@@ -28,6 +28,10 @@ Route::get('/doctor_2', [WelcomePageController::class, 'doctor_2'])->name('doc_2
 Route::get('/doctor_3', [WelcomePageController::class, 'doctor_3'])->name('doc_3');
 Route::get('/services', [WelcomePageController::class, 'service'])->name('service');
 Route::get('/full-body-health-checkup', [WelcomePageController::class, 'service_page_1'])->name('service_1');
+Route::get('/x-ray-scan', [WelcomePageController::class, 'service_page_2'])->name('service_2');
+Route::get('/blood-pressure-check', [WelcomePageController::class, 'service_page_3'])->name('service_3');
+Route::get('/blood-sugar-test', [WelcomePageController::class, 'service_page_4'])->name('service_4');
+Route::get('/full-blood-count-test', [WelcomePageController::class, 'service_page_5'])->name('service_5');
 Route::get('/contact-us', [WelcomePageController::class, 'contact'])->name('contact');
 
 Route::get('/user_profile', function () {

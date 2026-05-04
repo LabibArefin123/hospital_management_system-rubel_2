@@ -23,27 +23,27 @@
                     [
                         'img' => 'S3.png',
                         'title' => 'Full Body Health Checkup',
-                        'route' => route('service_1'), // ✅ only this has route
+                        'route' => route('service_1'),
                     ],
                     [
                         'img' => 'S6.png',
                         'title' => 'X-Ray Scan',
-                        'route' => '#',
+                        'route' => route('service_2'),
                     ],
                     [
                         'img' => 'S4.png',
                         'title' => 'Blood Pressure Check',
-                        'route' => '#',
+                        'route' => route('service_3'),
                     ],
                     [
                         'img' => 'S1.png',
                         'title' => 'Blood Sugar Test',
-                        'route' => '#',
+                        'route' => route('service_4'),
                     ],
                     [
                         'img' => 'S2.png',
                         'title' => 'Full Blood Count (CBC)',
-                        'route' => '#',
+                        'route' => route('service_5'),
                     ],
                 ];
             @endphp
