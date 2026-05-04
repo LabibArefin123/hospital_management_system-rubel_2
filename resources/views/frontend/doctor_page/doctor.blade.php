@@ -25,7 +25,7 @@
                 {{-- Doctor Card 1 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_1.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D2.png') }}">
                     </div>
                     <h5>Dr. Masud Khan</h5>
                     <p>Cardiologist</p>
@@ -36,7 +36,7 @@
                 {{-- Doctor 2 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_2.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D1.png') }}">
                     </div>
                     <h5>Dr. Farhana Rahman</h5>
                     <p>Dermatologist</p>
@@ -47,7 +47,7 @@
                 {{-- Doctor 3 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_3.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D4.png') }}">
                     </div>
                     <h5>Dr. Tanvir Ahmed</h5>
                     <p>Neurologist</p>
@@ -58,7 +58,7 @@
                 {{-- Doctor 4 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_4.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D3.png') }}">
                     </div>
                     <h5>Dr. Nusrat Jahan</h5>
                     <p>Gynecologist</p>
@@ -69,7 +69,7 @@
                 {{-- Doctor 5 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_5.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D6.png') }}">
                     </div>
                     <h5>Dr. Shafiqur Rahman</h5>
                     <p>Orthopedic Surgeon</p>
@@ -80,7 +80,7 @@
                 {{-- Doctor 6 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_6.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D5.png') }}">
                     </div>
                     <h5>Dr. Ayesha Sultana</h5>
                     <p>Pediatrician</p>
@@ -91,7 +91,7 @@
                 {{-- Doctor 7 --}}
                 <div class="doctor-card">
                     <div class="doctor-img">
-                        <img src="{{ asset('uploads/images/doctor-page/doctor_7.jpg') }}">
+                        <img src="{{ asset('uploads/images/doctor-page/D7.png') }}">
                     </div>
                     <h5>Dr. Imran Hossain</h5>
                     <p>ENT Specialist</p>
@@ -105,18 +105,16 @@
 
     @include('frontend.custom_layout.footer')
 
-@endsection
+    {{-- LIVE SEARCH SCRIPT --}}
+    <script>
+        document.getElementById('doctorSearch').addEventListener('keyup', function() {
+            let value = this.value.toLowerCase();
+            let cards = document.querySelectorAll('.doctor-card');
 
-
-{{-- LIVE SEARCH SCRIPT --}}
-<script>
-    document.getElementById('doctorSearch').addEventListener('keyup', function() {
-        let value = this.value.toLowerCase();
-        let cards = document.querySelectorAll('.doctor-card');
-
-        cards.forEach(card => {
-            let text = card.innerText.toLowerCase();
-            card.style.display = text.includes(value) ? 'block' : 'none';
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(value) ? 'block' : 'none';
+            });
         });
-    });
-</script>
+    </script>
+@endsection
