@@ -20,4 +20,10 @@ class WelcomePageController extends Controller
 
         return view('frontend.doctor_page.doctor', compact('search'));
     }
+    
+    public function doctor_1()
+    {
+        return view('frontend.doctor_page.doctor_information.doc_1');
+    }
+    
 }

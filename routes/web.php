@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', [WelcomePageController::class, 'index'])->name('welcome');
 Route::get('/our-doctors', [WelcomePageController::class, 'doctor'])->name('doctor');
+Route::get('/doctor_1', [WelcomePageController::class, 'doctor_1'])->name('doc_1');
 
 Route::get('/user_profile', function () {
     return view('user_profile');

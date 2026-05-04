@@ -30,7 +30,7 @@
                     <h5>Dr. Masud Khan</h5>
                     <p>Cardiologist</p>
                     <span>10 Years Experience</span>
-                    <a href="#" class="btn-book">Book Now</a>
+                    <a href="{{ route('doc_1') }}" class="btn-book">Book Now</a>
                 </div>
 
                 {{-- Doctor 2 --}}
