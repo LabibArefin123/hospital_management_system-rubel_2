@@ -15,73 +15,120 @@
     @include('frontend.custom_layout.footer')
 
     <script>
-        let selectedDate = "";
-        let selectedTime = "";
-        let confirmBtn = document.getElementById("confirmBtn");
+        document.addEventListener("DOMContentLoaded", function() {
 
-        /* CLICK DATE */
-        document.querySelectorAll('.date-card').forEach(card => {
-            card.addEventListener('click', function() {
+            let selectedDate = "";
+            let selectedTime = "";
+            let selectedPayment = "";
 
-                document.querySelectorAll('.date-card').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
+            const confirmBtn = document.getElementById("confirmBtn");
 
-                let raw = this.dataset.date; // 2026-05-04 09:00:00
+            const formDate = document.getElementById("formDate");
+            const formTime = document.getElementById("formTime");
+            const paymentInput = document.getElementById("paymentMethod");
 
-                let dateObj = new Date(raw);
+            /* ================= DATE CLICK ================= */
+            document.querySelectorAll('.date-card').forEach(card => {
+                card.addEventListener('click', function() {
 
-                if (isNaN(dateObj)) {
-                    console.log("Invalid date format:", raw);
-                    return;
-                }
+                    document.querySelectorAll('.date-card').forEach(c => c.classList.remove(
+                        'active'));
+                    this.classList.add('active');
 
-                // FORMAT DATE
-                let optionsDate = {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    weekday: 'long'
-                };
-                selectedDate = dateObj.toLocaleDateString('en-GB', optionsDate);
+                    let raw = this.dataset.date; // "2026-05-04 09:00:00"
 
-                // FORMAT TIME
-                let optionsTime = {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true
-                };
-                selectedTime = dateObj.toLocaleTimeString('en-US', optionsTime);
+                    if (!raw) return;
 
-                // UPDATE UI
-                document.getElementById('selectedDate').innerText = selectedDate;
-                document.getElementById('selectedTime').innerText = selectedTime;
+                    let parts = raw.split(' ');
+                    selectedDate = parts[0];
+                    selectedTime = parts[1];
 
-                checkForm();
+                    // Set hidden inputs (IMPORTANT)
+                    if (formDate) formDate.value = selectedDate;
+                    if (formTime) formTime.value = selectedTime;
+
+                    let dateObj = new Date(raw);
+
+                    if (!isNaN(dateObj)) {
+                        document.getElementById('selectedDate').innerText =
+                            dateObj.toLocaleDateString('en-GB', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                                weekday: 'long'
+                            });
+
+                        document.getElementById('selectedTime').innerText =
+                            dateObj.toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true
+                            });
+                    }
+
+                    checkForm();
+                });
             });
-        });
 
-        /* INPUT LISTENER */
-        document.querySelectorAll('#name, #age, #phone, #gender').forEach(input => {
-            input.addEventListener('input', checkForm);
-        });
+            /* ================= PAYMENT CLICK ================= */
+            /* ================= PAYMENT CLICK (FIXED) ================= */
+            document.querySelectorAll('.payment button').forEach(btn => {
 
-        /* FORM CHECK */
-        function checkForm() {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault(); // 🔥 VERY IMPORTANT
 
-            let name = document.getElementById('name').value.trim();
-            let age = document.getElementById('age').value.trim();
-            let phone = document.getElementById('phone').value.trim();
-            let gender = document.getElementById('gender').value;
+                    // remove active
+                    document.querySelectorAll('.payment button').forEach(b => {
+                        b.classList.remove('active');
+                    });
 
-            if (name && age && phone && gender && selectedDate && selectedTime) {
-                confirmBtn.disabled = false;
-                confirmBtn.style.background = "#22c55e";
-                confirmBtn.style.cursor = "pointer";
-            } else {
-                confirmBtn.disabled = true;
-                confirmBtn.style.background = "gray";
-                confirmBtn.style.cursor = "not-allowed";
+                    // add active
+                    this.classList.add('active');
+
+                    // force exact values (no innerText issues)
+                    selectedPayment = this.textContent.trim();
+
+                    if (paymentInput) {
+                        paymentInput.value = selectedPayment;
+                    }
+
+                    console.log("Selected Payment:", selectedPayment); // debug
+
+                    checkForm();
+                });
+
+            });
+            /* ================= INPUT LISTENER ================= */
+            ['name', 'age', 'phone', 'gender'].forEach(id => {
+                let el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', checkForm);
+                    el.addEventListener('change', checkForm);
+                }
+            });
+
+            /* ================= FORM CHECK ================= */
+            function checkForm() {
+
+                let name = document.getElementById('name')?.value.trim();
+                let age = document.getElementById('age')?.value.trim();
+                let phone = document.getElementById('phone')?.value.trim();
+                let gender = document.getElementById('gender')?.value;
+
+                if (name && age && phone && gender && selectedDate && selectedTime && selectedPayment) {
+
+                    confirmBtn.disabled = false;
+                    confirmBtn.style.background = "#22c55e";
+                    confirmBtn.style.cursor = "pointer";
+
+                } else {
+
+                    confirmBtn.disabled = true;
+                    confirmBtn.style.background = "gray";
+                    confirmBtn.style.cursor = "not-allowed";
+                }
             }
-        }
+
+        });
     </script>
 @endsection

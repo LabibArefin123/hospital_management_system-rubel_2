@@ -26,6 +26,9 @@ use Illuminate\Http\Request;
 Route::get('/', [WelcomePageController::class, 'index'])->name('welcome');
 Route::get('/our-doctors', [WelcomePageController::class, 'doctor'])->name('doctor');
 Route::get('/doctor/{id}', [WelcomePageController::class, 'doctor_show'])->name('doctor.show');
+Route::post('/appointments', [WelcomePageController::class, 'appointment_store'])->name('appointments.store')->middleware('auth');
+
+Route::get('/payment/{id}', [WelcomePageController::class, 'payment_page'])->name('payment.page')->middleware('auth');
 Route::get('/services', [WelcomePageController::class, 'service'])->name('service');
 Route::get('/full-body-health-checkup', [WelcomePageController::class, 'service_page_1'])->name('service_1');
 Route::get('/x-ray-scan', [WelcomePageController::class, 'service_page_2'])->name('service_2');

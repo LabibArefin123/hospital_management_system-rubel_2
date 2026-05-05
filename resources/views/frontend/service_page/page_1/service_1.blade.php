@@ -8,9 +8,7 @@
 
     <section class="service-details">
         <div class="container">
-
             <div class="row g-4">
-
                 <!-- TOP LEFT IMAGE -->
                 <div class="col-md-6">
                     <div class="service-image-box">
