@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Models\SystemProblem;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\Appointment;
 use Carbon\Carbon;
 
 class WelcomePageController extends Controller
@@ -72,5 +73,25 @@ class WelcomePageController extends Controller
     public function service_page_5()
     {
         return view('frontend.service_page.page_5.service_5');
+    }
+
+    public function appointment()
+    {
+        $doctorAppointments = Appointment::with('doctor')
+            ->where('user_id', auth()->id())
+            ->whereNotNull('doctor_id')
+            ->latest()
+            ->get();
+
+        $serviceAppointments = Appointment::with('service')
+            ->where('user_id', auth()->id())
+            ->whereNotNull('service_id')
+            ->latest()
+            ->get();
+
+        return view('frontend.appointment_page.appointment', compact(
+            'doctorAppointments',
+            'serviceAppointments'
+        ));
     }
 }

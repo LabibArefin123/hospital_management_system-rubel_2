@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{{ asset('css/frontend/doctor_page/custom_doctor.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/service_page/custom_service.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/contact_page/custom_contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/appointment_page/custom_appointment.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/custom_footer.css') }}">
 </head>
 

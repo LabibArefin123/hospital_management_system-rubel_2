@@ -32,6 +32,7 @@ Route::get('/x-ray-scan', [WelcomePageController::class, 'service_page_2'])->nam
 Route::get('/blood-pressure-check', [WelcomePageController::class, 'service_page_3'])->name('service_3');
 Route::get('/blood-sugar-test', [WelcomePageController::class, 'service_page_4'])->name('service_4');
 Route::get('/full-blood-count-test', [WelcomePageController::class, 'service_page_5'])->name('service_5');
+Route::get('/our-appointments', [WelcomePageController::class, 'appointment'])->name('appointment');
 Route::get('/contact-us', [WelcomePageController::class, 'contact'])->name('contact');
 
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
