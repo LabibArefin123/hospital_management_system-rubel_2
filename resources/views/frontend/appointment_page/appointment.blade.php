@@ -40,11 +40,11 @@
                     <p>{{ $app->doctor->speciality }}</p>
 
                     <div class="time-box">
-                        <span>{{ \Carbon\Carbon::parse($app->date)->format('d M Y') }}</span>
+                        <span>{{ \Carbon\Carbon::parse($app->appointment_date)->format('d M Y') }}</span>
                     </div>
 
                     <div class="time-box">
-                        <span>{{ \Carbon\Carbon::parse($app->time)->format('h:i A') }}</span>
+                        <span>{{ \Carbon\Carbon::parse($app->appointment_time)->format('h:i A') }}</span>
                     </div>
 
                     <div class="bottom-info">
@@ -83,11 +83,11 @@
                     <p>{{ $app->service->description }}</p>
 
                     <div class="time-box">
-                        <span>{{ \Carbon\Carbon::parse($app->date)->format('d M Y') }}</span>
+                        <span>{{ \Carbon\Carbon::parse($app->appointment_date)->format('d M Y') }}</span>
                     </div>
 
                     <div class="time-box">
-                        <span>{{ \Carbon\Carbon::parse($app->time)->format('h:i A') }}</span>
+                        <span>{{ \Carbon\Carbon::parse($app->appointment_time)->format('h:i A') }}</span>
                     </div>
 
                     <div class="bottom-info">
