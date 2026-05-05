@@ -25,13 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
-
-
-        // Gate::define('view-tenders', fn(User $user) => $user->role && in_array($user->role->name, ['admin', 'manager', 'demo']));
-        // Gate::define('create-tenders', fn(User $user) => $user->role && in_array($user->role->name, ['admin', 'user', 'manager', 'demo']));
-        // Gate::define('view-participated-tenders', fn(User $user) => $user->role && in_array($user->role->name, ['admin', 'manager', 'demo']));
-        // Gate::define('view-archived-tenders', fn(User $user) => $user->role && in_array($user->role->name, ['admin', 'manager', 'demo']));
-        // Gate::define('view-awarded-tenders', fn(User $user) => $user->role && in_array($user->role->name, ['admin', 'manager', 'demo']));
-        // Gate::define('view-completed-tenders', fn(User $user) => $user->role && in_array($user->role->name, ['admin', 'manager', 'demo']));
     }
 }

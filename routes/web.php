@@ -67,17 +67,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/global-search', [DashboardController::class, 'globalSearch'])->name('global.search');
     Route::get('/search/result', [DashboardController::class, 'searchResult'])->name('search.result');
 
-    // Organization Routes
-    Route::resource('organizations', OrganizationController::class);
-
     Route::get('/user_profile', [ProfileController::class, 'user_profile_show'])->name('user_profile_show');
     Route::get('/user_profile_edit', [ProfileController::class, 'user_profile_edit'])->name('user_profile_edit');
     Route::put('/user_profile_edit', [ProfileController::class, 'user_profile_update'])->name('user_profile_update');
 
-    Route::resource('patients', PatientController::class);
-    Route::resource('doctors', DoctorController::class);
-    Route::resource('appointments', AppointmentController::class);
-    Route::resource('bills', BillController::class);
 
     //Setting Management
     Route::resource('roles', RoleController::class);
