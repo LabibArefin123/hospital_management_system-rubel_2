@@ -27,6 +27,18 @@ class WelcomePageController extends Controller
         return view('frontend.doctor_page.doctor', compact('doctors', 'search'));
     }
 
+    public function doctor_show($id)
+    {
+        $doctor = \App\Models\Doctor::with('schedules')->findOrFail($id);
+
+        // group by date
+        $groupedSchedules = $doctor->schedules
+            ->where('is_booked', false)
+            ->groupBy('date');
+
+        return view('frontend.doctor_page.doctor_information.show', compact('doctor', 'groupedSchedules'));
+    }
+
     public function doctor_1()
     {
         return view('frontend.doctor_page.doctor_information.doc_1');

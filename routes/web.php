@@ -28,6 +28,7 @@ Route::get('/our-doctors', [WelcomePageController::class, 'doctor'])->name('doct
 Route::get('/doctor_1', [WelcomePageController::class, 'doctor_1'])->name('doc_1');
 Route::get('/doctor_2', [WelcomePageController::class, 'doctor_2'])->name('doc_2');
 Route::get('/doctor_3', [WelcomePageController::class, 'doctor_3'])->name('doc_3');
+Route::get('/doctor/{id}', [WelcomePageController::class, 'doctor_show'])->name('doctor.show');
 Route::get('/services', [WelcomePageController::class, 'service'])->name('service');
 Route::get('/full-body-health-checkup', [WelcomePageController::class, 'service_page_1'])->name('service_1');
 Route::get('/x-ray-scan', [WelcomePageController::class, 'service_page_2'])->name('service_2');

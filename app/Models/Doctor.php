@@ -19,4 +19,9 @@ class Doctor extends Model
         'availability',
         'about',
     ];
+
+    public function schedules()
+    {
+        return $this->hasMany(DoctorSchedule::class);
+    }
 }

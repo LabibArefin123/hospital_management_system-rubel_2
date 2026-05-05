@@ -32,12 +32,9 @@
                         <p>{{ $doctor->speciality }}</p>
                         <span>{{ $doctor->experience_years }} Years Experience</span>
 
-                        <a href="#" class="btn-book">
+                        <a href="{{ route('doctor.show', $doctor->id) }}" class="btn-book">
                             Book Now
                         </a>
-                        {{-- <a href="{{ route('doctor.show', $doctor->id) }}" class="btn-book">
-                            Book Now
-                        </a> --}}
                     </div>
                 @empty
                     <p class="text-center w-100">No doctors found.</p>
