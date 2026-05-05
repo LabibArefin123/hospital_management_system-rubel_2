@@ -21,11 +21,11 @@
             <div class="col-md-3">
                 <h6>Services</h6>
                 <ul>
-                    <li><a href="{{ route('service_1') }}">Full Body Health Checkup</a></li>
-                    <li><a href="{{ route('service_2') }}">X-Ray Scan</a></li>
-                    <li><a href="{{ route('service_3') }}">Blood Pressure Check</a></li>
-                    <li><a href="{{ route('service_4') }}">Blood Sugar Test</a></li>
-                    <li><a href="{{ route('service_5') }}">Full Blood Count (CBC)</a></li>
+                    <li><a href="{{ route('service.show', 1) }}">Full Body Health Checkup</a></li>
+                    <li><a href="{{ route('service.show', 2) }}">X-Ray Scan</a></li>
+                    <li><a href="{{ route('service.show', 3) }}">Blood Pressure Check</a></li>
+                    <li><a href="{{ route('service.show', 4) }}">Blood Sugar Test</a></li>
+                    <li><a href="{{ route('service.show', 5) }}">Full Blood Count (CBC)</a></li>
                 </ul>
             </div>
 
