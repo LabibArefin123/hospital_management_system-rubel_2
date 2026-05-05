@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg premium-navbar">
+<nav class="navbar navbar-expand-lg premium-navbar sticky-header">
     <div class="container">
 
         <a class="navbar-brand d-flex align-items-center" href="{{ route('welcome') }}">
@@ -15,7 +15,7 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="navMenu">
             <ul class="navbar-nav">
-                <li><a class="nav-link active" href="{{ route('welcome') }}">Home</a></li>
+                <li><a class="nav-link" href="{{ route('welcome') }}">Home</a></li>
                 <li><a class="nav-link" href="{{ route('doctor') }}">Doctors</a></li>
                 <li><a class="nav-link" href="{{ route('service') }}">Services</a></li>
                 <li><a class="nav-link" href="#">Appointments</a></li>
@@ -25,25 +25,19 @@
 
         <div class="nav-actions d-flex align-items-center gap-2">
 
-            @guest
-                <button class="btn btn-light-outline" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    Login
-                </button>
-            @endguest
-
             @auth
                 <div class="dropdown">
 
-                    <button type="button" class="btn btn-light-outline dropdown-toggle" id="userDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-light-outline dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
 
-                        {{ Auth::user()->name }}
+                        {{ auth()->user()->name }}
                     </button>
 
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
 
                         <li>
-                            <a class="dropdown-item" href="{{ route('frontend.profile') }}">
+                            <a class="dropdown-item" href="{{ route('user_profile_show') }}">
                                 👤 Profile
                             </a>
                         </li>
@@ -62,22 +56,19 @@
                         </li>
 
                     </ul>
-
                 </div>
             @endauth
+
+            @guest
+                <button class="btn btn-light-outline" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Login
+                </button>
+            @endguest
 
             <a href="{{ route('login') }}" class="btn btn-success-solid">
                 Doctor Panel
             </a>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
-                    dropdownElementList.map(function(dropdownToggleEl) {
-                        return new bootstrap.Dropdown(dropdownToggleEl);
-                    });
-                });
-            </script>
-        </div>
 
+        </div>
     </div>
 </nav>

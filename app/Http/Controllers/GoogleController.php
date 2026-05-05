@@ -24,14 +24,17 @@ class GoogleController extends Controller
             $user = User::create([
                 'name' => $googleUser->name,
                 'email' => $googleUser->email,
-                'username' => Str::slug($googleUser->name) . rand(100, 999), // ✅ FIX
+                'username' => Str::slug($googleUser->name) . rand(100, 999),
                 'google_id' => $googleUser->id,
                 'avatar' => $googleUser->avatar,
-                'password' => bcrypt('12345678'), // dummy
+                'password' => bcrypt('12345678'),
             ]);
         }
 
-        Auth::login($user);
+        // ✅ FIXED LOGIN (IMPORTANT)
+        Auth::login($user, true);
+        session()->regenerate();
+        session()->save();
 
         return redirect()->route('welcome');
     }

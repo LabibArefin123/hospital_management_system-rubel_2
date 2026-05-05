@@ -35,3 +35,13 @@
 .modal-content {
     border-radius: 12px;
 }
+
+.dropdown-menu {
+    z-index: 2000 !important;
+    position: absolute;
+}
+
+.navbar {
+    position: relative;
+    z-index: 1050;
+}

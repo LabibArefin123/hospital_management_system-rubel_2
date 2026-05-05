@@ -97,7 +97,13 @@
     <script src="{{ asset('js/custom_frontend/scroll_progress.js') }}"></script> {{-- Scroll Progress JS --}}
     <script src="{{ asset('js/custom_frontend/custom_back_top_button.js') }}"></script> {{-- Back to Top JS --}}
     <script src="{{ asset('js/custom_frontend/custom_footer_modal.js') }}"></script> {{-- Footer Modal JS --}}
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+                new bootstrap.Dropdown(el);
+            });
+        });
+    </script>
 </body>
 
 </html>
