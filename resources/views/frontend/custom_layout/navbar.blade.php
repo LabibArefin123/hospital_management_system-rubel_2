@@ -59,15 +59,18 @@
                 </div>
             @endauth
 
+
             @guest
+                <!-- USER LOGIN (GOOGLE) -->
                 <button class="btn btn-light-outline" data-bs-toggle="modal" data-bs-target="#loginModal">
                     Login
                 </button>
-            @endguest
 
-            <a href="{{ route('login') }}" class="btn btn-success-solid">
-                Doctor Panel
-            </a>
+                <!-- DOCTOR PANEL LOGIN -->
+                <a href="{{ route('login') }}" class="btn btn-success-solid">
+                    Doctor Panel
+                </a>
+            @endguest
 
         </div>
     </div>

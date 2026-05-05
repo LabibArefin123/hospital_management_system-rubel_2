@@ -125,31 +125,48 @@
 
                                  <div>
                                      <label>Full Name *</label>
-                                     <input type="text" name="name" id="name">
+                                     <input type="text" name="name" value="{{ old('name') }}">
+                                     @error('name')
+                                         <small class="text-danger">{{ $message }}</small>
+                                     @enderror
                                  </div>
 
                                  <div>
                                      <label>Age *</label>
-                                     <input type="number" name="age" id="age">
+                                     <input type="number" name="age" value="{{ old('age') }}">
+                                     @error('age')
+                                         <small class="text-danger">{{ $message }}</small>
+                                     @enderror
                                  </div>
 
                                  <div>
                                      <label>Mobile Number *</label>
-                                     <input type="text" name="phone" id="phone">
+                                     <input type="text" name="phone" value="{{ old('phone') }}">
+                                     @error('phone')
+                                         <small class="text-danger">{{ $message }}</small>
+                                     @enderror
                                  </div>
 
                                  <div>
                                      <label>Gender *</label>
-                                     <select name="gender" id="gender">
+                                     <select name="gender">
                                          <option value="">Select</option>
-                                         <option>Male</option>
-                                         <option>Female</option>
+                                         <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male
+                                         </option>
+                                         <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female
+                                         </option>
                                      </select>
+                                     @error('gender')
+                                         <small class="text-danger">{{ $message }}</small>
+                                     @enderror
                                  </div>
 
                                  <div class="full-width">
                                      <label>Email (optional)</label>
-                                     <input type="email" name="email">
+                                     <input type="email" name="email" value="{{ old('email') }}">
+                                     @error('email')
+                                         <small class="text-danger">{{ $message }}</small>
+                                     @enderror
                                  </div>
 
                              </div>

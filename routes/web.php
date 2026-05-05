@@ -30,6 +30,7 @@ Route::post('/appointments', [WelcomePageController::class, 'appointment_store']
 
 Route::get('/payment/{id}', [WelcomePageController::class, 'payment_page'])->name('payment.page')->middleware('auth');
 Route::get('/services', [WelcomePageController::class, 'service'])->name('service');
+Route::get('/service/{id}', [WelcomePageController::class, 'service_show'])->name('service.show');
 Route::get('/full-body-health-checkup', [WelcomePageController::class, 'service_page_1'])->name('service_1');
 Route::get('/x-ray-scan', [WelcomePageController::class, 'service_page_2'])->name('service_2');
 Route::get('/blood-pressure-check', [WelcomePageController::class, 'service_page_3'])->name('service_3');

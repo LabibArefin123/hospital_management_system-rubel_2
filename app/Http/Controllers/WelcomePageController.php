@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\SystemProblem;
 use Illuminate\Http\Request;
+use App\Models\Service;
 use App\Models\Doctor;
 use App\Models\DoctorSchedule;
 use App\Models\Appointment;
@@ -42,6 +43,13 @@ class WelcomePageController extends Controller
         return view('frontend.doctor_page.doctor_information.show', compact('doctor', 'groupedSchedules'));
     }
 
+    public function service_show($id)
+    {
+        $service = Service::findOrFail($id);
+
+        return view('frontend.service_page.service_show', compact('service'));
+    }
+
     public function contact()
     {
         return view('frontend.contact_page.contact');
@@ -49,7 +57,9 @@ class WelcomePageController extends Controller
 
     public function service()
     {
-        return view('frontend.service_page.service');
+        $services = Service::all();
+
+        return view('frontend.service_page.service', compact('services'));
     }
 
     public function service_page_1()
@@ -99,88 +109,110 @@ class WelcomePageController extends Controller
 
     public function appointment_store(Request $request)
     {
+        // 🔹 BASE VALIDATION (common for both)
         $request->validate([
-            'doctor_id' => 'required',
+            'type' => 'required|in:doctor,service',
             'name' => 'required|string',
             'age' => 'required|integer',
             'phone' => 'required|string',
             'gender' => 'required',
-            'appointment_date' => 'required',
-            'appointment_time' => 'required',
             'payment_method' => 'required',
+            'email' => 'nullable|email',
         ]);
 
-        // 🚫 Prevent same slot booking
-        $slotBooked = Appointment::where('doctor_id', $request->doctor_id)
-            ->where('appointment_date', $request->appointment_date)
-            ->where('appointment_time', $request->appointment_time)
-            ->exists();
+        $appointment = null;
 
-        if ($slotBooked) {
-            return back()->withErrors([
-                'This time slot is already booked.'
+        /* ================= DOCTOR BOOKING ================= */
+        if ($request->type === 'doctor') {
+
+            $request->validate([
+                'doctor_id' => 'required',
+                'appointment_date' => 'required|date',
+                'appointment_time' => 'required',
+            ]);
+
+            // 🚫 Slot already booked
+            $slotBooked = Appointment::where('doctor_id', $request->doctor_id)
+                ->where('appointment_date', $request->appointment_date)
+                ->where('appointment_time', $request->appointment_time)
+                ->exists();
+
+            if ($slotBooked) {
+                return back()->withErrors(['This time slot is already booked.']);
+            }
+
+            // 🚫 One booking per user per doctor
+            $userBooked = Appointment::where('user_id', Auth::id())
+                ->where('doctor_id', $request->doctor_id)
+                ->exists();
+
+            if ($userBooked) {
+                return back()->withErrors(['You already booked this doctor once.']);
+            }
+
+            $status = $request->payment_method === 'Online' ? 'confirmed' : 'pending';
+
+            $appointment = Appointment::create([
+                'user_id' => Auth::id(),
+                'type' => 'doctor',
+                'doctor_id' => $request->doctor_id,
+                'name' => $request->name,
+                'age' => $request->age,
+                'phone' => $request->phone,
+                'gender' => $request->gender,
+                'email' => $request->email,
+                'appointment_date' => $request->appointment_date,
+                'appointment_time' => $request->appointment_time,
+                'payment_method' => $request->payment_method,
+                'amount' => 0,
+                'status' => $status,
+            ]);
+
+            DoctorSchedule::where('doctor_id', $request->doctor_id)
+                ->where('date', $request->appointment_date)
+                ->where('time', $request->appointment_time)
+                ->update(['is_booked' => 1]);
+        }
+
+        /* ================= SERVICE BOOKING ================= */
+        if ($request->type === 'service') {
+
+            $request->validate([
+                'service_id' => 'required',
+                // ❌ NO date/time validation here
+            ]);
+
+            // 🚫 Prevent duplicate service booking per user
+            $alreadyBooked = Appointment::where('user_id', Auth::id())
+                ->where('service_id', $request->service_id)
+                ->exists();
+
+            if ($alreadyBooked) {
+                return back()->withErrors(['You already booked this service.']);
+            }
+
+            // 🚫 Unique phone (optional rule you already use)
+
+            $status = $request->payment_method === 'Online' ? 'confirmed' : 'pending';
+
+            $appointment = Appointment::create([
+                'user_id' => Auth::id(),
+                'type' => 'service',
+                'service_id' => $request->service_id,
+                'name' => $request->name,
+                'age' => $request->age,
+                'phone' => $request->phone,
+                'gender' => $request->gender,
+                'email' => $request->email,
+                'appointment_date' => null,
+                'appointment_time' => null,
+                'payment_method' => $request->payment_method,
+                'amount' => 0,
+                'status' => $status,
             ]);
         }
 
-        // 🚫 Prevent duplicate booking by logged user
-        $userBooked = Appointment::where('user_id', Auth::id())
-            ->where('doctor_id', $request->doctor_id)
-            ->exists();
-
-        if ($userBooked) {
-            return back()->withErrors([
-                'You already booked this doctor once.'
-            ]);
-        }
-
-        // 🚫 Prevent duplicate name
-        $nameExists = Appointment::where('name', $request->name)->exists();
-
-        if ($nameExists) {
-            return back()->withErrors([
-                'This name has already been used for booking.'
-            ]);
-        }
-
-        // 🚫 Prevent duplicate phone
-        $phoneExists = Appointment::where('phone', $request->phone)->exists();
-
-        if ($phoneExists) {
-            return back()->withErrors([
-                'This phone number has already been used for booking.'
-            ]);
-        }
-
-        // Status logic
-        $status = $request->payment_method === 'Online'
-            ? 'confirmed'
-            : 'pending';
-
-        $appointment = Appointment::create([
-            'user_id' => Auth::id(),
-            'type' => 'doctor',
-            'doctor_id' => $request->doctor_id,
-            'name' => $request->name,
-            'age' => $request->age,
-            'phone' => $request->phone,
-            'gender' => $request->gender,
-            'email' => $request->email,
-            'appointment_date' => $request->appointment_date,
-            'appointment_time' => $request->appointment_time,
-            'payment_method' => $request->payment_method,
-            'amount' => 0,
-            'status' => $status,
-        ]);
-
-        // Mark slot booked
-        DoctorSchedule::where('doctor_id', $request->doctor_id)
-            ->where('date', $request->appointment_date)
-            ->where('time', $request->appointment_time)
-            ->update([
-                'is_booked' => 1
-            ]);
-
-        // Online payment redirect
+        /* ================= PAYMENT REDIRECT ================= */
         if ($request->payment_method === 'Online') {
             return redirect()->route('payment.page', $appointment->id);
         }

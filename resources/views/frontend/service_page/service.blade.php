@@ -17,59 +17,29 @@
     <!-- SERVICE GRID -->
     <section class="service-section">
         <div class="container">
-
-            @php
-                $services = [
-                    [
-                        'img' => 'S3.png',
-                        'title' => 'Full Body Health Checkup',
-                        'route' => route('service_1'),
-                    ],
-                    [
-                        'img' => 'S6.png',
-                        'title' => 'X-Ray Scan',
-                        'route' => route('service_2'),
-                    ],
-                    [
-                        'img' => 'S4.png',
-                        'title' => 'Blood Pressure Check',
-                        'route' => route('service_3'),
-                    ],
-                    [
-                        'img' => 'S1.png',
-                        'title' => 'Blood Sugar Test',
-                        'route' => route('service_4'),
-                    ],
-                    [
-                        'img' => 'S2.png',
-                        'title' => 'Full Blood Count (CBC)',
-                        'route' => route('service_5'),
-                    ],
-                ];
-            @endphp
-
             <div class="service-grid">
 
-                @foreach ($services as $service)
+                @forelse ($services as $service)
                     <div class="service-card">
 
                         <div class="service-content">
                             <div class="service-icon">
-                                <img src="{{ asset('uploads/images/service-page/' . $service['img']) }}">
+                                <img src="{{ asset($service->image) }}" alt="{{ $service->title }}">
                             </div>
 
-                            <h5>{{ $service['title'] }}</h5>
+                            <h5>{{ $service->title }}</h5>
                         </div>
 
-                        <a href="{{ $service['route'] }}" class="btn-book">
+                        <a href="{{ route('service.show', $service->id) }}" class="btn-book">
                             Book Now
                         </a>
 
                     </div>
-                @endforeach
+                @empty
+                    <p class="text-center w-100">No services found.</p>
+                @endforelse
 
             </div>
-
         </div>
     </section>
 

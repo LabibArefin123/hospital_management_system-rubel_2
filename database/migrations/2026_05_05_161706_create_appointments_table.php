@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('gender');
             $table->string('email')->nullable();
-            $table->date('appointment_date');
-            $table->time('appointment_time');
+            $table->date('appointment_date')->nullable();
+            $table->time('appointment_time')->nullable();
             $table->enum('payment_method', ['Cash', 'Online'])->default('Cash');
             $table->decimal('amount', 10, 2)->default(0);
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
