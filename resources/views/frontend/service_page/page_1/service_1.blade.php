@@ -38,11 +38,11 @@
                         <h5>Pre Test Instructions</h5>
 
                         <ul>
-                            <li>✔ Fasting required for 8–10 hours</li>
-                            <li>✔ Avoid fatty food before test</li>
-                            <li>✔ Drink normal water (allowed)</li>
-                            <li>✔ Avoid alcohol & smoking 24 hours before</li>
-                            <li>✔ Bring previous reports if available</li>
+                            <li>Fasting required for 8–10 hours</li>
+                            <li>Avoid fatty food before test</li>
+                            <li>Drink normal water (allowed)</li>
+                            <li>Avoid alcohol & smoking 24 hours before</li>
+                            <li>Bring previous reports if available</li>
                         </ul>
                     </div>
                 </div>

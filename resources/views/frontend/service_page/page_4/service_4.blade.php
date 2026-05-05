@@ -36,10 +36,10 @@
                         <h5>Pre Test Instructions</h5>
 
                         <ul>
-                            <li>✔ Fasting required 8–12 hours</li>
-                            <li>✔ Only water allowed</li>
-                            <li>✔ Avoid sweets before test</li>
-                            <li>✔ Inform if on medication</li>
+                            <li>Fasting required 8–12 hours</li>
+                            <li>Only water allowed</li>
+                            <li>Avoid sweets before test</li>
+                            <li>Inform if on medication</li>
                         </ul>
                     </div>
                 </div>

@@ -36,10 +36,10 @@
                         <h5>Pre Test Instructions</h5>
 
                         <ul>
-                            <li>✔ Avoid caffeine 30 minutes before</li>
-                            <li>✔ Sit and relax before test</li>
-                            <li>✔ No smoking before test</li>
-                            <li>✔ Wear loose clothing</li>
+                            <li>Avoid caffeine 30 minutes before</li>
+                            <li>Sit and relax before test</li>
+                            <li>No smoking before test</li>
+                            <li>Wear loose clothing</li>
                         </ul>
                     </div>
                 </div>

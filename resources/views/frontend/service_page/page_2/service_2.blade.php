@@ -36,10 +36,10 @@
                         <h5>Pre Test Instructions</h5>
 
                         <ul>
-                            <li>✔ Remove metal objects before test</li>
-                            <li>✔ Wear comfortable clothing</li>
-                            <li>✔ Inform technician if pregnant</li>
-                            <li>✔ Follow radiologist instructions</li>
+                            <li>Remove metal objects before test</li>
+                            <li>Wear comfortable clothing</li>
+                            <li>Inform technician if pregnant</li>
+                            <li>Follow radiologist instructions</li>
                         </ul>
                     </div>
                 </div>

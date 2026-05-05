@@ -36,10 +36,10 @@
                         <h5>Pre Test Instructions</h5>
 
                         <ul>
-                            <li>✔ No fasting required</li>
-                            <li>✔ Stay hydrated</li>
-                            <li>✔ Avoid heavy exercise before test</li>
-                            <li>✔ Bring previous reports if available</li>
+                            <li>No fasting required</li>
+                            <li>Stay hydrated</li>
+                            <li>Avoid heavy exercise before test</li>
+                            <li>Bring previous reports if available</li>
                         </ul>
                     </div>
                 </div>
