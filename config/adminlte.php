@@ -1,7 +1,5 @@
 <?php
 
-use App\Filters\MenuFilter;
-
 return [
 
     /*
@@ -16,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Lifeline City Hospital',
+    'title' => 'MedTech',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -64,7 +62,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-    'logo' => '<b>Lifeline City Hospital</b>',
+    'logo' => '<b>MedTech</b>',
     'logo_img' => null,
     'logo_img_class' => null,
     'logo_img_xl' => null,
@@ -316,8 +314,7 @@ return [
             'id' => 'globalTenderSearch',
             'topnav_right' => true,
             'method' => 'GET',
-            'href' => 'global.search', // ✅ Use route name as plain string
-            // <== Redirect to your actual search route
+            'href' => 'global.search',
             'input_name' => 'term',
         ],
 
@@ -339,58 +336,6 @@ return [
             'text' => 'Dashboard',
             'route' => 'dashboard',
             'icon' => 'fas fa-fw fa-user',
-        ],
-
-        [
-            'text'    => 'Organization Menu',
-            'icon'    => 'fas fa-cogs',
-            // 'route'    => 'organization_menu',
-            'submenu' => [
-
-                [
-                    'text' => 'Organization List',
-                    'route' => 'organizations.index',
-                    'can' => 'organizations.index',
-                    'icon' => 'fas fa-sliders-h',  // settings sliders icon
-                ],
-            ],
-        ],
-
-        [
-            'text'    => 'Doctor Management',
-            'icon'    => 'fas fa-user-md',
-            'submenu' => [
-                [
-                    'text'  => 'Doctor List',
-                    'route' => 'doctors.index',
-                    'can'   => 'doctors.index',
-                    'icon'  => 'fas fa-list',
-                ],
-            ],
-        ],
-        [
-            'text'    => 'Patient Management',
-            'icon'    => 'bi bi-person-heart',
-            'submenu' => [
-                [
-                    'text'  => 'Patient List',
-                    'route' => 'patients.index',
-                    'can'   => 'patients.index',
-                    'icon'  => 'fas fa-list',
-                ],
-            ],
-        ],
-        [
-            'text'    => 'Appointment Manage',
-            'icon'    => 'fas fa-calendar-check',
-            'submenu' => [
-                [
-                    'text'  => 'Appointment List',
-                    'route' => 'appointments.index',
-                    'can'   => 'appointments.index',
-                    'icon'  => 'fas fa-list',
-                ],
-            ],
         ],
 
         [

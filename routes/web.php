@@ -4,7 +4,9 @@ use App\Http\Controllers\WelcomePageController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
@@ -34,11 +36,31 @@ Route::get('/blood-sugar-test', [WelcomePageController::class, 'service_page_4']
 Route::get('/full-blood-count-test', [WelcomePageController::class, 'service_page_5'])->name('service_5');
 Route::get('/contact-us', [WelcomePageController::class, 'contact'])->name('contact');
 
-Route::get('/user_profile', function () {
-    return view('user_profile');
-})->middleware(['auth', 'verified'])->name('profile');
+Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
+Route::post('/logout-user', [GoogleController::class, 'logout'])->name('user.logout');
 
-//Route::group(['middleware' => ['auth', 'permission']], function () {
+Route::get('/my-profile', function () {
+    return view('frontend.profile');
+})->middleware('auth')->name('frontend.profile');
+
+require __DIR__ . '/auth.php';
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])
+        ->name('login');
+
+    Route::post('/login', [LoginController::class, 'login']);
+});
+
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+})->name('logout');
+
+
 Route::group(['middleware' => 'auth'], function () {
     // Profile Routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -66,6 +88,3 @@ Route::group(['middleware' => 'auth'], function () {
    
 });
 
-Auth::routes([
-    'register' => false, // disables register
-]);

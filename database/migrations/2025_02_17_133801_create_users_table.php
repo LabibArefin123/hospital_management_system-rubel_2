@@ -16,9 +16,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->string('phone_2')->nullable();
-            $table->unsignedInteger('role_id')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->string('google_id')->nullable();
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
