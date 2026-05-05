@@ -37,7 +37,7 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow">
 
                         <li>
-                            <a class="dropdown-item" href="{{ route('user_profile_show') }}">
+                            <a class="dropdown-item" href="{{ route('frontend.profile') }}">
                                 👤 Profile
                             </a>
                         </li>

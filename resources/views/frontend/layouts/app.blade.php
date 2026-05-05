@@ -44,6 +44,11 @@
         <div id="scrollProgress"
             style="position: fixed; top: 0; left: 0; width: 0%; height: 4px; background-color: #ff6b6b; z-index: 9999; transition: width 0.25s ease;">
         </div>
+        {{-- @if (auth()->check())
+            <span style="color:green">LOGGED IN</span>
+        @else
+            <span style="color:red">NOT LOGGED IN</span>
+        @endif --}}
         <main class="">
             @yield('content')
         </main>
@@ -93,17 +98,9 @@
     {{-- End of SweetAlert2 notifications --}}
     <script src="{{ asset('js/custom_frontend/sweet_alert.js') }}"></script> {{-- Sweet Alert Notification JS --}}
     <script src="{{ asset('js/custom_frontend/custom_banner.js') }}"></script> {{-- Location Modal JS --}}
-    {{-- <script src="{{ asset('js/custom_frontend/dropdown_ui.js') }}"></script> --}}
     <script src="{{ asset('js/custom_frontend/scroll_progress.js') }}"></script> {{-- Scroll Progress JS --}}
     <script src="{{ asset('js/custom_frontend/custom_back_top_button.js') }}"></script> {{-- Back to Top JS --}}
-    <script src="{{ asset('js/custom_frontend/custom_footer_modal.js') }}"></script> {{-- Footer Modal JS --}}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
-                new bootstrap.Dropdown(el);
-            });
-        });
-    </script>
+    <script src="{{ asset('js/custom_frontend/login_dropdown.js') }}"></script> {{-- Back to Top JS --}}
 </body>
 
 </html>
