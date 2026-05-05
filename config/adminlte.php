@@ -338,18 +338,18 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
-        [
-            'text'    => 'Bill Management',
-            'icon'    => 'fas fa-file-invoice-dollar',
-            'submenu' => [
-                [
-                    'text'  => 'Bill List',
-                    'route' => 'bills.index',
-                    'can'   => 'bills.index',
-                    'icon'  => 'fas fa-list',
-                ],
-            ],
-        ],
+        // [
+        //     'text'    => 'Bill Management',
+        //     'icon'    => 'fas fa-file-invoice-dollar',
+        //     'submenu' => [
+        //         [
+        //             'text'  => 'Bill List',
+        //             'route' => 'bills.index',
+        //             'can'   => 'bills.index',
+        //             'icon'  => 'fas fa-list',
+        //         ],
+        //     ],
+        // ],
 
 
         [

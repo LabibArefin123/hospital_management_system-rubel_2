@@ -51,15 +51,6 @@ class LoginController extends Controller
         $user = User::where($field, $loginInput)->first();
 
         // -----------------------------
-        // 1. Maintenance Mode Check
-        // -----------------------------
-        $globalMaintenance = User::where('is_maintenance', 1)->first();
-
-        if ($globalMaintenance && (!$user || !$user->hasRole('admin'))) {
-            return back()->with('maintenance', $globalMaintenance->maintenance_message);
-        }
-
-        // -----------------------------
         // 2. User Exists Check
         // -----------------------------
         if (!$user) {
@@ -68,20 +59,6 @@ class LoginController extends Controller
             ]);
         }
 
-        // -----------------------------
-        // 3. BANNED USER CHECK ✅
-        // -----------------------------
-        if ($user->is_banned) {
-            $ban = BanUser::where('user_id', $user->id)
-                ->where('is_banned', true)
-                ->latest('banned_at')
-                ->first();
-
-            return back()->with(
-                'banned',
-                $ban?->ban_reason ?? 'Your account has been banned. Please contact support.'
-            );
-        }
 
         // -----------------------------
         // 4. Password check using Hash

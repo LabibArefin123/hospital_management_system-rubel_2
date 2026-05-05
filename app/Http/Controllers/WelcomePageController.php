@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\SystemProblem;
 use Illuminate\Http\Request;
+use App\Models\Doctor;
 use Carbon\Carbon;
 
 class WelcomePageController extends Controller
@@ -18,9 +19,14 @@ class WelcomePageController extends Controller
     {
         $search = $request->query('search');
 
-        return view('frontend.doctor_page.doctor', compact('search'));
+        $doctors = Doctor::when($search, function ($query) use ($search) {
+            $query->where('name', 'like', "%$search%")
+                ->orWhere('speciality', 'like', "%$search%");
+        })->get();
+
+        return view('frontend.doctor_page.doctor', compact('doctors', 'search'));
     }
-    
+
     public function doctor_1()
     {
         return view('frontend.doctor_page.doctor_information.doc_1');

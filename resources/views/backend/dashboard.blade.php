@@ -11,9 +11,8 @@
         </h3>
 
         <div class="row g-4">
-
             <!-- Doctors -->
-            <div class="col-md-3 col-6">
+            {{-- <div class="col-md-3 col-6">
                 <a href="{{ route('doctors.index') }}" class="text-decoration-none">
                     <div class="card dashboard-card bg-primary text-white text-center shadow-sm h-100">
                         <div class="card-body">
@@ -23,49 +22,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
-
-            <!-- Patients -->
-            <div class="col-md-3 col-6">
-                <a href="{{ route('patients.index') }}" class="text-decoration-none">
-                    <div class="card dashboard-card bg-success text-white text-center shadow-sm h-100">
-                        <div class="card-body">
-                            <i class="bi bi-people fs-1 mb-2"></i>
-                            <h4>{{ $totalPatients }}</h4>
-                            <p class="mb-0">Total Patients</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Appointments -->
-            <div class="col-md-3 col-6">
-                <a href="{{ route('appointments.index') }}" class="text-decoration-none">
-                    <div class="card dashboard-card bg-warning text-dark text-center shadow-sm h-100">
-                        <div class="card-body">
-                            <i class="bi bi-calendar-check fs-1 mb-2"></i>
-                            <h4>{{ $totalAppointments }}</h4>
-                            <p class="mb-0">Appointments</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Bills -->
-            <div class="col-md-3 col-6">
-                <a href="{{ route('bills.index') }}" class="text-decoration-none">
-                    <div class="card dashboard-card bg-danger text-white text-center shadow-sm h-100">
-                        <div class="card-body">
-                            <i class="bi bi-receipt fs-1 mb-2"></i>
-                            <h4>{{ $totalBills }}</h4>
-                            <p class="mb-0">Total Bills</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-        </div>
-
+            </div> --}}
     </div>
 
     <style>

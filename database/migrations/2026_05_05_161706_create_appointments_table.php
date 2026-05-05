@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->enum('type', ['doctor', 'service']);
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->unsignedBigInteger('service_id')->nullable();
+            $table->string('name');
+            $table->integer('age');
+            $table->string('phone');
+            $table->string('gender');
+            $table->string('email')->nullable();
+            $table->date('appointment_date');
+            $table->time('appointment_time');
+            $table->enum('payment_method', ['Cash', 'Online'])->default('Cash');
+            $table->decimal('amount', 10, 2)->default(0);
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }
