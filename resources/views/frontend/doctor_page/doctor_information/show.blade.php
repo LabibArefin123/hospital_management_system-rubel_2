@@ -193,7 +193,6 @@
 
     @include('frontend.custom_layout.footer')
 
-    <!-- ✅ SAME JS WORKS -->
     <script>
         let selectedDate = "";
         let selectedTime = "";
