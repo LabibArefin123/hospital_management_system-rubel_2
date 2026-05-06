@@ -14,6 +14,7 @@
                     <li><a href="{{ route('welcome') }}">Home</a></li>
                     <li><a href="{{ route('doctor') }}">Doctors</a></li>
                     <li><a href="{{ route('service') }}">Service</a></li>
+                    <li><a href="{{ route('appointment') }}">Appointment</a></li>
                     <li><a href="{{ route('contact') }}">Contact Us</a></li>
                 </ul>
             </div>

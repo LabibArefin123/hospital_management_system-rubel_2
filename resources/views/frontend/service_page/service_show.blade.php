@@ -155,9 +155,9 @@
                                             <label>Mobile</label>
                                             <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
                                                 placeholder="Mobile">
-                                                @error('phone')
-                                                    <small class="text-danger">{{ $message }}</small>
-                                                @enderror
+                                            @error('phone')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -280,67 +280,69 @@
             const el = (id) => document.getElementById(id);
 
             let state = {
-                payment: "",
-                date: "",
-                time: ""
+                payment: null,
+                date: null,
+                time: null
             };
 
+            /* ================= UPDATE HIDDEN ================= */
             function updateHiddenInputs() {
-                if (el("formDate")) el("formDate").value = state.date || "";
-                if (el("formTime")) el("formTime").value = state.time || "";
-                if (el("paymentMethod")) el("paymentMethod").value = state.payment || "";
+                if (el("formDate")) el("formDate").value = state.date ?? "";
+                if (el("formTime")) el("formTime").value = state.time ?? "";
+                if (el("paymentMethod")) el("paymentMethod").value = state.payment ?? "";
+
+                // 🔍 DEBUG (remove later)
+                console.log("Hidden Values:", {
+                    date: el("formDate")?.value,
+                    time: el("formTime")?.value,
+                    payment: el("paymentMethod")?.value
+                });
             }
 
+            /* ================= SUMMARY ================= */
             function updateSummary() {
-
-                const name = el("name")?.value?.trim() || "Not Filled";
-                const phone = el("phone")?.value?.trim() || "Not Filled";
-                const age = el("age")?.value?.trim() || "Not Filled";
-                const gender = el("gender")?.value?.trim() || "Not Filled";
-
-                if (el("s_name")) el("s_name").innerText = name;
-                if (el("s_mobile")) el("s_mobile").innerText = phone;
-                if (el("s_age")) el("s_age").innerText = age;
-                if (el("s_gender")) el("s_gender").innerText = gender;
+                if (el("s_name")) el("s_name").innerText = el("name")?.value || "Not Filled";
+                if (el("s_mobile")) el("s_mobile").innerText = el("phone")?.value || "Not Filled";
+                if (el("s_age")) el("s_age").innerText = el("age")?.value || "Not Filled";
+                if (el("s_gender")) el("s_gender").innerText = el("gender")?.value || "Not Filled";
 
                 if (el("s_date")) el("s_date").innerText = state.date || "Not Selected";
                 if (el("s_time")) el("s_time").innerText = state.time || "Not Selected";
                 if (el("s_payment")) el("s_payment").innerText = state.payment || "Not Selected";
             }
 
+            /* ================= VALIDATION ================= */
             function checkForm() {
 
-                const requiredInputs = ["name", "phone", "age", "gender"];
-
-                let valid = requiredInputs.every(id => {
-                    const input = el(id);
-                    return input && input.value.trim() !== "";
-                });
-
-                valid = valid && state.payment && state.date && state.time;
+                let valid =
+                    el("name")?.value &&
+                    el("phone")?.value &&
+                    el("age")?.value &&
+                    el("gender")?.value &&
+                    state.payment &&
+                    state.date &&
+                    state.time;
 
                 const btn = el("confirmBtn");
 
                 if (btn) {
                     btn.disabled = !valid;
                     btn.style.opacity = valid ? "1" : "0.5";
-                    btn.style.cursor = valid ? "pointer" : "not-allowed";
                 }
             }
 
-            // 🔥 INPUT LISTENERS (FIXED)
+            /* ================= INPUT LISTENERS ================= */
             ["name", "phone", "age", "gender"].forEach(id => {
                 const input = el(id);
-
                 if (!input) return;
 
-                input.addEventListener("input", function() {
+                input.addEventListener("input", () => {
                     updateSummary();
                     checkForm();
                 });
             });
 
-            // 🔥 BUTTON SELECTION FIX
+            /* ================= BUTTON CLICK ================= */
             document.querySelectorAll(".select-btn").forEach(btn => {
                 btn.addEventListener("click", function() {
 
@@ -349,35 +351,47 @@
 
                     if (!type || !value) return;
 
+                    // remove active
                     document.querySelectorAll(`[data-type="${type}"]`)
                         .forEach(b => b.classList.remove("active"));
 
                     this.classList.add("active");
 
+                    // set state
                     state[type] = value;
 
+                    // update immediately
                     updateHiddenInputs();
                     updateSummary();
                     checkForm();
                 });
             });
 
-            // 🔥 SAFETY SUBMIT CHECK
-            const form = document.querySelector("form[action*='appointments.store']");
+            /* ================= FORM SUBMIT (IMPORTANT FIX) ================= */
+            const form = document.querySelector("form");
 
             if (form) {
                 form.addEventListener("submit", function(e) {
 
-                    updateHiddenInputs();
+                    updateHiddenInputs(); // 🔥 ensure values set before submit
 
                     if (!state.payment || !state.date || !state.time) {
                         e.preventDefault();
-                        alert("Please select Payment, Date and Time");
+                        alert("Select Payment, Date & Time");
+                        return;
                     }
+
+                    // 🔍 FINAL DEBUG
+                    console.log("Submitting:", {
+                        date: el("formDate")?.value,
+                        time: el("formTime")?.value,
+                        payment: el("paymentMethod")?.value
+                    });
                 });
             }
 
-            // INIT
+            /* ================= INIT ================= */
+            updateHiddenInputs();
             updateSummary();
             checkForm();
 

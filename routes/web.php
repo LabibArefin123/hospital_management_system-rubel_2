@@ -1,43 +1,36 @@
 <?php
 
-use App\Http\Controllers\WelcomePageController;
-use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 
-use App\Http\Controllers\PatientController;
-use App\Http\Controllers\DoctorController;
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\BillController;
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SystemUserController;
-use App\Http\Controllers\BanUserController;
-use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SystemProblemController;
+
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-Route::get('/', [WelcomePageController::class, 'index'])->name('welcome');
-Route::get('/our-doctors', [WelcomePageController::class, 'doctor'])->name('doctor');
-Route::get('/doctor/{id}', [WelcomePageController::class, 'doctor_show'])->name('doctor.show');
-Route::post('/appointments', [WelcomePageController::class, 'appointment_store'])->name('appointments.store')->middleware('auth');
+Route::get('/', [FrontendController::class, 'index'])->name('welcome');
+Route::get('/our-doctors', [FrontendController::class, 'doctor'])->name('doctor');
+Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])->name('doctor.show');
+Route::post('/appointments', [FrontendController::class, 'appointment_store'])->name('appointments.store')->middleware('auth');
 
-Route::get('/payment/{id}', [WelcomePageController::class, 'payment_page'])->name('payment.page')->middleware('auth');
-Route::get('/services', [WelcomePageController::class, 'service'])->name('service');
-Route::get('/service/{id}', [WelcomePageController::class, 'service_show'])->name('service.show');
-Route::get('/full-body-health-checkup', [WelcomePageController::class, 'service_page_1'])->name('service_1');
-Route::get('/x-ray-scan', [WelcomePageController::class, 'service_page_2'])->name('service_2');
-Route::get('/blood-pressure-check', [WelcomePageController::class, 'service_page_3'])->name('service_3');
-Route::get('/blood-sugar-test', [WelcomePageController::class, 'service_page_4'])->name('service_4');
-Route::get('/full-blood-count-test', [WelcomePageController::class, 'service_page_5'])->name('service_5');
-Route::get('/our-appointments', [WelcomePageController::class, 'appointment'])->name('appointment');
-Route::get('/contact-us', [WelcomePageController::class, 'contact'])->name('contact');
+Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])->name('payment.page')->middleware('auth');
+Route::get('/services', [FrontendController::class, 'service'])->name('service');
+Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
+Route::get('/full-body-health-checkup', [FrontendController::class, 'service_page_1'])->name('service_1');
+Route::get('/x-ray-scan', [FrontendController::class, 'service_page_2'])->name('service_2');
+Route::get('/blood-pressure-check', [FrontendController::class, 'service_page_3'])->name('service_3');
+Route::get('/blood-sugar-test', [FrontendController::class, 'service_page_4'])->name('service_4');
+Route::get('/full-blood-count-test', [FrontendController::class, 'service_page_5'])->name('service_5');
+Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');
+Route::get('/contact-us', [FrontendController::class, 'contact'])->name('contact');
 
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
