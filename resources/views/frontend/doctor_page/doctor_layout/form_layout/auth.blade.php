@@ -31,7 +31,7 @@
 
                     <div>
                         <label>Full Name *</label>
-                        <input type="text" name="name" value="{{ old('name') }}">
+                        <input type="text" name="name" id="name" value="{{ old('name') }}">
                         @error('name')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -39,7 +39,7 @@
 
                     <div>
                         <label>Age *</label>
-                        <input type="number" name="age" value="{{ old('age') }}">
+                        <input type="number" name="age" id="age" value="{{ old('age') }}">
                         @error('age')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -47,7 +47,7 @@
 
                     <div>
                         <label>Mobile Number *</label>
-                        <input type="text" name="phone" value="{{ old('phone') }}">
+                        <input type="text" name="phone" id="phone" value="{{ old('phone') }}">
                         @error('phone')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -55,7 +55,7 @@
 
                     <div>
                         <label>Gender *</label>
-                        <select name="gender">
+                        <select name="gender" id="gender">
                             <option value="">Select</option>
                             <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male
                             </option>
@@ -97,10 +97,10 @@
                 <p><strong>Fee:</strong> <span>{{ $doctor->consultation_fee }} BDT</span></p>
 
                 <div class="payment">
-                    <button type="button">Cash</button>
-                    <button type="button">Online</button>
+                    <button type="button" class="pay-btn" data-value="Cash">Cash</button>
+                    <button type="button" class="pay-btn" data-value="Online">Online</button>
                 </div>
-
+                
                 <button type="submit" id="confirmBtn" disabled>
                     📞 Confirm Booking
                 </button>

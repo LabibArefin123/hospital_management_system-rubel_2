@@ -24,11 +24,6 @@ Route::post('/appointments', [FrontendController::class, 'appointment_store'])->
 Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])->name('payment.page')->middleware('auth');
 Route::get('/services', [FrontendController::class, 'service'])->name('service');
 Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
-Route::get('/full-body-health-checkup', [FrontendController::class, 'service_page_1'])->name('service_1');
-Route::get('/x-ray-scan', [FrontendController::class, 'service_page_2'])->name('service_2');
-Route::get('/blood-pressure-check', [FrontendController::class, 'service_page_3'])->name('service_3');
-Route::get('/blood-sugar-test', [FrontendController::class, 'service_page_4'])->name('service_4');
-Route::get('/full-blood-count-test', [FrontendController::class, 'service_page_5'])->name('service_5');
 Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');
 Route::get('/contact-us', [FrontendController::class, 'contact'])->name('contact');
 

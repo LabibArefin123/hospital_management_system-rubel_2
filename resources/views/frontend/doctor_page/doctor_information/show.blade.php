@@ -13,13 +13,12 @@
     @include('frontend.doctor_page.doctor_layout.profile_section')
     @include('frontend.doctor_page.doctor_layout.booking_section')
     @include('frontend.custom_layout.footer')
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
-            let selectedDate = "";
-            let selectedTime = "";
-            let selectedPayment = "";
+            let selectedDate = null;
+            let selectedTime = null;
+            let selectedPayment = null;
 
             const confirmBtn = document.getElementById("confirmBtn");
 
@@ -31,83 +30,75 @@
             document.querySelectorAll('.date-card').forEach(card => {
                 card.addEventListener('click', function() {
 
-                    document.querySelectorAll('.date-card').forEach(c => c.classList.remove(
-                        'active'));
+                    document.querySelectorAll('.date-card')
+                        .forEach(c => c.classList.remove('active'));
+
                     this.classList.add('active');
 
                     let raw = this.dataset.date; // "2026-05-04 09:00:00"
-
                     if (!raw) return;
 
-                    let parts = raw.split(' ');
-                    selectedDate = parts[0];
-                    selectedTime = parts[1];
+                    let [date, time] = raw.split(' ');
 
-                    // Set hidden inputs (IMPORTANT)
-                    if (formDate) formDate.value = selectedDate;
-                    if (formTime) formTime.value = selectedTime;
+                    selectedDate = date;
+                    selectedTime = time;
 
-                    let dateObj = new Date(raw);
+                    // set hidden
+                    formDate.value = selectedDate;
+                    formTime.value = selectedTime;
 
-                    if (!isNaN(dateObj)) {
-                        document.getElementById('selectedDate').innerText =
-                            dateObj.toLocaleDateString('en-GB', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric',
-                                weekday: 'long'
-                            });
+                    // UI update
+                    let d = new Date(raw);
 
-                        document.getElementById('selectedTime').innerText =
-                            dateObj.toLocaleTimeString('en-US', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true
-                            });
-                    }
+                    document.getElementById('selectedDate').innerText =
+                        d.toLocaleDateString('en-GB', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                            weekday: 'long'
+                        });
+
+                    document.getElementById('selectedTime').innerText =
+                        d.toLocaleTimeString('en-US', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true
+                        });
 
                     checkForm();
                 });
             });
 
             /* ================= PAYMENT CLICK ================= */
-            /* ================= PAYMENT CLICK (FIXED) ================= */
-            document.querySelectorAll('.payment button').forEach(btn => {
+            document.querySelectorAll('.pay-btn').forEach(btn => {
 
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault(); // 🔥 VERY IMPORTANT
+                btn.addEventListener('click', function() {
 
-                    // remove active
-                    document.querySelectorAll('.payment button').forEach(b => {
-                        b.classList.remove('active');
-                    });
+                    document.querySelectorAll('.pay-btn')
+                        .forEach(b => b.classList.remove('active'));
 
-                    // add active
                     this.classList.add('active');
 
-                    // force exact values (no innerText issues)
-                    selectedPayment = this.textContent.trim();
+                    selectedPayment = this.dataset.value;
 
-                    if (paymentInput) {
-                        paymentInput.value = selectedPayment;
-                    }
+                    paymentInput.value = selectedPayment;
 
-                    console.log("Selected Payment:", selectedPayment); // debug
+                    console.log("Payment:", selectedPayment);
 
                     checkForm();
                 });
-
             });
+
             /* ================= INPUT LISTENER ================= */
             ['name', 'age', 'phone', 'gender'].forEach(id => {
-                let el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', checkForm);
-                    el.addEventListener('change', checkForm);
-                }
+                let input = document.getElementById(id);
+                if (!input) return;
+
+                input.addEventListener('input', checkForm);
+                input.addEventListener('change', checkForm);
             });
 
-            /* ================= FORM CHECK ================= */
+            /* ================= VALIDATION ================= */
             function checkForm() {
 
                 let name = document.getElementById('name')?.value.trim();
@@ -115,19 +106,37 @@
                 let phone = document.getElementById('phone')?.value.trim();
                 let gender = document.getElementById('gender')?.value;
 
-                if (name && age && phone && gender && selectedDate && selectedTime && selectedPayment) {
+                let valid =
+                    name &&
+                    age &&
+                    phone &&
+                    gender &&
+                    selectedDate &&
+                    selectedTime &&
+                    selectedPayment;
 
-                    confirmBtn.disabled = false;
-                    confirmBtn.style.background = "#22c55e";
-                    confirmBtn.style.cursor = "pointer";
-
-                } else {
-
-                    confirmBtn.disabled = true;
-                    confirmBtn.style.background = "gray";
-                    confirmBtn.style.cursor = "not-allowed";
-                }
+                confirmBtn.disabled = !valid;
+                confirmBtn.style.background = valid ? "#22c55e" : "gray";
+                confirmBtn.style.cursor = valid ? "pointer" : "not-allowed";
             }
+
+            /* ================= SUBMIT CHECK ================= */
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function(e) {
+
+                if (!selectedPayment || !selectedDate || !selectedTime) {
+                    e.preventDefault();
+                    alert("Please select Date, Time & Payment");
+                    return;
+                }
+
+                console.log("Submitting:", {
+                    date: formDate.value,
+                    time: formTime.value,
+                    payment: paymentInput.value
+                });
+            });
 
         });
     </script>
