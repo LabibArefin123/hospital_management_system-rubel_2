@@ -1,4 +1,4 @@
-/* DATE */
+/* ================= DATE ================= */
 .date-grid {
     display: flex;
     gap: 10px;
@@ -7,28 +7,33 @@
 
 .date-card {
     flex: 1;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border-radius: 12px;
     border: 1px solid #ddd;
     text-align: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    background: #fff;
+    position: relative;
+    z-index: 1;
 }
 
 .date-card:hover {
     border-color: #22c55e;
+    transform: translateY(-2px);
 }
 
 .date-card.active {
     background: #22c55e;
-    color: white;
+    color: #fff;
+    border-color: #22c55e;
 }
 
-/* FORM */
+/* ================= FORM ================= */
 .patient-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 12px;
 }
 
 .req {
@@ -39,7 +44,7 @@
 
 .patient-form label {
     font-size: 13px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     display: block;
     color: #374151;
 }
@@ -54,13 +59,22 @@
     border-radius: 8px;
     border: 1px solid #ddd;
     width: 100%;
+    transition: 0.2s;
 }
 
-/* SUMMARY */
+.patient-form input:focus,
+.patient-form select:focus {
+    border-color: #22c55e;
+    outline: none;
+}
+
+/* ================= SUMMARY ================= */
 .summary-card {
     background: #f9fafb;
     padding: 20px;
     border-radius: 15px;
+    position: relative;
+    z-index: 1;
 }
 
 .summary-card p {
@@ -69,35 +83,65 @@
     margin-bottom: 8px;
 }
 
-/* PAYMENT */
+.no-slot {
+    color: #9ca3af;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* hidden state */
+.no-slot.hidden {
+    display: none;
+}
+/* ================= PAYMENT ================= */
 .payment {
     display: flex;
     gap: 10px;
-    margin: 10px 0;
+    margin: 15px 0;
+    position: relative;
+    z-index: 10;
 }
 
-.payment button {
+.pay-btn {
     flex: 1;
-    padding: 8px;
-    border-radius: 20px;
-    border: none;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
     background: #eee;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 20;
 }
 
-.payment button:hover {
+/* hover */
+.pay-btn:hover {
     background: #22c55e;
     color: #fff;
+    border-color: #22c55e;
 }
 
-/* CONFIRM */
+/* ✅ ACTIVE (THIS WAS MISSING) */
+.pay-btn.active {
+    background: #22c55e !important;
+    color: #fff !important;
+    border-color: #22c55e !important;
+}
+
+/* ================= CONFIRM ================= */
 #confirmBtn {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
     padding: 12px;
     border: none;
     border-radius: 25px;
     background: gray;
     color: white;
     cursor: not-allowed;
+    transition: 0.3s;
+}
+
+#confirmBtn:enabled {
+    background: #22c55e;
+    cursor: pointer;
 }

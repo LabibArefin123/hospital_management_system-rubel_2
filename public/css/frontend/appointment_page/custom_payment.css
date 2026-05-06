@@ -1,0 +1,124 @@
+/* ================= CONTAINER ================= */
+.payment-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 15px;
+}
+
+/* ================= GRID ================= */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* ================= SUMMARY ================= */
+.payment-summary {
+    background: #f9fafb;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.payment-summary h4 {
+    margin-bottom: 15px;
+}
+
+.payment-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.payment-summary hr {
+    margin: 15px 0;
+}
+
+.payment-summary .total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+/* ================= FORM ================= */
+.payment-form-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.payment-form-card h4 {
+    margin-bottom: 15px;
+}
+
+/* ================= INPUT ================= */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-group label {
+    font-size: 13px;
+    margin-bottom: 4px;
+    display: block;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #22c55e;
+    outline: none;
+}
+
+/* ================= BUTTON ================= */
+.pay-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    background: #22c55e;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pay-btn:hover {
+    background: #16a34a;
+}
+
+/* ================= ERROR ================= */
+.alert-error {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .payment-grid {
+        grid-template-columns: 1fr;
+    }
+}

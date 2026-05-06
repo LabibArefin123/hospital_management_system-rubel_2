@@ -84,7 +84,7 @@
         <div class="booking-right">
 
             <h4>Available Time Slots</h4>
-            <p class="no-slot">No time slots selected</p>
+            <p class="no-slot" id="noSlotText">No time slots selected</p>
 
             <div class="summary-card">
 
@@ -100,7 +100,7 @@
                     <button type="button" class="pay-btn" data-value="Cash">Cash</button>
                     <button type="button" class="pay-btn" data-value="Online">Online</button>
                 </div>
-                
+
                 <button type="submit" id="confirmBtn" disabled>
                     📞 Confirm Booking
                 </button>

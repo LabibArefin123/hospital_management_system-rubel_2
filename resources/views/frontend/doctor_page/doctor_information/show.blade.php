@@ -35,7 +35,7 @@
 
                     this.classList.add('active');
 
-                    let raw = this.dataset.date; // "2026-05-04 09:00:00"
+                    let raw = this.dataset.date;
                     if (!raw) return;
 
                     let [date, time] = raw.split(' ');
@@ -43,9 +43,14 @@
                     selectedDate = date;
                     selectedTime = time;
 
-                    // set hidden
                     formDate.value = selectedDate;
                     formTime.value = selectedTime;
+
+                    // ✅ HIDE "No slot text"
+                    const noSlot = document.getElementById('noSlotText');
+                    if (noSlot) {
+                        noSlot.classList.add('hidden');
+                    }
 
                     // UI update
                     let d = new Date(raw);

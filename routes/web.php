@@ -22,6 +22,7 @@ Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])->name('do
 Route::post('/appointments', [FrontendController::class, 'appointment_store'])->name('appointments.store')->middleware('auth');
 
 Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])->name('payment.page')->middleware('auth');
+Route::post('/payment-store', [FrontendController::class, 'payment_store'])->name('payment.store')->middleware('auth');;
 Route::get('/services', [FrontendController::class, 'service'])->name('service');
 Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
 Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');

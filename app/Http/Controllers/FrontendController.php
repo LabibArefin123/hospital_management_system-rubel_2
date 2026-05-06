@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Models\SystemProblem;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Payment;
 use App\Models\Doctor;
 use App\Models\DoctorSchedule;
 use App\Models\Appointment;
@@ -143,8 +144,8 @@ class FrontendController extends Controller
                 'phone' => $request->phone,
                 'gender' => $request->gender,
                 'email' => $request->email,
-                'appointment_date' => $request->appointment_date, 
-                'appointment_time' => $request->appointment_time, 
+                'appointment_date' => $request->appointment_date,
+                'appointment_time' => $request->appointment_time,
                 'payment_method' => $request->payment_method,
                 'amount' => $service->price,
                 'status' => $status,
@@ -159,9 +160,76 @@ class FrontendController extends Controller
         return back()->with('success', 'Appointment booked successfully');
     }
 
+    public function payment_store(Request $request)
+    {
+        $request->validate([
+            'appointment_id' => 'required|exists:appointments,id',
+            'amount' => 'required|numeric|min:1',
+            'card_number' => 'required|min:12|max:19',
+            'expiry' => 'required',
+            'cvv' => 'required|min:3|max:4',
+        ]);
+
+        /* ================= FETCH APPOINTMENT ================= */
+        $appointment = Appointment::where('id', $request->appointment_id)
+            ->where('user_id', auth()->id()) 
+            ->firstOrFail();
+
+        /* ================= ALREADY PAID ================= */
+        // if ($appointment->status === 'confirmed') {
+        //     return back()->with('error', '⚠️ This appointment is already paid.');
+        // }
+
+        /* ================= STRICT AMOUNT CHECK ================= */
+        if ((float)$request->amount !== (float)$appointment->amount) {
+            return back()->with('error', '❌ Please pay the full amount!');
+        }
+
+        /* ================= BASIC CARD VALIDATION ================= */
+        if (strlen(preg_replace('/\s+/', '', $request->card_number)) < 12) {
+            return back()->with('error', '❌ Invalid Card Number');
+        }
+
+        /* ================= DETERMINE SOURCE ================= */
+        $paymentFor = $appointment->type === 'doctor'
+            ? 'Doctor: ' . optional($appointment->doctor)->name
+            : 'Service: ' . optional($appointment->service)->name;
+
+        /* ================= CREATE PAYMENT ================= */
+        Payment::create([
+            'user_id' => auth()->id(),
+            'appointment_id' => $appointment->id,
+            'payment_method' => 'Card',
+            'transaction_id' => 'TXN_' . strtoupper(Str::random(10)),
+            'amount' => $appointment->amount,
+            'card_number' => substr($request->card_number, -4),
+            'expiry' => $request->expiry,
+            'cvv' => null, // never store
+            'status' => 'paid',
+        ]);
+
+        /* ================= UPDATE APPOINTMENT ================= */
+        $appointment->update([
+            'status' => 'confirmed'
+        ]);
+
+        /* ================= REDIRECT BASED ON TYPE ================= */
+        if ($appointment->type === 'doctor') {
+            return redirect()->route('doctor.show', $appointment->doctor_id)
+                ->with('success', '✅ Payment successful! Doctor appointment confirmed.');
+        } else {
+            return redirect()->route('service.show', $appointment->service_id)
+                ->with('success', '✅ Payment successful! Service booked successfully.');
+        }
+    }
+
     public function payment_page($id)
     {
-        $appointment = Appointment::findOrFail($id);
+        $appointment = Appointment::with(['doctor', 'service'])
+            ->where('id', $id)
+            ->firstOrFail();
+
+        // ❌ already paid
         return view('frontend.payment_page.index', compact('appointment'));
     }
 }
