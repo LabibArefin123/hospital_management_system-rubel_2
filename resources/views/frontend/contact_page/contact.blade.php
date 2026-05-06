@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
-
 @section('title', 'Contact Us - SusthoCare')
+    <link rel="stylesheet" href="{{ asset('css/frontend/contact_page/custom_contact.css') }}">
 @section('content')
 
     @include('frontend.custom_layout.header')

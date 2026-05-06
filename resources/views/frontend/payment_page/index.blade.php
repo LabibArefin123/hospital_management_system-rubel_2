@@ -25,7 +25,7 @@
 
             <div class="total">
                 <span>Total Payable</span>
-                <span>৳{{ $appointment->amount }}</span>
+                <span>{{ $appointment->amount }} Taka</span>
             </div>
 
         </div>
