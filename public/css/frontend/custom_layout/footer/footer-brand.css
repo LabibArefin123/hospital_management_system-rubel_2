@@ -1,0 +1,96 @@
+/* =========================================================
+   FILE: footer-brand.css
+========================================================= */
+
+.footer-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+/* =========================================================
+   FOOTER LOGO IMAGE
+========================================================= */
+
+.footer-brand-logo {
+    /* FIX HUGE IMAGE ISSUE */
+    width: 85px;
+    height: 85px;
+
+    /* KEEP IMAGE CLEAN */
+    object-fit: contain;
+
+    /* REMOVE EXTRA BG */
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+
+    /* PREVENT IMAGE OVERFLOW */
+    max-width: 100%;
+    display: block;
+    flex-shrink: 0;
+
+    transition: 0.3s ease;
+}
+
+.footer-brand-logo:hover {
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   BRAND TEXT
+========================================================= */
+
+.footer-brand .footer-logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer-brand .footer-logo-text h4 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    color: #064e3b;
+    line-height: 1.1;
+}
+
+.footer-brand .footer-logo-text span {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #047857;
+    letter-spacing: 0.3px;
+}
+
+.footer-brand .footer-description {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #065f46;
+    margin-bottom: 30px;
+    max-width: 540px;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+    .footer-logo-wrap {
+        gap: 14px;
+    }
+
+    .footer-brand-logo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .footer-brand .footer-logo-text h4 {
+        font-size: 24px;
+    }
+
+    .footer-brand .footer-logo-text span {
+        font-size: 13px;
+    }
+}
