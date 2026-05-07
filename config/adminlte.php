@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'MedTech',
+    'title' => 'SusthoCare',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -62,7 +62,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-    'logo' => '<b>MedTech</b>',
+    'logo' => '<b>SusthoCare</b>',
     'logo_img' => null,
     'logo_img_class' => null,
     'logo_img_xl' => null,
@@ -358,6 +358,12 @@ return [
                     'icon'  => 'fas fa-plus-circle',
                 ],
 
+                [
+                    'text'  => 'Doctor Schedule',
+                    'route' => 'doctor-schedules.index',
+                    'can' => 'doctor-schedules.index',
+                    'icon'  => 'fas fa-calendar-check',
+                ],
             ],
         ],
 

@@ -69,7 +69,7 @@
         @endempty
 
         {{-- Footer --}}
-        @include('frontend.layouts.footer')
+        {{-- @include('frontend.layouts.footer') --}}
         @hasSection('footer')
             @yield('footer')
         @endif
@@ -91,11 +91,11 @@
             "{{ route('global.search') }}";
     </script>
 
-    <script src="{{ asset('uploads/js/custom_backend/app.js') }}"></script>
-    <script src="{{ asset('uploads/js/custom_backend/logout.js') }}"></script>
-    <script src="{{ asset('uploads/js/custom_backend/search.js') }}"></script>
-    <script src="{{ asset('uploads/js/custom_backend/datatable.js') }}"></script>
-    <script src="{{ asset('uploads/js/custom_backend/alerts.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/app.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/logout.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/search.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/data-table.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/alerts.js') }}"></script>
 
     {{-- SESSION ALERTS --}}
 

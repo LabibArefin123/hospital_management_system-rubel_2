@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Lifeline City Hospital Dashboard')
+@section('title', 'SusthoCare Hospital Dashboard')
 
 @section('content')
 
     <div class="container py-4">
 
         <h3 class="mb-4 fw-bold text-success">
-            Welcome to Lifeline City Hospital
+            Welcome to SusthoCare Hospital Dashboard
         </h3>
 
         <div class="row g-4">
