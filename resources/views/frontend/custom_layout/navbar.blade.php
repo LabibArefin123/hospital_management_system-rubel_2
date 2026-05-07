@@ -14,12 +14,40 @@
         </button>
 
         <div class="collapse navbar-collapse justify-content-center" id="navMenu">
-            <ul class="navbar-nav">
-                <li><a class="nav-link" href="{{ route('welcome') }}">Home</a></li>
-                <li><a class="nav-link" href="{{ route('doctor') }}">Doctors</a></li>
-                <li><a class="nav-link" href="{{ route('service') }}">Services</a></li>
-                <li><a class="nav-link" href="{{ route('appointment') }}">Appointments</a></li>
-                <li><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
+            <ul class="navbar-nav nav-pill">
+                <li>
+                    <a class="nav-link {{ request()->routeIs('welcome') ? 'active' : '' }}"
+                        href="{{ route('welcome') }}">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link {{ request()->routeIs('doctor') ? 'active' : '' }}" href="{{ route('doctor') }}">
+                        Doctors
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link {{ request()->routeIs('service') ? 'active' : '' }}"
+                        href="{{ route('service') }}">
+                        Services
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link {{ request()->routeIs('appointment') ? 'active' : '' }}"
+                        href="{{ route('appointment') }}">
+                        Appointments
+                    </a>
+                </li>
+
+                <li>
+                    <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
+                        href="{{ route('contact') }}">
+                        Contact
+                    </a>
+                </li>
             </ul>
         </div>
 

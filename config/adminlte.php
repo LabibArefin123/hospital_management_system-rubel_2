@@ -338,18 +338,28 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
 
-        // [
-        //     'text'    => 'Bill Management',
-        //     'icon'    => 'fas fa-file-invoice-dollar',
-        //     'submenu' => [
-        //         [
-        //             'text'  => 'Bill List',
-        //             'route' => 'bills.index',
-        //             'can'   => 'bills.index',
-        //             'icon'  => 'fas fa-list',
-        //         ],
-        //     ],
-        // ],
+        [
+            'text' => 'Doctor Management',
+            'icon' => 'fas fa-user-md',
+
+            'submenu' => [
+
+                [
+                    'text'  => 'Doctor List',
+                    'route' => 'doctors.index',
+                    'can'   => 'doctors.index',
+                    'icon'  => 'fas fa-list',
+                ],
+
+                [
+                    'text'  => 'Add Doctor',
+                    'route' => 'doctors.create',
+                    'can'   => 'doctors.create',
+                    'icon'  => 'fas fa-plus-circle',
+                ],
+
+            ],
+        ],
 
 
         [
@@ -463,16 +473,6 @@ return [
             ],
         ],
 
-        'CustomCSS' => [
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => 'css/admin_custom.css',
-                ],
-            ],
-        ],
         'Sweetalert2' => [
             'active' => true,
             'files' => [
@@ -498,6 +498,18 @@ return [
                 ],
             ],
         ],
+
+        'BsCustomFileInput' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js',
+                ],
+            ],
+        ],
+
     ],
 
     /*

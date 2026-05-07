@@ -4,6 +4,7 @@
 ========================================================= */
 
 @import url("./navbar-base.css");
+@import url("./navbar-pill.css");
 @import url("./navbar-brand.css");
 @import url("./navbar-menu.css");
 @import url("./navbar-dropdown.css");

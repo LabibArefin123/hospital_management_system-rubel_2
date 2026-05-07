@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Doctor;
 
 class DoctorController extends Controller
 {
@@ -11,7 +12,9 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        $doctors = Doctor::latest()->get();
+
+        return view('backend.doctor_management.doctor_section.index', compact('doctors'));
     }
 
     /**
