@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'Contact Us - SusthoCare')
-    <link rel="stylesheet" href="{{ asset('css/frontend/contact_page/custom_contact.css') }}">
+
 @section('content')
 
     @include('frontend.custom_layout.header')
@@ -27,12 +27,12 @@
 
                         <!-- Row 1 -->
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>Full Name</label>
                                 <input type="text" id="name" required>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>Email</label>
                                 <input type="email" id="email">
                             </div>
@@ -40,12 +40,12 @@
 
                         <!-- Row 2 -->
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>Phone</label>
                                 <input type="text" id="phone" placeholder="01XXXXXXXXX" required>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>Department</label>
                                 <select id="department">
                                     <option value="">Select</option>
@@ -115,29 +115,5 @@
     </section>
 
     @include('frontend.custom_layout.footer')
-
-    <!-- WHATSAPP -->
-    <script>
-        document.getElementById("whatsappForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            let name = document.getElementById("name").value;
-            let phone = document.getElementById("phone").value;
-            let department = document.getElementById("department").value;
-            let service = document.getElementById("service").value;
-            let message = document.getElementById("message").value;
-
-            let text = `Appointment Request:%0A
-Name: ${name}%0A
-Phone: ${phone}%0A
-Department: ${department}%0A
-Service: ${service}%0A
-Message: ${message}`;
-
-            let whatsappNumber = "88017XXXXXXXX";
-
-            window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
-        });
-    </script>
-
+    <script src="{{ asset('uploads/js/custom_frontend/contact_page/contact.js') }}"></script>
 @endsection
