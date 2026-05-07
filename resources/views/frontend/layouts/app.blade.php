@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/banner_section/custom_banner.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/trust_section/custom_trust.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/certify_section/custom_certify.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/welcome_page/doctor_section/custom_doctor.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/doctor_page/custom_doctor.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/service_page/custom_service.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/appointment_page/custom_appointment.css') }}">

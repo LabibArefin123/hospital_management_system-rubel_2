@@ -17,7 +17,8 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.welcome');
+        $doctors = Doctor::all();
+        return view('frontend.welcome', compact('doctors'));
     }
 
     public function doctor(Request $request)
@@ -229,7 +230,6 @@ class FrontendController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
-        // ❌ already paid
         return view('frontend.payment_page.index', compact('appointment'));
     }
 }
