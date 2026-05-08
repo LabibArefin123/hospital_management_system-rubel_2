@@ -364,6 +364,13 @@ return [
                     'can' => 'doctor-schedules.index',
                     'icon'  => 'fas fa-calendar-check',
                 ],
+
+                [
+                    'text' => 'Services',
+                    'route' => 'services.index',
+                    'can' => 'services.index',
+                    'icon' => 'fas fa-concierge-bell',
+                ],
             ],
         ],
 

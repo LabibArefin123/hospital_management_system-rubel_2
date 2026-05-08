@@ -5,10 +5,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
-
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SystemUserController;
@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('doctors', DoctorController::class);
     Route::resource('doctor-schedules', DoctorScheduleController::class);
+    Route::resource('services', ServiceController::class);
 
     //Setting Management
     Route::resource('roles', RoleController::class);
