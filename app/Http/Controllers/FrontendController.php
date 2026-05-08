@@ -35,14 +35,31 @@ class FrontendController extends Controller
 
     public function doctor_show($id)
     {
-        $doctor = \App\Models\Doctor::with('schedules')->findOrFail($id);
+        $doctor = \App\Models\Doctor::with([
+            'schedules' => function ($query) {
+                $query->where('is_booked', false)
+                    ->orderBy('date')
+                    ->orderBy('time');
+            }
+        ])->findOrFail($id);
 
-        // group by date
+        // Group schedules by date
         $groupedSchedules = $doctor->schedules
-            ->where('is_booked', false)
-            ->groupBy('date');
+            ->groupBy(function ($item) {
+                return \Carbon\Carbon::parse($item->date)->format('Y-m-d');
+            });
 
-        return view('frontend.doctor_page.doctor_information.show', compact('doctor', 'groupedSchedules'));
+        // Paginate manually (3 dates per page)
+        $schedulePages = $groupedSchedules->chunk(3);
+
+        return view(
+            'frontend.doctor_page.doctor_information.show',
+            compact(
+                'doctor',
+                'groupedSchedules',
+                'schedulePages'
+            )
+        );
     }
 
     public function service_show($id)
@@ -173,7 +190,7 @@ class FrontendController extends Controller
 
         /* ================= FETCH APPOINTMENT ================= */
         $appointment = Appointment::where('id', $request->appointment_id)
-            ->where('user_id', auth()->id()) 
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
         /* ================= ALREADY PAID ================= */

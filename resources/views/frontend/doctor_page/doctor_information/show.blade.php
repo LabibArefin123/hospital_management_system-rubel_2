@@ -16,9 +16,16 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
+            /* =========================================
+               VARIABLES
+            ========================================== */
+            let currentPage = 0;
+
             let selectedDate = null;
             let selectedTime = null;
             let selectedPayment = null;
+
+            const pages = document.querySelectorAll('.schedule-page');
 
             const confirmBtn = document.getElementById("confirmBtn");
 
@@ -26,55 +33,108 @@
             const formTime = document.getElementById("formTime");
             const paymentInput = document.getElementById("paymentMethod");
 
-            /* ================= DATE CLICK ================= */
+            const selectedDateText = document.getElementById("selectedDate");
+            const selectedTimeText = document.getElementById("selectedTime");
+
+            const noSlotText = document.getElementById("noSlotText");
+
+            const form = document.querySelector("form");
+
+            /* =========================================
+               PAGINATION
+            ========================================== */
+            function showPage(index) {
+
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                if (pages[index]) {
+                    pages[index].classList.add('active');
+                }
+            }
+
+            document.getElementById('nextSchedule')?.addEventListener('click', function() {
+
+                if (currentPage < pages.length - 1) {
+
+                    currentPage++;
+
+                    showPage(currentPage);
+                }
+            });
+
+            document.getElementById('prevSchedule')?.addEventListener('click', function() {
+
+                if (currentPage > 0) {
+
+                    currentPage--;
+
+                    showPage(currentPage);
+                }
+            });
+
+            /* =========================================
+               SLOT SELECT
+            ========================================== */
             document.querySelectorAll('.date-card').forEach(card => {
+
                 card.addEventListener('click', function() {
 
+                    // remove active
                     document.querySelectorAll('.date-card')
                         .forEach(c => c.classList.remove('active'));
 
+                    // add active
                     this.classList.add('active');
 
-                    let raw = this.dataset.date;
-                    if (!raw) return;
+                    // get values
+                    selectedDate = this.dataset.date;
+                    selectedTime = this.dataset.time;
 
-                    let [date, time] = raw.split(' ');
+                    if (!selectedDate || !selectedTime) return;
 
-                    selectedDate = date;
-                    selectedTime = time;
-
+                    // set hidden fields
                     formDate.value = selectedDate;
                     formTime.value = selectedTime;
 
-                    // ✅ HIDE "No slot text"
-                    const noSlot = document.getElementById('noSlotText');
-                    if (noSlot) {
-                        noSlot.classList.add('hidden');
+                    // hide empty text
+                    if (noSlotText) {
+                        noSlotText.classList.add('hidden');
                     }
 
-                    // UI update
-                    let d = new Date(raw);
+                    // formatted date
+                    const fullDate = new Date(
+                        `${selectedDate} ${selectedTime}`
+                    );
 
-                    document.getElementById('selectedDate').innerText =
-                        d.toLocaleDateString('en-GB', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
-                            weekday: 'long'
-                        });
+                    // update UI
+                    if (selectedDateText) {
+                        selectedDateText.innerText =
+                            fullDate.toLocaleDateString('en-GB', {
+                                weekday: 'long',
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            });
+                    }
 
-                    document.getElementById('selectedTime').innerText =
-                        d.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: true
-                        });
+                    if (selectedTimeText) {
+                        selectedTimeText.innerText =
+                            fullDate.toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true
+                            });
+                    }
 
                     checkForm();
                 });
             });
 
-            /* ================= PAYMENT CLICK ================= */
+            /* =========================================
+               PAYMENT SELECT
+            ========================================== */
             document.querySelectorAll('.pay-btn').forEach(btn => {
 
                 btn.addEventListener('click', function() {
@@ -88,30 +148,34 @@
 
                     paymentInput.value = selectedPayment;
 
-                    console.log("Payment:", selectedPayment);
-
                     checkForm();
                 });
             });
 
-            /* ================= INPUT LISTENER ================= */
+            /* =========================================
+               INPUT VALIDATION
+            ========================================== */
             ['name', 'age', 'phone', 'gender'].forEach(id => {
-                let input = document.getElementById(id);
+
+                const input = document.getElementById(id);
+
                 if (!input) return;
 
                 input.addEventListener('input', checkForm);
                 input.addEventListener('change', checkForm);
             });
 
-            /* ================= VALIDATION ================= */
             function checkForm() {
 
-                let name = document.getElementById('name')?.value.trim();
-                let age = document.getElementById('age')?.value.trim();
-                let phone = document.getElementById('phone')?.value.trim();
-                let gender = document.getElementById('gender')?.value;
+                const name = document.getElementById('name')?.value.trim();
 
-                let valid =
+                const age = document.getElementById('age')?.value.trim();
+
+                const phone = document.getElementById('phone')?.value.trim();
+
+                const gender = document.getElementById('gender')?.value;
+
+                const valid =
                     name &&
                     age &&
                     phone &&
@@ -120,28 +184,49 @@
                     selectedTime &&
                     selectedPayment;
 
+                if (!confirmBtn) return;
+
                 confirmBtn.disabled = !valid;
-                confirmBtn.style.background = valid ? "#22c55e" : "gray";
-                confirmBtn.style.cursor = valid ? "pointer" : "not-allowed";
+
+                confirmBtn.style.background =
+                    valid ? "#22c55e" : "gray";
+
+                confirmBtn.style.cursor =
+                    valid ? "pointer" : "not-allowed";
             }
 
-            /* ================= SUBMIT CHECK ================= */
-            const form = document.querySelector("form");
+            /* =========================================
+               FORM SUBMIT
+            ========================================== */
+            if (form) {
 
-            form.addEventListener("submit", function(e) {
+                form.addEventListener("submit", function(e) {
 
-                if (!selectedPayment || !selectedDate || !selectedTime) {
-                    e.preventDefault();
-                    alert("Please select Date, Time & Payment");
-                    return;
-                }
+                    if (
+                        !selectedDate ||
+                        !selectedTime ||
+                        !selectedPayment
+                    ) {
 
-                console.log("Submitting:", {
-                    date: formDate.value,
-                    time: formTime.value,
-                    payment: paymentInput.value
+                        e.preventDefault();
+
+                        alert("Please select Date, Time & Payment");
+
+                        return;
+                    }
+
+                    console.log("Submitting Appointment", {
+                        date: formDate.value,
+                        time: formTime.value,
+                        payment: paymentInput.value
+                    });
                 });
-            });
+            }
+
+            /* =========================================
+               INITIAL PAGE
+            ========================================== */
+            showPage(currentPage);
 
         });
     </script>

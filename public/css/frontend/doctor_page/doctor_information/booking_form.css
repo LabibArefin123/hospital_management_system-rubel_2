@@ -1,32 +1,78 @@
 /* ================= DATE ================= */
-.date-grid {
+.schedule-page {
+    display: none;
+}
+
+.schedule-page.active {
+    display: block;
+}
+
+.date-card-wrapper {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid #eee;
+    height: 100%;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.date-header {
+    margin-bottom: 15px;
+}
+
+.date-header h5 {
+    margin-bottom: 3px;
+    font-weight: 700;
+}
+
+.date-header span {
+    color: #777;
+    font-size: 14px;
+}
+
+.time-slot-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 20px;
 }
 
 .date-card {
-    flex: 1;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
+    background: #f5f7ff;
+    border: 1px solid #dbe3ff;
+    padding: 10px 14px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    background: #fff;
-    position: relative;
-    z-index: 1;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .date-card:hover {
-    border-color: #22c55e;
-    transform: translateY(-2px);
+    background: #4361ee;
+    color: #fff;
 }
 
 .date-card.active {
-    background: #22c55e;
+    background: #4361ee;
     color: #fff;
-    border-color: #22c55e;
+    border-color: #4361ee;
+}
+
+.schedule-pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.schedule-pagination-controls button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #4361ee;
+    color: white;
+    font-size: 18px;
 }
 
 /* ================= FORM ================= */

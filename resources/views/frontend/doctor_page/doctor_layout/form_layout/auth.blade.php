@@ -5,17 +5,74 @@
 
             <h3>Book Your Appointment</h3>
 
-            <div class="date-grid">
-                @foreach ($groupedSchedules as $date => $schedules)
-                    @php $first = $schedules->first(); @endphp
-                    <div class="date-card" data-date="{{ $date }} {{ $first->time }}">
-                        <span>
-                            {{ \Carbon\Carbon::parse($date)->format('l, F j Y') }}
-                        </span>
-                        <h4>{{ \Carbon\Carbon::parse($first->time)->format('h') }}</h4>
-                        <small>{{ \Carbon\Carbon::parse($first->time)->format('A') }}</small>
+            <div class="schedule-pagination-wrapper">
+
+                @foreach ($schedulePages as $pageIndex => $pageSchedules)
+                    <div class="schedule-page {{ $pageIndex == 0 ? 'active' : '' }}" data-page="{{ $pageIndex }}">
+
+                        <div class="row">
+
+                            @foreach ($pageSchedules as $date => $schedules)
+                                <div class="col-md-4 mb-3">
+
+                                    <div class="date-card-wrapper">
+
+                                        <div class="date-header">
+
+                                            <h5>
+                                                {{ \Carbon\Carbon::parse($date)->format('D') }}
+                                            </h5>
+
+                                            <span>
+                                                {{ \Carbon\Carbon::parse($date)->format('d M Y') }}
+                                            </span>
+
+                                        </div>
+
+                                        <div class="time-slot-container">
+
+                                            @foreach ($schedules as $schedule)
+                                                <div class="date-card" data-date="{{ $schedule->date }}"
+                                                    data-time="{{ $schedule->time }}">
+
+                                                    <i class="fas fa-clock text-primary"></i>
+
+                                                    {{ \Carbon\Carbon::parse($schedule->time)->format('h:i A') }}
+
+                                                </div>
+                                            @endforeach
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            @endforeach
+
+                        </div>
+
                     </div>
                 @endforeach
+
+                {{-- PAGINATION --}}
+                @if ($schedulePages->count() > 1)
+                    <div class="schedule-pagination-controls">
+
+                        <button type="button" id="prevSchedule">
+
+                            <i class="fas fa-chevron-left"></i>
+
+                        </button>
+
+                        <button type="button" id="nextSchedule">
+
+                            <i class="fas fa-chevron-right"></i>
+
+                        </button>
+
+                    </div>
+                @endif
+
             </div>
 
             <form method="POST" action="{{ route('appointments.store') }}">
