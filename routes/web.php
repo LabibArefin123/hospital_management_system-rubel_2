@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\ServiceController;
@@ -25,7 +26,7 @@ Route::post('/appointments', [FrontendController::class, 'appointment_store'])->
 
 Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])->name('payment.page')->middleware('auth');
 Route::post('/payment-store', [FrontendController::class, 'payment_store'])->name('payment.store')->middleware('auth');;
-Route::get('/services', [FrontendController::class, 'service'])->name('service');
+Route::get('/service', [FrontendController::class, 'service'])->name('service');
 Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
 Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');
 Route::get('/contact-us', [FrontendController::class, 'contact'])->name('contact');
@@ -68,6 +69,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('doctors', DoctorController::class);
     Route::resource('doctor-schedules', DoctorScheduleController::class);
     Route::resource('services', ServiceController::class);
+    Route::get( 'appointments/cancel/{id}', [AppointmentController::class, 'appointment_cancel'])->name('appointments.cancel');
+    Route::resource('appointments', AppointmentController::class);
+
 
     //Setting Management
     Route::resource('roles', RoleController::class);

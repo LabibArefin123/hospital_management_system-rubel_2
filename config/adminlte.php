@@ -305,42 +305,85 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
-
     'menu' => [
-        // Navbar items:
-        // [
-        //     'type' => 'navbar-search',
-        //     'text' => 'Search anything...',
-        //     'id' => 'globalTenderSearch',
-        //     'topnav_right' => true,
-        //     'method' => 'GET',
-        //     'href' => 'global.search',
-        //     'input_name' => 'term',
-        // ],
+
+        /*
+    |--------------------------------------------------------------------------
+    | TOP NAVBAR
+    |--------------------------------------------------------------------------
+    */
 
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
-
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-
+        /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
 
         [
             'text' => 'Dashboard',
             'route' => 'dashboard',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-home',
+            'icon_color' => 'success',
         ],
+
+        /*
+    |--------------------------------------------------------------------------
+    | APPOINTMENT MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
+
+        [
+            'text' => 'Appointment Management',
+            'icon' => 'fas fa-calendar-check',
+            'icon_color' => 'primary',
+
+            'submenu' => [
+
+                [
+                    'text' => 'All Appointments',
+                    'route' => 'appointments.index',
+                    'can' => 'appointments.index',
+                    'icon' => 'fas fa-list-ul',
+                ],
+
+                // [
+                //     'text' => 'Pending Appointments',
+                //     'route' => 'appointments.pending',
+                //     'can' => 'appointments.index',
+                //     'icon' => 'fas fa-clock',
+                // ],
+
+                // [
+                //     'text' => 'Confirmed Appointments',
+                //     'route' => 'appointments.confirmed',
+                //     'can' => 'appointments.index',
+                //     'icon' => 'fas fa-check-circle',
+                // ],
+
+                // [
+                //     'text' => 'Cancelled Appointments',
+                //     'route' => 'appointments.cancelled',
+                //     'can' => 'appointments.index',
+                //     'icon' => 'fas fa-times-circle',
+                // ],
+            ],
+        ],
+
+        /*
+    |--------------------------------------------------------------------------
+    | DOCTOR MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
 
         [
             'text' => 'Doctor Management',
             'icon' => 'fas fa-user-md',
+            'icon_color' => 'danger',
 
             'submenu' => [
 
@@ -355,55 +398,108 @@ return [
                     'text'  => 'Add Doctor',
                     'route' => 'doctors.create',
                     'can'   => 'doctors.create',
-                    'icon'  => 'fas fa-plus-circle',
+                    'icon'  => 'fas fa-user-plus',
                 ],
 
                 [
                     'text'  => 'Doctor Schedule',
                     'route' => 'doctor-schedules.index',
-                    'can' => 'doctor-schedules.index',
-                    'icon'  => 'fas fa-calendar-check',
-                ],
-
-                [
-                    'text' => 'Services',
-                    'route' => 'services.index',
-                    'can' => 'services.index',
-                    'icon' => 'fas fa-concierge-bell',
+                    'can'   => 'doctor-schedules.index',
+                    'icon'  => 'fas fa-calendar-alt',
                 ],
             ],
         ],
 
+        /*
+    |--------------------------------------------------------------------------
+    | SERVICE MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
 
         [
-            'text'    => 'Setting Management',
-            'icon'    => 'fas fa-cogs',
+            'text' => 'Service Management',
+            'icon' => 'fas fa-concierge-bell',
+            'icon_color' => 'warning',
+
             'submenu' => [
+
                 [
-                    'text' => 'Role List',
+                    'text' => 'Service List',
+                    'route' => 'services.index',
+                    'can' => 'services.index',
+                    'icon' => 'fas fa-list',
+                ],
+
+                [
+                    'text' => 'Add Service',
+                    'route' => 'services.create',
+                    'can' => 'services.create',
+                    'icon' => 'fas fa-plus-circle',
+                ],
+            ],
+        ],
+
+        /*
+    |--------------------------------------------------------------------------
+    | BLOG MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
+
+        [
+            'text' => 'Blog Management',
+            'icon' => 'fas fa-blog',
+            'icon_color' => 'info',
+
+            'submenu' => [
+
+                [
+                    'text' => 'All Blogs',
+                    'url' => 'admin/blog',
+                    'can' => 'manage-blog',
+                    'icon' => 'fas fa-newspaper',
+                ],
+            ],
+        ],
+
+        /*
+    |--------------------------------------------------------------------------
+    | SYSTEM SETTINGS
+    |--------------------------------------------------------------------------
+    */
+
+        [
+            'text' => 'System Settings',
+            'icon' => 'fas fa-cogs',
+            'icon_color' => 'secondary',
+
+            'submenu' => [
+
+                [
+                    'text' => 'Role Management',
                     'route' => 'roles.index',
                     'can' => 'roles.index',
                     'active' => ['roles*'],
-                    'icon' => 'fas fa-user-tag',  // user tag icon
+                    'icon' => 'fas fa-user-shield',
                 ],
+
                 [
-                    'text' => 'Permission List',
+                    'text' => 'Permission Management',
                     'route' => 'permissions.index',
                     'can' => 'permissions.index',
                     'active' => ['permissions*'],
-                    'icon' => 'fas fa-key',  // key icon
+                    'icon' => 'fas fa-key',
                 ],
+
                 [
-                    'text' => 'System User',
+                    'text' => 'System Users',
                     'route' => 'system_users.index',
                     'can' => 'system_users.index',
                     'active' => ['system_users*'],
-                    'icon' => 'fas fa-users-cog',  // users with cog icon
+                    'icon' => 'fas fa-users-cog',
                 ],
             ],
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Menu Filters
