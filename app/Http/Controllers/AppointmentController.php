@@ -22,9 +22,19 @@ class AppointmentController extends Controller
             ->latest()
             ->get();
 
+        $doctorAppointments = $appointments
+            ->where('type', 'doctor');
+
+        $serviceAppointments = $appointments
+            ->where('type', 'service');
+
         return view(
             'backend.doctor_management.appointment_section.index',
-            compact('appointments')
+            compact(
+                'appointments',
+                'doctorAppointments',
+                'serviceAppointments'
+            )
         );
     }
 
