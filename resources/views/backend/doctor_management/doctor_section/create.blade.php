@@ -45,6 +45,17 @@
                             <div class="col-md-6">
 
                                 <div class="form-group">
+                                    <label>Doctor Email</label>
+
+                                    <input type="email" name="email" class="form-control"
+                                        placeholder="Enter doctor name" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
                                     <label>Speciality</label>
 
                                     <input type="text" name="speciality" class="form-control"

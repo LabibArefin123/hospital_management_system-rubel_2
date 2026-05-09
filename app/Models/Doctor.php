@@ -8,6 +8,7 @@ class Doctor extends Model
 {
     protected $fillable = [
         'name',
+        'email',
         'speciality',
         'image',
         'success_rate',
@@ -23,5 +24,10 @@ class Doctor extends Model
     public function schedules()
     {
         return $this->hasMany(DoctorSchedule::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

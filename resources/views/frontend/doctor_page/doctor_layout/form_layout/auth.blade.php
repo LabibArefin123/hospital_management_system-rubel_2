@@ -20,7 +20,7 @@
                                         <div class="date-header">
 
                                             <h5>
-                                                {{ \Carbon\Carbon::parse($date)->format('D') }}
+                                                {{ \Carbon\Carbon::parse($date)->format('l') }}
                                             </h5>
 
                                             <span>
@@ -75,7 +75,7 @@
 
             </div>
 
-            <form method="POST" action="{{ route('appointments.store') }}">
+            <form method="POST" action="{{ route('appointment.store') }}">
                 @csrf
 
                 <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">

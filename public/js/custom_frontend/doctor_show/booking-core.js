@@ -4,10 +4,9 @@
 
 window.bookingState = {
     currentPage: 0,
-
-    selectedDate: null,
-    selectedTime: null,
-    selectedPayment: null,
+    selectedDate: "",
+    selectedTime: "",
+    selectedPayment: "",
 };
 
 window.bookingElements = {};
@@ -15,7 +14,15 @@ window.bookingElements = {};
 document.addEventListener("DOMContentLoaded", function () {
     bookingElements.pages = document.querySelectorAll(".schedule-page");
 
+    bookingElements.prevBtn = document.getElementById("prevSchedule");
+
+    bookingElements.nextBtn = document.getElementById("nextSchedule");
+
     bookingElements.confirmBtn = document.getElementById("confirmBtn");
+
+    bookingElements.form = document.querySelector(
+        'form[action*="appointment"]',
+    );
 
     bookingElements.formDate = document.getElementById("formDate");
 
@@ -28,6 +35,4 @@ document.addEventListener("DOMContentLoaded", function () {
     bookingElements.selectedTimeText = document.getElementById("selectedTime");
 
     bookingElements.noSlotText = document.getElementById("noSlotText");
-
-    bookingElements.form = document.querySelector("form");
 });

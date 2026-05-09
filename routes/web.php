@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 Route::get('/', [FrontendController::class, 'index'])->name('welcome');
 Route::get('/our-doctors', [FrontendController::class, 'doctor'])->name('doctor');
 Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])->name('doctor.show');
-Route::post('/appointments', [FrontendController::class, 'appointment_store'])->name('appointments.store')->middleware('auth');
+Route::post('/appointment-store', [FrontendController::class, 'appointment_store'])->name('appointment.store')->middleware('auth');
 
 Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])->name('payment.page')->middleware('auth');
 Route::post('/payment-store', [FrontendController::class, 'payment_store'])->name('payment.store')->middleware('auth');;

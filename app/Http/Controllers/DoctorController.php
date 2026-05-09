@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 
 class DoctorController extends Controller
@@ -37,56 +39,103 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+
             'name'               => 'required|string|max:255',
+
+            'email'              => 'required|email|unique:users,email',
+
             'speciality'         => 'required|string|max:255',
+
             'image'              => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
             'success_rate'       => 'nullable|numeric',
+
             'experience_years'   => 'nullable|numeric',
+
             'total_patients'     => 'nullable|string',
+
             'qualification'      => 'nullable|string|max:255',
+
             'location'           => 'nullable|string|max:255',
+
             'consultation_fee'   => 'nullable|numeric',
+
             'availability'       => 'nullable|string|max:255',
+
             'about'              => 'nullable|string',
+
         ]);
+
+        /*
+    |--------------------------------------------------------------------------
+    | CREATE USER ACCOUNT
+    |--------------------------------------------------------------------------
+    */
+
+        $user = User::create([
+
+            'name'      => $request->name,
+
+            'email'     => $request->email,
+
+            'password'  => Hash::make('Admin123'),
+
+            'role'      => 'doctor',
+
+        ]);
+
+        /*
+    |--------------------------------------------------------------------------
+    | CREATE DOCTOR
+    |--------------------------------------------------------------------------
+    */
 
         $doctor = new Doctor();
 
+        $doctor->user_id            = $user->id;
+
         $doctor->name               = $request->name;
+
         $doctor->speciality         = $request->speciality;
+
         $doctor->success_rate       = $request->success_rate;
+
         $doctor->experience_years   = $request->experience_years;
+
         $doctor->total_patients     = $request->total_patients;
+
         $doctor->qualification      = $request->qualification;
+
         $doctor->location           = $request->location;
+
         $doctor->consultation_fee   = $request->consultation_fee;
+
         $doctor->availability       = $request->availability;
+
         $doctor->about              = $request->about;
 
         /*
-        |--------------------------------------------------------------------------
-        | Upload Image to public/uploads/images/doctor
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | IMAGE UPLOAD
+    |--------------------------------------------------------------------------
+    */
+
         if ($request->hasFile('image')) {
 
             $image = $request->file('image');
 
-            // Create folder if not exists
             $destinationPath = public_path('uploads/images/doctor');
 
             if (!File::exists($destinationPath)) {
+
                 File::makeDirectory($destinationPath, 0777, true, true);
             }
 
-            // Generate image name
             $imageName = time() . '_' . uniqid() . '.' .
                 $image->getClientOriginalExtension();
 
-            // Move image
             $image->move($destinationPath, $imageName);
 
-            // Save image path
             $doctor->image = 'uploads/images/doctor/' . $imageName;
         }
 
@@ -94,7 +143,10 @@ class DoctorController extends Controller
 
         return redirect()
             ->route('doctors.index')
-            ->with('success', 'Doctor Added Successfully');
+            ->with(
+                'success',
+                'Doctor Added Successfully. Default Password: Admin123'
+            );
     }
 
     /**

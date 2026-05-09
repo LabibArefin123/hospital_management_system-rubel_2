@@ -3,40 +3,43 @@
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
-    /* =========================================
-       SLOT SELECT
-    ========================================== */
+    /* =====================================================
+       DATE SLOT SELECT
+    ===================================================== */
 
     document.querySelectorAll(".date-card").forEach((card) => {
         card.addEventListener("click", function () {
-            document
-                .querySelectorAll(".date-card")
-                .forEach((c) => c.classList.remove("active"));
+            document.querySelectorAll(".date-card").forEach((c) => {
+                c.classList.remove("active");
+            });
 
             this.classList.add("active");
 
-            bookingState.selectedDate = this.dataset.date;
+            bookingState.selectedDate = this.dataset.date || "";
 
-            bookingState.selectedTime = this.dataset.time;
+            bookingState.selectedTime = this.dataset.time || "";
 
-            if (!bookingState.selectedDate || !bookingState.selectedTime)
-                return;
+            /* =========================================
+               HIDDEN INPUTS
+            ========================================= */
 
-            bookingElements.formDate.value = bookingState.selectedDate;
-
-            bookingElements.formTime.value = bookingState.selectedTime;
-
-            if (bookingElements.noSlotText) {
-                bookingElements.noSlotText.classList.add("hidden");
+            if (bookingElements.formDate) {
+                bookingElements.formDate.value = bookingState.selectedDate;
             }
 
-            const fullDate = new Date(
-                `${bookingState.selectedDate} ${bookingState.selectedTime}`,
-            );
+            if (bookingElements.formTime) {
+                bookingElements.formTime.value = bookingState.selectedTime;
+            }
 
-            if (bookingElements.selectedDateText) {
+            /* =========================================
+               DATE UI
+            ========================================= */
+
+            if (bookingElements.selectedDateText && bookingState.selectedDate) {
+                const formattedDate = new Date(bookingState.selectedDate);
+
                 bookingElements.selectedDateText.innerText =
-                    fullDate.toLocaleDateString("en-GB", {
+                    formattedDate.toLocaleDateString("en-GB", {
                         weekday: "long",
                         day: "numeric",
                         month: "long",
@@ -44,36 +47,55 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
             }
 
-            if (bookingElements.selectedTimeText) {
+            /* =========================================
+               TIME UI
+            ========================================= */
+
+            if (bookingElements.selectedTimeText && bookingState.selectedTime) {
+                const formattedTime = new Date(
+                    `1970-01-01T${bookingState.selectedTime}`,
+                );
+
                 bookingElements.selectedTimeText.innerText =
-                    fullDate.toLocaleTimeString("en-US", {
+                    formattedTime.toLocaleTimeString("en-US", {
                         hour: "2-digit",
                         minute: "2-digit",
                         hour12: true,
                     });
             }
 
-            checkBookingForm();
+            /* =========================================
+               HIDE NO SLOT
+            ========================================= */
+
+            if (bookingElements.noSlotText) {
+                bookingElements.noSlotText.style.display = "none";
+            }
+
+            window.validateBookingForm();
         });
     });
 
-    /* =========================================
+    /* =====================================================
        PAYMENT SELECT
-    ========================================== */
+    ===================================================== */
 
     document.querySelectorAll(".pay-btn").forEach((btn) => {
         btn.addEventListener("click", function () {
-            document
-                .querySelectorAll(".pay-btn")
-                .forEach((b) => b.classList.remove("active"));
+            document.querySelectorAll(".pay-btn").forEach((b) => {
+                b.classList.remove("active");
+            });
 
             this.classList.add("active");
 
-            bookingState.selectedPayment = this.dataset.value;
+            bookingState.selectedPayment = this.dataset.value || "";
 
-            bookingElements.paymentInput.value = bookingState.selectedPayment;
+            if (bookingElements.paymentInput) {
+                bookingElements.paymentInput.value =
+                    bookingState.selectedPayment;
+            }
 
-            checkBookingForm();
+            window.validateBookingForm();
         });
     });
 });

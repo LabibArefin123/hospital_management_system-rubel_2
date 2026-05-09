@@ -20,7 +20,7 @@
                                          <div class="date-header">
 
                                              <h5>
-                                                 {{ \Carbon\Carbon::parse($date)->format('D') }}
+                                                 {{ \Carbon\Carbon::parse($date)->format('l') }}
                                              </h5>
 
                                              <span>

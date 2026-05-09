@@ -19,6 +19,7 @@ class User extends Authenticatable
         'username',
         'password',
         'phone',
+        'phone_2',
         'profile_picture',
         'google_id',
         'avatar',
@@ -64,6 +65,11 @@ class User extends Authenticatable
         return $this->profile_picture
             ? Storage::url($this->profile_picture)
             : asset('uploads/images/default.jpg');
+    }
+
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
     }
 
 }

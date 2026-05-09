@@ -15,25 +15,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.showBookingPage = showPage;
 
-    document
-        .getElementById("nextSchedule")
-        ?.addEventListener("click", function () {
+    if (bookingElements.nextBtn) {
+        bookingElements.nextBtn.addEventListener("click", function () {
             if (bookingState.currentPage < bookingElements.pages.length - 1) {
                 bookingState.currentPage++;
 
                 showPage(bookingState.currentPage);
             }
         });
+    }
 
-    document
-        .getElementById("prevSchedule")
-        ?.addEventListener("click", function () {
+    if (bookingElements.prevBtn) {
+        bookingElements.prevBtn.addEventListener("click", function () {
             if (bookingState.currentPage > 0) {
                 bookingState.currentPage--;
 
                 showPage(bookingState.currentPage);
             }
         });
+    }
 
-    showPage(bookingState.currentPage);
+    showPage(0);
 });
