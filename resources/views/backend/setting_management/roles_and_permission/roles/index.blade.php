@@ -59,45 +59,7 @@
             $('#rolesTable').DataTable();
         });
     </script>
-    @if (session('success') || session('error') || session('warning') || session('info'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer);
-                        toast.addEventListener('mouseleave', Swal.resumeTimer);
-                    }
-                });
-
-                @if (session('success'))
-                    Toast.fire({
-                        icon: 'success',
-                        title: @json(session('success'))
-                    });
-                @elseif (session('error'))
-                    Toast.fire({
-                        icon: 'error',
-                        title: @json(session('error'))
-                    });
-                @elseif (session('warning'))
-                    Toast.fire({
-                        icon: 'warning',
-                        title: @json(session('warning'))
-                    });
-                @elseif (session('info'))
-                    Toast.fire({
-                        icon: 'info',
-                        title: @json(session('info'))
-                    });
-                @endif
-            });
-        </script>
-    @endif
+   
 @stop
 
 @section('plugins.Datatables', true)
