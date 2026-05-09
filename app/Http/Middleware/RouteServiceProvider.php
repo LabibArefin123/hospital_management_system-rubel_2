@@ -11,27 +11,62 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to your application's "home" route.
+     * |--------------------------------------------------------------------------
+     * HOME ROUTE
+     * |--------------------------------------------------------------------------
      *
-     * Typically, users are redirected here after authentication.
+     * Default redirect after authentication.
      *
-     * @var string
+     * We keep this generic because role-based redirect
+     * is handled manually inside AuthenticatedSessionController.
+     *
      */
-    public const HOME = '/dashboard';
+
+    public const HOME = '/';
 
     /**
-     * Define your route model bindings, pattern filters, and other route configuration.
+     * Define your route model bindings,
+     * pattern filters,
+     * and route configuration.
      */
     public function boot(): void
     {
+        /*
+        |--------------------------------------------------------------------------
+        | API RATE LIMITER
+        |--------------------------------------------------------------------------
+        */
+
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+
+            return Limit::perMinute(60)->by(
+                $request->user()?->id ?: $request->ip()
+            );
         });
 
+        /*
+        |--------------------------------------------------------------------------
+        | REGISTER ROUTES
+        |--------------------------------------------------------------------------
+        */
+
         $this->routes(function () {
+
+            /*
+            |--------------------------------------------------------------------------
+            | API ROUTES
+            |--------------------------------------------------------------------------
+            */
+
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
+
+            /*
+            |--------------------------------------------------------------------------
+            | WEB ROUTES
+            |--------------------------------------------------------------------------
+            */
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));

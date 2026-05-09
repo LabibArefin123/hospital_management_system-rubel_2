@@ -19,6 +19,7 @@ class LoginController extends Controller
      * Where to redirect users after login.
      */
     protected string $redirectTo = '/dashboard';
+    protected string $redirectTo2 = '/doctor_dashboard';
 
     public function __construct()
     {
@@ -43,45 +44,89 @@ class LoginController extends Controller
         $request->ensureIsNotRateLimited();
 
         $loginInput = $request->input('login');
-        $password   = $request->input('password');
 
-        // Determine if login is email or username
-        $field = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $password = $request->input('password');
 
+        /*
+    |--------------------------------------------------------------------------
+    | LOGIN FIELD
+    |--------------------------------------------------------------------------
+    */
+        $field = filter_var($loginInput, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
+
+        /*
+    |--------------------------------------------------------------------------
+    | FIND USER
+    |--------------------------------------------------------------------------
+    */
         $user = User::where($field, $loginInput)->first();
 
-        // -----------------------------
-        // 2. User Exists Check
-        // -----------------------------
+        /*
+    |--------------------------------------------------------------------------
+    | USER NOT FOUND
+    |--------------------------------------------------------------------------
+    */
         if (!$user) {
+
             return back()->withErrors([
                 'login' => trans('auth.failed'),
             ]);
         }
 
-
-        // -----------------------------
-        // 4. Password check using Hash
-        // -----------------------------
+        /*
+    |--------------------------------------------------------------------------
+    | PASSWORD CHECK
+    |--------------------------------------------------------------------------
+    */
         if (!Hash::check($password, $user->password)) {
+
             return back()->withErrors([
                 'login' => trans('auth.failed'),
             ]);
         }
 
-        // -----------------------------
-        // 5. Manual login
-        // -----------------------------
+        /*
+    |--------------------------------------------------------------------------
+    | LOGIN USER
+    |--------------------------------------------------------------------------
+    */
         Auth::login($user, $request->boolean('remember'));
+
         $request->session()->regenerate();
 
-        // Call authenticated hook
-        $this->authenticated($request, $user);
+        /*
+    |--------------------------------------------------------------------------
+    | SUCCESS MESSAGE
+    |--------------------------------------------------------------------------
+    */
+        session()->flash(
+            'login_success',
+            'Welcome back, ' . Auth::user()->name . '!'
+        );
 
-        return redirect()->intended($this->redirectTo);
-    }
+        /*
+    |--------------------------------------------------------------------------
+    | ROLE BASED REDIRECT
+    |--------------------------------------------------------------------------
+    */
+        if (Auth::user()->role == 'admin') {
 
-   
+            return redirect()->route('dashboard.default');
+        } elseif (Auth::user()->role == 'doctor') {
+
+            return redirect()->route('dashboard.doctor');
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | FALLBACK
+    |--------------------------------------------------------------------------
+    */
+        return redirect()->route('dashboard.default');
+    }   
+
     /**
      * Handle actions after successful login
      */

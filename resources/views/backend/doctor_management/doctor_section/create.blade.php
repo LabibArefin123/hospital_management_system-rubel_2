@@ -37,18 +37,7 @@
                                     <label>Doctor Name</label>
 
                                     <input type="text" name="name" class="form-control"
-                                        placeholder="Enter doctor name" required>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label>Doctor Email</label>
-
-                                    <input type="email" name="email" class="form-control"
-                                        placeholder="Enter doctor name" required>
+                                        placeholder="Enter doctor name">
                                 </div>
 
                             </div>
@@ -59,10 +48,13 @@
                                     <label>Speciality</label>
 
                                     <input type="text" name="speciality" class="form-control"
-                                        placeholder="Cardiology, Neurology..." required>
+                                        placeholder="Cardiology, Neurology...">
                                 </div>
 
                             </div>
+
+
+
 
                         </div>
 
@@ -167,6 +159,29 @@
 
                             <textarea name="about" rows="5" class="form-control" placeholder="Write doctor profile..."></textarea>
 
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Doctor Email</label>
+
+                                    <input type="email" name="email" class="form-control" placeholder="Enter email">
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Doctor Username</label>
+
+                                    <input type="text" name="username" class="form-control" placeholder="Enter username">
+                                </div>
+
+                            </div>
                         </div>
 
                         <div class="form-group">

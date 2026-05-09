@@ -264,14 +264,22 @@ return [
     |
     */
 
-    'use_route_url' => false,
-    'dashboard_url' => 'dashboard',
+    'use_route_url' => true,
+
+    'dashboard_url' => 'dashboard.default',
+
     'logout_url' => 'logout',
+
     'login_url' => 'login',
+
     'register_url' => 'register',
-    'password_reset_url' => 'password/reset',
-    'password_email_url' => 'password/email',
-    'profile_url' => true,
+
+    'password_reset_url' => 'password.request',
+
+    'password_email_url' => 'password.email',
+
+    'profile_url' => 'user_profile_show',
+
     'disable_darkmode_routes' => false,
 
     /*
@@ -326,7 +334,15 @@ return [
 
         [
             'text' => 'Dashboard',
-            'route' => 'dashboard',
+            'route' => 'dashboard.default',
+            'can' => 'dashboard.default',
+            'icon' => 'fas fa-home',
+            'icon_color' => 'success',
+        ],
+        [
+            'text' => 'Doctor Dashboard',
+            'route' => 'dashboard.doctor',
+            'can' => 'dashboard.doctor',
             'icon' => 'fas fa-home',
             'icon_color' => 'success',
         ],

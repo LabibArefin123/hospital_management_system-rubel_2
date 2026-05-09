@@ -12,13 +12,20 @@
         <div class="mb-4">
 
             <h2 class="font-weight-bold">
-                Welcome to {{ $doctor->name }} Dashboard
+                Welcome {{ $doctor->name }}
             </h2>
 
             <p class="text-muted mb-0">
-                {{ $doctor->title ?? 'System Developer' }}
-            </p>
 
+                @if ($doctor->role == 'admin')
+                    Administrator Dashboard
+                @elseif($doctor->role == 'doctor')
+                    {{ $doctor->speciality ?? 'Doctor Panel' }}
+                @else
+                    User Dashboard
+                @endif
+
+            </p>
         </div>
 
         {{-- =======================================================

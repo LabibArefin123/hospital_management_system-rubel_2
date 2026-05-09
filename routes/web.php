@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
@@ -15,70 +17,251 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SystemUserController;
 use App\Http\Controllers\RoleController;
 
+/*
+|--------------------------------------------------------------------------
+| FRONTEND ROUTES
+|--------------------------------------------------------------------------
+*/
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+Route::get('/', [FrontendController::class, 'index'])
+    ->name('welcome');
 
-Route::get('/', [FrontendController::class, 'index'])->name('welcome');
-Route::get('/our-doctors', [FrontendController::class, 'doctor'])->name('doctor');
-Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])->name('doctor.show');
-Route::post('/appointment-store', [FrontendController::class, 'appointment_store'])->name('appointment.store')->middleware('auth');
+/*
+|--------------------------------------------------------------------------
+| DOCTOR PAGES
+|--------------------------------------------------------------------------
+*/
 
-Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])->name('payment.page')->middleware('auth');
-Route::post('/payment-store', [FrontendController::class, 'payment_store'])->name('payment.store')->middleware('auth');;
-Route::get('/service', [FrontendController::class, 'service'])->name('service');
-Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
-Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');
-Route::get('/contact-us', [FrontendController::class, 'contact'])->name('contact');
+Route::get('/our-doctors', [FrontendController::class, 'doctor'])
+    ->name('doctor');
 
-Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
+Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])
+    ->name('doctor.show');
+
+/*
+|--------------------------------------------------------------------------
+| SERVICES
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/service', [FrontendController::class, 'service'])
+    ->name('service');
+
+Route::get('/service/{id}', [FrontendController::class, 'service_show'])
+    ->name('service.show');
+
+/*
+|--------------------------------------------------------------------------
+| APPOINTMENTS
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/our-appointments', [FrontendController::class, 'appointment'])
+    ->name('appointment');
+
+Route::post('/appointment-store', [FrontendController::class, 'appointment_store'])
+    ->middleware('auth')
+    ->name('appointment.store');
+
+/*
+|--------------------------------------------------------------------------
+| PAYMENT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])
+    ->middleware('auth')
+    ->name('payment.page');
+
+Route::post('/payment-store', [FrontendController::class, 'payment_store'])
+    ->middleware('auth')
+    ->name('payment.store');
+
+/*
+|--------------------------------------------------------------------------
+| CONTACT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/contact-us', [FrontendController::class, 'contact'])
+    ->name('contact');
+
+/*
+|--------------------------------------------------------------------------
+| GOOGLE LOGIN
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/auth/google', [GoogleController::class, 'redirect'])
+    ->name('google.login');
+
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
-Route::post('/logout-user', [GoogleController::class, 'logout'])->name('user.logout');
 
-Route::get('/my-profile', function () {
-    return view('frontend.profile');
-})->middleware('auth')->name('frontend.profile');
+Route::post('/logout-user', [GoogleController::class, 'logout'])
+    ->name('user.logout');
+
+/*
+|--------------------------------------------------------------------------
+| FRONTEND PROFILE
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/my-profile', function () {
+
+        return view('frontend.profile');
+    })->name('frontend.profile');
+});
+
+/*
+|--------------------------------------------------------------------------
+| AUTH ROUTES
+|--------------------------------------------------------------------------
+*/
 
 require __DIR__ . '/auth.php';
+
 Route::middleware('guest')->group(function () {
+
     Route::get('/login', [LoginController::class, 'showLoginForm'])
         ->name('login');
 
     Route::post('/login', [LoginController::class, 'login']);
 });
 
+/*
+|--------------------------------------------------------------------------
+| LOGOUT
+|--------------------------------------------------------------------------
+*/
+
 Route::post('/logout', function () {
+
     Auth::logout();
+
     request()->session()->invalidate();
+
     request()->session()->regenerateToken();
 
     return redirect('/');
 })->name('logout');
 
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATED ROUTES
+|--------------------------------------------------------------------------
+*/
 
-Route::group(['middleware' => 'auth'], function () {
-    // Profile Routes
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/global-search', [DashboardController::class, 'globalSearch'])->name('global.search');
-    Route::get('/search/result', [DashboardController::class, 'searchResult'])->name('search.result');
+Route::middleware('auth')->group(function () {
 
-    Route::get('/user_profile', [ProfileController::class, 'user_profile_show'])->name('user_profile_show');
-    Route::get('/user_profile_edit', [ProfileController::class, 'user_profile_edit'])->name('user_profile_edit');
-    Route::put('/user_profile_edit', [ProfileController::class, 'user_profile_update'])->name('user_profile_update');
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/dashboard', [DashboardController::class, 'default_dashboard'])
+        ->name('dashboard.default');
+
+    Route::get('/doctor-dashboard', [DashboardController::class, 'doctor_dashboard'])
+        ->name('dashboard.doctor');
+
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL SEARCH
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/global-search', [DashboardController::class, 'globalSearch'])
+        ->name('global.search');
+
+    Route::get('/search/result', [DashboardController::class, 'searchResult'])
+        ->name('search.result');
+
+    /*
+    |--------------------------------------------------------------------------
+    | USER PROFILE
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/user_profile_show', [ProfileController::class, 'user_profile_show'])
+        ->name('user_profile_show');
+
+    Route::get('/user_profile_edit', [ProfileController::class, 'user_profile_edit'])
+        ->name('user_profile_edit');
+
+    Route::put('/user_profile_edit', [ProfileController::class, 'user_profile_update'])
+        ->name('user_profile_update');
+
+    /*
+    |--------------------------------------------------------------------------
+    | DOCTORS
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource('doctors', DoctorController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | DOCTOR SCHEDULES
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource('doctor-schedules', DoctorScheduleController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | SERVICES
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource('services', ServiceController::class);
-    Route::get( 'appointments/cancel/{id}', [AppointmentController::class, 'appointment_cancel'])->name('appointments.cancel');
+
+    /*
+    |--------------------------------------------------------------------------
+    | APPOINTMENTS
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get(
+        'appointments/cancel/{id}',
+        [AppointmentController::class, 'appointment_cancel']
+    )->name('appointments.cancel');
+
     Route::resource('appointments', AppointmentController::class);
 
+    /*
+    |--------------------------------------------------------------------------
+    | ROLE MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
 
-    //Setting Management
     Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
-    Route::post('/permissions/delete-selected', [PermissionController::class, 'deleteSelected'])->name('permissions.deleteSelected');
-    Route::resource('system_users', SystemUserController::class);
-    Route::post('/system-users/{user}/change-password', [SystemUserController::class, 'updatePassword'])->name('system_users.password.update');
-   
-});
 
+    /*
+    |--------------------------------------------------------------------------
+    | PERMISSION MANAGEMENT
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('permissions', PermissionController::class);
+
+    Route::post(
+        '/permissions/delete-selected',
+        [PermissionController::class, 'deleteSelected']
+    )->name('permissions.deleteSelected');
+
+    /*
+    |--------------------------------------------------------------------------
+    | SYSTEM USERS
+    |--------------------------------------------------------------------------
+    */
+
+    Route::resource('system_users', SystemUserController::class);
+
+    Route::post(
+        '/system-users/{user}/change-password',
+        [SystemUserController::class, 'updatePassword']
+    )->name('system_users.password.update');
+});
