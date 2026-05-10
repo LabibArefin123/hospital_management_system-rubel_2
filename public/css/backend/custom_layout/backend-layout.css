@@ -52,7 +52,7 @@ body {
 body.sidebar-mini.layout-fixed .wrapper .content-wrapper,
 body.sidebar-mini.layout-fixed .wrapper .main-footer,
 body.sidebar-mini.layout-fixed .wrapper .main-header {
-    transition: margin-left .3s ease-in-out;
+    transition: margin-left 0.3s ease-in-out;
 }
 
 /* SIDEBAR OPEN */
@@ -74,7 +74,6 @@ body.sidebar-collapse .main-footer {
 /* MOBILE */
 
 @media (max-width: 991.98px) {
-
     .content-wrapper,
     .main-header,
     .main-footer {
