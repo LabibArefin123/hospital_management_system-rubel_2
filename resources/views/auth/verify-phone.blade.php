@@ -1,31 +1,57 @@
-@extends('layouts.app')
+@extends('auth.layouts.auth-layout')
 
-@section('content')
-<div class="container">
-    <h3 class="text-center mb-4">Phone Verification</h3>
-    <p class="text-center">Enter the 6-digit code sent to your phone number.</p>
+@section('auth_content')
+    <div class="login-header">
 
-    @if(session('message'))
-        <div class="alert alert-info">{{ session('message') }}</div>
+        <div class="login-badge">
+            <i class="fas fa-mobile-alt"></i>
+            Phone Verification
+        </div>
+
+        <h2>Verify Your Phone</h2>
+
+        <p>
+            Enter the 6-digit verification code sent to your phone.
+        </p>
+
+    </div>
+
+    @if (session('message'))
+        <div class="alert alert-info mb-4">
+            {{ session('message') }}
+        </div>
     @endif
 
     <form method="POST" action="{{ route('register.verifyPhone') }}">
+
         @csrf
-        <div class="form-floating mb-3">
-            <input id="verification_code" type="text"
-                class="form-control @error('verification_code') is-invalid @enderror"
-                name="verification_code" required autofocus maxlength="6" pattern="\d{6}">
-            <label for="verification_code">Verification Code</label>
+
+        <div class="input-group-custom">
+
+            <label>Verification Code</label>
+
+            <div class="input-wrapper">
+
+                <i class="fas fa-key"></i>
+
+                <input type="text" name="verification_code" maxlength="6" pattern="\d{6}"
+                    placeholder="Enter verification code" required>
+
+            </div>
+
             @error('verification_code')
-                <div class="invalid-feedback">{{ $message }}</div>
+                <small class="error-text">
+                    {{ $message }}
+                </small>
             @enderror
+
         </div>
 
-        <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
-                Verify & Complete Registration
-            </button>
-        </div>
+        <button type="submit" class="login-btn">
+
+            Verify & Continue
+
+        </button>
+
     </form>
-</div>
 @endsection

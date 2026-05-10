@@ -1,0 +1,27 @@
+.login-container {
+    position: relative;
+    z-index: 5;
+    width: 95%;
+    max-width: 1400px;
+    min-height: 760px;
+    margin: auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 40px 0;
+    gap: 0;
+}
+
+.brand-side,
+.login-side {
+    width: 50%;
+    display: flex;
+}
+
+.brand-side {
+    padding-right: 0;
+}
+
+.login-side {
+    padding-left: 0;
+}

@@ -1,0 +1,31 @@
+.brand-content,
+.login-card {
+    width: 100%;
+    border-radius: 30px;
+    backdrop-filter: blur(18px);
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.brand-content {
+    background: linear-gradient(
+        135deg,
+        rgba(13, 110, 253, 0.92),
+        rgba(0, 180, 216, 0.88)
+    );
+
+    padding: 60px;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

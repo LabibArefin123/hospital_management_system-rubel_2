@@ -1,25 +1,58 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@extends('auth.layouts.auth-layout')
+
+@section('auth_content')
+
+<div class="login-header">
+
+    <div class="login-badge">
+        <i class="fas fa-key"></i>
+        Password Recovery
     </div>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <h2>Forgot Password?</h2>
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+    <p>
+        Enter your email address and we'll send you
+        a secure password reset link.
+    </p>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+</div>
+
+<x-auth-session-status class="alert alert-success mb-4" :status="session('status')" />
+
+<form method="POST" action="{{ route('password.email') }}">
+
+    @csrf
+
+    <div class="input-group-custom">
+
+        <label>Email Address</label>
+
+        <div class="input-wrapper">
+
+            <i class="fas fa-envelope"></i>
+
+            <input type="email"
+                name="email"
+                value="{{ old('email') }}"
+                placeholder="Enter your email address"
+                required
+                autofocus>
+
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        <x-input-error :messages="$errors->get('email')" class="error-text mt-2" />
+
+    </div>
+
+    <button type="submit" class="login-btn">
+
+        <i class="fas fa-paper-plane me-2"></i>
+
+        Send Reset Link
+
+    </button>
+
+</form>
+
+@endsection

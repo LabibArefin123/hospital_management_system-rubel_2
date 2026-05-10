@@ -1,0 +1,58 @@
+@media (max-width: 1200px) {
+    .brand-title {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 992px) {
+    .login-container {
+        flex-direction: column;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .brand-side,
+    .login-side {
+        width: 100%;
+    }
+
+    .brand-content,
+    .login-card {
+        border-radius: 25px;
+    }
+
+    .brand-content {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-title {
+        font-size: 36px;
+    }
+
+    .login-card,
+    .brand-content {
+        padding: 35px;
+    }
+}
+
+@media (max-width: 576px) {
+    .brand-title {
+        font-size: 30px;
+    }
+
+    .login-header h2 {
+        font-size: 30px;
+    }
+
+    .login-options {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+}
