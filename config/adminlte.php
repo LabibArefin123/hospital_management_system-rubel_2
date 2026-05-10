@@ -404,7 +404,7 @@ return [
             'icon' => 'fas fa-credit-card',
             'icon_color' => 'success',
         ],
-        
+
         [
             'text' => 'Contact Management',
             'icon' => 'fas fa-address-book',
@@ -537,6 +537,13 @@ return [
                     'icon' => 'fas fa-key',
                 ],
 
+                [
+                    'text' => 'Newsletter Updates',
+                    'route' => 'newsletters.index',
+                    'can' => 'newsletters.index',
+                    'active' => ['newsletters*'],
+                    'icon' => 'fas fa-users-cog',
+                ],
                 [
                     'text' => 'System Users',
                     'route' => 'system_users.index',

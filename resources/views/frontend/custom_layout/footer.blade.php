@@ -17,7 +17,7 @@
                         </div>
 
                     </div>
-                    
+
                     <p class="footer-description">
                         Your trusted partner in healthcare innovation.
                         We're committed to providing exceptional medical care
@@ -121,11 +121,17 @@
                         and wellness insights delivered to your inbox.
                     </p>
 
-                    <form class="newsletter-form">
+                    <form action="{{ route('newsletter.store') }}" method="POST">
+                        @csrf
 
-                        <input type="email" placeholder="Enter your email">
+                        <input type="email" name="email" class="form-control mb-2" placeholder="Enter your email"
+                            required>
 
-                        <button type="submit">
+                        @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+
+                        <button type="submit" class="btn btn-primary w-100">
                             Subscribe
                         </button>
 

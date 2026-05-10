@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SystemUserController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\RoleController;
 
 /*
@@ -85,8 +86,9 @@ Route::post('/payment-store', [FrontendController::class, 'payment_store'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/contact-us', [FrontendController::class, 'contact']) ->name('contact');
+Route::get('/contact-us', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact-store', [FrontendController::class, 'contact_store'])->name('contact.store');
+Route::post('/newsletter/subscribe', [FrontendController::class, 'newsletter_store'])->name('newsletter.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -163,8 +165,8 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/dashboard', [DashboardController::class, 'default_dashboard']) ->name('dashboard.default');
-    Route::get('/user-dashboard', [DashboardController::class, 'user_dashboard']) ->name('dashboard.user');
+    Route::get('/dashboard', [DashboardController::class, 'default_dashboard'])->name('dashboard.default');
+    Route::get('/user-dashboard', [DashboardController::class, 'user_dashboard'])->name('dashboard.user');
     Route::get('/doctor-dashboard', [DashboardController::class, 'doctor_dashboard'])->name('dashboard.doctor');
 
     /*
@@ -194,43 +196,30 @@ Route::middleware('auth')->group(function () {
     Route::put('/user_profile_edit', [ProfileController::class, 'user_profile_update'])
         ->name('user_profile_update');
 
-    /*
-    |--------------------------------------------------------------------------
-    | DOCTORS
-    |--------------------------------------------------------------------------
-    */
 
+    //Doctor Menu
     Route::resource('doctors', DoctorController::class);
-
-    /*
-    |--------------------------------------------------------------------------
-    | DOCTOR SCHEDULES
-    |--------------------------------------------------------------------------
-    */
-
     Route::resource('doctor-schedules', DoctorScheduleController::class);
-
-    /*
-    |--------------------------------------------------------------------------
-    | SERVICES
-    |--------------------------------------------------------------------------
-    */
-
+    
+    //Service Menu
     Route::resource('services', ServiceController::class);
 
     //Appointment Menu
     Route::get('appointments/cancel/{id}', [AppointmentController::class, 'appointment_cancel'])->name('appointments.cancel');
-    Route::post('appointments/change-status/{id}',[AppointmentController::class, 'appointment_change'])->name('appointments.change');
+    Route::post('appointments/change-status/{id}', [AppointmentController::class, 'appointment_change'])->name('appointments.change');
     Route::resource('appointments', AppointmentController::class);
 
     //Payment Menu
     Route::resource('payments', PaymentController::class);
-    
+
+    //Contact Menu
     Route::resource('contacts', ContactController::class);
 
+    //Setting menu
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
-    Route::post('/permissions/delete-selected',[PermissionController::class, 'deleteSelected'])->name('permissions.deleteSelected');
+    Route::post('/permissions/delete-selected', [PermissionController::class, 'deleteSelected'])->name('permissions.deleteSelected');
     Route::resource('system_users', SystemUserController::class);
-    Route::post( '/system-users/{user}/change-password',[SystemUserController::class, 'updatePassword'])->name('system_users.password.update');
+    Route::post('/system-users/{user}/change-password', [SystemUserController::class, 'updatePassword'])->name('system_users.password.update');
+    Route::resource('newsletters', NewsletterController::class);
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\SystemProblem;
 use Illuminate\Http\Request;
+use App\Models\Newsletter;
 use App\Models\Service;
 use App\Models\Payment;
 use App\Models\Contact;
@@ -286,5 +287,39 @@ class FrontendController extends Controller
             ->firstOrFail();
 
         return view('frontend.payment_page.index', compact('appointment'));
+    }
+
+    public function newsletter_store(Request $request)
+    {
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                'unique:newsletters,email',
+                function ($attribute, $value, $fail) {
+
+                    // must contain @gmail.com OR @yahoo.com OR other valid domain
+                    if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $value)) {
+                        $fail('Invalid email format.');
+                    }
+
+                    // block weird malformed domains like @gmail.co.xx.fake
+                    $parts = explode('@', $value);
+
+                    if (count($parts) !== 2 || strlen($parts[1]) < 5) {
+                        $fail('Invalid email domain.');
+                    }
+                },
+            ],
+        ]);
+
+        $domain = explode('@', $request->email)[1];
+
+        Newsletter::create([
+            'email' => $request->email,
+            'domain' => $domain,
+        ]);
+
+        return back()->with('success', 'Subscribed successfully!');
     }
 }
