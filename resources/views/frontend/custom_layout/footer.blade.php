@@ -124,11 +124,15 @@
                     <form action="{{ route('newsletter.store') }}" method="POST">
                         @csrf
 
-                        <input type="email" name="email" class="form-control mb-2" placeholder="Enter your email"
-                            required>
+                        <input type="email" name="email" value="{{ old('email') }}"
+                            class="form-control mb-2 @error('email') is-invalid @enderror"
+                            placeholder="Enter your email">
 
+                        {{-- ERROR MESSAGE --}}
                         @error('email')
-                            <small class="text-danger">{{ $message }}</small>
+                            <div class="alert alert-danger py-1 px-2 small">
+                                {{ $message }}
+                            </div>
                         @enderror
 
                         <button type="submit" class="btn btn-primary w-100">

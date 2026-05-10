@@ -13,6 +13,8 @@ use App\Models\Doctor;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
 class FrontendController extends Controller
@@ -291,35 +293,62 @@ class FrontendController extends Controller
 
     public function newsletter_store(Request $request)
     {
-        $request->validate([
-            'email' => [
-                'required',
-                'email',
-                'unique:newsletters,email',
-                function ($attribute, $value, $fail) {
+        try {
 
-                    // must contain @gmail.com OR @yahoo.com OR other valid domain
-                    if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $value)) {
-                        $fail('Invalid email format.');
+            $validator = Validator::make($request->all(), [
+                'email' => [
+                    'required',
+                    'email',
+                    'unique:newsletters,email',
+                    function ($attribute, $value, $fail) {
+
+                        if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $value)) {
+                            $fail('Invalid email format.');
+                        }
+
+                        $domain = explode('@', $value)[1] ?? null;
+
+                        if (!$domain || strlen($domain) < 5) {
+                            $fail('Invalid email domain.');
+                        }
                     }
+                ],
+            ]);
 
-                    // block weird malformed domains like @gmail.co.xx.fake
-                    $parts = explode('@', $value);
+            if ($validator->fails()) {
 
-                    if (count($parts) !== 2 || strlen($parts[1]) < 5) {
-                        $fail('Invalid email domain.');
-                    }
-                },
-            ],
-        ]);
+                // 🔴 LOG VALIDATION ERROR
+                Log::warning('Newsletter validation failed', [
+                    'email' => $request->email,
+                    'errors' => $validator->errors()->all(),
+                    'ip' => $request->ip(),
+                ]);
 
-        $domain = explode('@', $request->email)[1];
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
-        Newsletter::create([
-            'email' => $request->email,
-            'domain' => $domain,
-        ]);
+            $email = $request->email;
+            $domain = explode('@', $email)[1];
 
-        return back()->with('success', 'Subscribed successfully!');
+            Newsletter::create([
+                'email' => $email,
+                'domain' => $domain,
+            ]);
+
+            return back()->with('success', 'Subscribed successfully!');
+        } catch (\Exception $e) {
+
+            // 🔴 SYSTEM ERROR LOG
+            Log::error('Newsletter subscription error', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+                'email' => $request->email,
+            ]);
+
+            return back()->with('error', 'Something went wrong. Please try again later.');
+        }
     }
 }

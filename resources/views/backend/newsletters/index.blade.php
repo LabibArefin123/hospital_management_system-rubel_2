@@ -29,7 +29,7 @@
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->domain }}</td>
-                            <td>{{ $item->created_at->format('d M Y') }}</td>
+                            <td>{{ $item->created_at->format('d M Y,  H:i:s A') }}</td>
                             <td>
                                 <a href="{{ route('newsletters.show', $item->id) }}" class="btn btn-sm btn-info">
                                     View
