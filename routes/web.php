@@ -5,13 +5,14 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\GoogleController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\PermissionController;
@@ -221,6 +222,9 @@ Route::middleware('auth')->group(function () {
     Route::get('appointments/cancel/{id}', [AppointmentController::class, 'appointment_cancel'])->name('appointments.cancel');
     Route::post('appointments/change-status/{id}',[AppointmentController::class, 'appointment_change'])->name('appointments.change');
     Route::resource('appointments', AppointmentController::class);
+
+    //Payment Menu
+    Route::resource('payments', PaymentController::class);
     
     Route::resource('contacts', ContactController::class);
 

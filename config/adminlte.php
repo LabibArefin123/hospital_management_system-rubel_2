@@ -396,6 +396,15 @@ return [
                 // ],
             ],
         ],
+
+        [
+            'text' => 'Payment Records',
+            'route' => 'payments.index',
+            'can' => 'payments.index',
+            'icon' => 'fas fa-credit-card',
+            'icon_color' => 'success',
+        ],
+        
         [
             'text' => 'Contact Management',
             'icon' => 'fas fa-address-book',
