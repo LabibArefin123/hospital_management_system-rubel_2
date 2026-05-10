@@ -83,8 +83,8 @@ Route::post('/payment-store', [FrontendController::class, 'payment_store'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/contact-us', [FrontendController::class, 'contact'])
-    ->name('contact');
+Route::get('/contact-us', [FrontendController::class, 'contact']) ->name('contact');
+Route::post('/contact-store', [FrontendController::class, 'contact_store'])->name('contact.store');
 
 /*
 |--------------------------------------------------------------------------

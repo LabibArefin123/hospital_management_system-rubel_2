@@ -7,10 +7,11 @@ use App\Models\SystemProblem;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\Payment;
+use App\Models\Contact;
 use App\Models\Doctor;
-use App\Models\DoctorSchedule;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class FrontendController extends Controller
@@ -72,6 +73,43 @@ class FrontendController extends Controller
     public function contact()
     {
         return view('frontend.contact_page.contact');
+    }
+
+    public function contact_store(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $request->validate([
+                'name' => 'required|string|max:255|unique:contacts,name',
+                'phone' => 'required|string|max:20',
+                'email' => 'nullable|email',
+                'department' => 'nullable|string',
+                'service' => 'nullable|string',
+                'message' => 'nullable|string',
+            ]);
+
+            Contact::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'department' => $request->department,
+                'service' => $request->service,
+                'message' => $request->message,
+            ]);
+
+            DB::commit();
+
+            return back()->with('success', 'Message sent successfully!');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->withErrors(['error' => 'Something went wrong! Please try again.']);
+        }
     }
 
     public function service()

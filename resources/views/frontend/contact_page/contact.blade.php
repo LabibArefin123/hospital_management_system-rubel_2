@@ -23,59 +23,114 @@
                 <div class="contact-form-box">
                     <h4>Send Message</h4>
 
-                    <form id="whatsappForm">
+                    {{-- SUCCESS MESSAGE --}}
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-                        <!-- Row 1 -->
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+
+                        {{-- Row 1 --}}
                         <div class="form-row">
+
                             <div class="form-group col-md-6">
                                 <label>Full Name</label>
-                                <input type="text" id="name" required>
+                                <input type="text" name="name"
+                                    class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+
+                                @error('name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Email</label>
-                                <input type="email" id="email">
+                                <input type="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+
+                                @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
+
                         </div>
 
-                        <!-- Row 2 -->
+                        {{-- Row 2 --}}
                         <div class="form-row">
+
                             <div class="form-group col-md-6">
                                 <label>Phone</label>
-                                <input type="text" id="phone" placeholder="01XXXXXXXXX" required>
+                                <input type="text" name="phone"
+                                    class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}"
+                                    placeholder="01XXXXXXXXX">
+
+                                @error('phone')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>Department</label>
-                                <select id="department">
+                                <select name="department" class="form-control @error('department') is-invalid @enderror">
+
                                     <option value="">Select</option>
-                                    <option>Cardiology</option>
-                                    <option>Dermatology</option>
-                                    <option>Neurology</option>
-                                    <option>Gynecology</option>
+
+                                    <option value="Cardiology" {{ old('department') == 'Cardiology' ? 'selected' : '' }}>
+                                        Cardiology</option>
+                                    <option value="Dermatology" {{ old('department') == 'Dermatology' ? 'selected' : '' }}>
+                                        Dermatology</option>
+                                    <option value="Neurology" {{ old('department') == 'Neurology' ? 'selected' : '' }}>
+                                        Neurology</option>
+                                    <option value="Gynecology" {{ old('department') == 'Gynecology' ? 'selected' : '' }}>
+                                        Gynecology</option>
+
                                 </select>
+
+                                @error('department')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
+
                         </div>
 
-                        <!-- Service -->
+                        {{-- Service --}}
                         <div class="form-group">
                             <label>Service</label>
-                            <select id="service">
+
+                            <select name="service" class="form-control @error('service') is-invalid @enderror">
+
                                 <option value="">Select Service</option>
-                                <option>Consultation</option>
-                                <option>Checkup</option>
-                                <option>Emergency</option>
+
+                                <option value="Consultation" {{ old('service') == 'Consultation' ? 'selected' : '' }}>
+                                    Consultation</option>
+                                <option value="Checkup" {{ old('service') == 'Checkup' ? 'selected' : '' }}>Checkup
+                                </option>
+                                <option value="Emergency" {{ old('service') == 'Emergency' ? 'selected' : '' }}>Emergency
+                                </option>
+
                             </select>
+
+                            @error('service')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
-                        <!-- Message -->
+                        {{-- Message --}}
                         <div class="form-group">
                             <label>Message</label>
-                            <textarea id="message" rows="4"></textarea>
+
+                            <textarea name="message" rows="4" class="form-control @error('message') is-invalid @enderror">{{ old('message') }}</textarea>
+
+                            @error('message')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
-                        <button type="submit" class="btn-whatsapp">
-                            Send via WhatsApp
+                        <button type="submit" class="btn btn-success">
+                            Send Message
                         </button>
 
                     </form>
