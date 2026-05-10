@@ -39,7 +39,7 @@ public function default_dashboard()
             ->get();
 
         // ALL APPOINTMENTS GRID
-        $appointments = Appointment::with(['doctor'])
+        $appointments = Appointment::with(['doctor', 'service'])
             ->latest()
             ->paginate(8);
 

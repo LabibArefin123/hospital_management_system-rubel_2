@@ -52,6 +52,7 @@ class LoginController extends Controller
     | LOGIN FIELD
     |--------------------------------------------------------------------------
     */
+
         $field = filter_var($loginInput, FILTER_VALIDATE_EMAIL)
             ? 'email'
             : 'username';
@@ -61,6 +62,7 @@ class LoginController extends Controller
     | FIND USER
     |--------------------------------------------------------------------------
     */
+
         $user = User::where($field, $loginInput)->first();
 
         /*
@@ -68,6 +70,7 @@ class LoginController extends Controller
     | USER NOT FOUND
     |--------------------------------------------------------------------------
     */
+
         if (!$user) {
 
             return back()->withErrors([
@@ -80,6 +83,7 @@ class LoginController extends Controller
     | PASSWORD CHECK
     |--------------------------------------------------------------------------
     */
+
         if (!Hash::check($password, $user->password)) {
 
             return back()->withErrors([
@@ -92,6 +96,7 @@ class LoginController extends Controller
     | LOGIN USER
     |--------------------------------------------------------------------------
     */
+
         Auth::login($user, $request->boolean('remember'));
 
         $request->session()->regenerate();
@@ -101,6 +106,7 @@ class LoginController extends Controller
     | SUCCESS MESSAGE
     |--------------------------------------------------------------------------
     */
+
         session()->flash(
             'login_success',
             'Welcome back, ' . Auth::user()->name . '!'
@@ -111,10 +117,13 @@ class LoginController extends Controller
     | ROLE BASED REDIRECT
     |--------------------------------------------------------------------------
     */
-        if (Auth::user()->role == 'admin') {
+
+        if (Auth::user()->hasRole('admin')) {
 
             return redirect()->route('dashboard.default');
-        } elseif (Auth::user()->role == 'doctor') {
+        }
+
+        if (Auth::user()->hasRole('doctor')) {
 
             return redirect()->route('dashboard.doctor');
         }
@@ -124,8 +133,9 @@ class LoginController extends Controller
     | FALLBACK
     |--------------------------------------------------------------------------
     */
-        return redirect()->route('dashboard.default');
-    }   
+
+        return redirect('/');
+    }
 
     /**
      * Handle actions after successful login

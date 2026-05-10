@@ -79,4 +79,72 @@ class AppointmentController extends Controller
             ->back()
             ->with('success', 'Appointment Cancelled Successfully');
     }
+
+    public function appointment_change(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+
+        /*
+    |--------------------------------------------------------------------------
+    | ROLE CHECK
+    |--------------------------------------------------------------------------
+    */
+
+        if (
+            !auth()->user()->hasRole('admin') &&
+            !auth()->user()->hasRole('doctor')
+        ) {
+
+            abort(403);
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | DOCTOR SECURITY
+    |--------------------------------------------------------------------------
+    */
+
+        if (auth()->user()->hasRole('doctor')) {
+
+            $doctorProfile = Doctor::where(
+                'email',
+                auth()->user()->email
+            )->first();
+
+            if (!$doctorProfile) {
+
+                abort(403);
+            }
+
+            if ($appointment->doctor_id != $doctorProfile->id) {
+
+                abort(403);
+            }
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | VALIDATION
+    |--------------------------------------------------------------------------
+    */
+
+        $request->validate([
+            'status' => 'required|in:pending,confirmed,cancelled',
+        ]);
+
+        /*
+    |--------------------------------------------------------------------------
+    | UPDATE
+    |--------------------------------------------------------------------------
+    */
+
+        $appointment->status = $request->status;
+
+        $appointment->save();
+
+        return back()->with(
+            'success',
+            'Appointment status updated successfully.'
+        );
+    }
 }

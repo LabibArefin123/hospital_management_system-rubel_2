@@ -84,14 +84,8 @@
     @stack('js')
     @yield('js')
 
-    <script>
-        document.body.dataset.globalSearchUrl =
-            "{{ route('global.search') }}";
-    </script>
-
     <script src="{{ asset('js/custom_backend/app.js') }}"></script>
     <script src="{{ asset('js/custom_backend/logout.js') }}"></script>
-    <script src="{{ asset('js/custom_backend/search.js') }}"></script>
     <script src="{{ asset('js/custom_backend/data-table.js') }}"></script>
     <script src="{{ asset('js/custom_backend/alerts.js') }}"></script>
 

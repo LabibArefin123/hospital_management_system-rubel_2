@@ -224,10 +224,8 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get(
-        'appointments/cancel/{id}',
-        [AppointmentController::class, 'appointment_cancel']
-    )->name('appointments.cancel');
+    Route::get('appointments/cancel/{id}', [AppointmentController::class, 'appointment_cancel'])->name('appointments.cancel');
+    Route::post('appointments/change-status/{id}',[AppointmentController::class, 'appointment_change'])->name('appointments.change');
 
     Route::resource('appointments', AppointmentController::class);
 

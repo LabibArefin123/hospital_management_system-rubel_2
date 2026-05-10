@@ -107,185 +107,188 @@
 
         </div>
 
-        {{-- =======================================================
-        LATEST + TOTAL
-    ======================================================== --}}
         <div class="row">
 
-            {{-- LATEST --}}
-            <div class="col-lg-12">
+            {{-- =======================================================
+        APPOINTMENT GROUPING
+    ======================================================== --}}
+            @php
 
-                <div class="card card-outline card-success">
+                $doctorAppointments = $appointments->filter(function ($appointment) {
+                    return $appointment->doctor;
+                });
 
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            Latest Appointments
-                        </h3>
-                    </div>
+                $serviceAppointments = $appointments->filter(function ($appointment) {
+                    return $appointment->service && !$appointment->doctor;
+                });
 
-                    <div class="card-body p-0">
+            @endphp
 
-                        <table class="table table-hover">
+            {{-- =======================================================
+        DOCTOR CONSULTATIONS
+    ======================================================== --}}
+            @if ($doctorAppointments->count())
 
-                            <thead>
-                                <tr>
-                                    <th>Patient</th>
-                                    <th>Doctor</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
+                <div class="col-12 mb-4">
 
-                            <tbody>
+                    <div class="d-flex align-items-center justify-content-between">
 
-                                @forelse($latestAppointments as $appointment)
-                                    <tr>
+                        <h4 class="font-weight-bold text-primary mb-0">
+                            Doctor Consultations
+                        </h4>
 
-                                        <td>
-                                            {{ $appointment->name }}
-                                        </td>
-
-                                        <td>
-                                            {{ $appointment->doctor->name ?? 'N/A' }}
-                                        </td>
-
-                                        <td>
-                                            {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}
-                                        </td>
-
-                                        <td>
-
-                                            @if ($appointment->status == 'confirmed')
-                                                <span class="badge badge-success">
-                                                    Confirmed
-                                                </span>
-                                            @elseif($appointment->status == 'cancelled')
-                                                <span class="badge badge-danger">
-                                                    Cancelled
-                                                </span>
-                                            @else
-                                                <span class="badge badge-warning">
-                                                    Pending
-                                                </span>
-                                            @endif
-
-                                        </td>
-
-                                    </tr>
-
-                                @empty
-
-                                    <tr>
-                                        <td colspan="4" class="text-center">
-                                            No appointments found
-                                        </td>
-                                    </tr>
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
+                        <span class="badge badge-primary px-3 py-2">
+                            {{ $doctorAppointments->count() }} Appointments
+                        </span>
 
                     </div>
+
+                    <hr>
 
                 </div>
 
-            </div>
-        </div>
+                @foreach ($doctorAppointments as $appointment)
+                    <div class="col-lg-3 col-md-6">
 
-        {{-- =======================================================
-        APPOINTMENT GRID
-    ======================================================== --}}
-        <div class="row">
+                        <div class="card shadow-sm border-0 h-100">
 
-            @forelse($appointments as $appointment)
-                <div class="col-lg-3 col-md-6">
+                            <div class="card-body">
 
-                    <div class="card shadow-sm border-0">
+                                {{-- TOP INFO --}}
+                                <div class="d-flex justify-content-between align-items-start mb-3">
 
-                        <div class="card-body">
+                                    <div>
 
-                            {{-- PATIENT --}}
-                            <h5 class="font-weight-bold mb-2">
-                                {{ $appointment->name }}
-                            </h5>
+                                        {{-- PATIENT --}}
+                                        <h5 class="font-weight-bold mb-1">
+                                            {{ $appointment->name }}
+                                        </h5>
 
-                            {{-- AGE + GENDER --}}
-                            <p class="mb-1 text-muted">
-                                {{ $appointment->age }} Years,
-                                {{ ucfirst($appointment->gender) }}
-                            </p>
+                                        {{-- AGE + GENDER --}}
+                                        <p class="mb-0 text-muted">
+                                            {{ $appointment->age }} Years,
+                                            {{ ucfirst($appointment->gender) }}
+                                        </p>
 
-                            {{-- DOCTOR --}}
-                            <p class="mb-1">
-                                <strong>Doctor:</strong>
-                                {{ $appointment->doctor->name ?? 'N/A' }}
-                            </p>
+                                    </div>
 
-                            {{-- SERVICE --}}
-                            <p class="mb-2">
-                                <strong>Field:</strong>
-                                {{ $appointment->doctor->speciality ?? 'N/A' }}
-                            </p>
+                                    {{-- DOCTOR IMAGE --}}
+                                    <div>
 
-                            {{-- DATE + TIME --}}
-                            <div class="d-flex justify-content-between mb-2">
+                                        @if ($appointment->doctor->image)
+                                            <img src="{{ asset($appointment->doctor->image) }}"
+                                                alt="{{ $appointment->doctor->name }}" class="shadow-sm"
+                                                style="
+                                            width: 70px;
+                                            height: 70px;
+                                            border-radius: 50%;
+                                            object-fit: cover;
+                                            border: 3px solid #0d6efd;
+                                        ">
+                                        @else
+                                            <img src="{{ asset('images/default-doctor.png') }}" alt="Doctor"
+                                                class="shadow-sm"
+                                                style="
+                                            width: 70px;
+                                            height: 70px;
+                                            border-radius: 50%;
+                                            object-fit: cover;
+                                            border: 3px solid #0d6efd;
+                                        ">
+                                        @endif
 
-                                <span>
-                                    {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}
-                                </span>
-
-                                <span>
-                                    {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
-                                </span>
-
-                            </div>
-
-                            {{-- AMOUNT --}}
-                            <h5 class="text-success font-weight-bold mb-3">
-                                ৳{{ number_format($appointment->amount, 2) }}
-                            </h5>
-
-                            {{-- STATUS --}}
-                            <div class="d-flex align-items-center justify-content-between">
-
-                                {{-- BADGE --}}
-                                <div>
-
-                                    @if ($appointment->status == 'confirmed')
-                                        <span class="badge badge-success px-3 py-2">
-                                            Confirmed
-                                        </span>
-                                    @elseif($appointment->status == 'cancelled')
-                                        <span class="badge badge-danger px-3 py-2">
-                                            Cancelled
-                                        </span>
-                                    @else
-                                        <span class="badge badge-warning px-3 py-2">
-                                            Pending
-                                        </span>
-                                    @endif
+                                    </div>
 
                                 </div>
 
-                                {{-- STATUS SELECT --}}
-                                <div>
+                                {{-- DOCTOR --}}
+                                <p class="mb-1">
 
-                                    <select class="form-control form-control-sm">
+                                    <strong>
+                                        Doctor:
+                                    </strong>
 
-                                        <option {{ $appointment->status == 'pending' ? 'selected' : '' }}>
-                                            pending
-                                        </option>
+                                    {{ $appointment->doctor->name }}
 
-                                        <option {{ $appointment->status == 'confirmed' ? 'selected' : '' }}>
-                                            confirmed
-                                        </option>
+                                </p>
 
-                                        <option {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>
-                                            cancelled
-                                        </option>
+                                {{-- SPECIALITY --}}
+                                <p class="mb-2">
 
-                                    </select>
+                                    <strong>
+                                        Speciality:
+                                    </strong>
+
+                                    {{ $appointment->doctor->speciality ?? 'N/A' }}
+
+                                </p>
+
+                                {{-- DATE + TIME --}}
+                                <div class="d-flex justify-content-between mb-3">
+
+                                    <span>
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}
+                                    </span>
+
+                                    <span>
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
+                                    </span>
+
+                                </div>
+
+                                {{-- AMOUNT --}}
+                                <h5 class="text-success font-weight-bold mb-3">
+
+                                    ৳{{ number_format($appointment->amount, 2) }}
+
+                                </h5>
+
+                                {{-- STATUS --}}
+                                <div class="d-flex align-items-center justify-content-between">
+
+                                    {{-- BADGE --}}
+                                    <div>
+
+                                        @if ($appointment->status == 'confirmed')
+                                            <span class="badge badge-success px-3 py-2">
+                                                Confirmed
+                                            </span>
+                                        @elseif($appointment->status == 'cancelled')
+                                            <span class="badge badge-danger px-3 py-2">
+                                                Cancelled
+                                            </span>
+                                        @else
+                                            <span class="badge badge-warning px-3 py-2">
+                                                Pending
+                                            </span>
+                                        @endif
+
+                                    </div>
+
+                                    {{-- STATUS SELECT --}}
+                                    <div>
+
+                                        <select class="form-control form-control-sm appointment-status"
+                                            data-id="{{ $appointment->id }}" data-current="{{ $appointment->status }}">
+
+                                            <option value="pending"
+                                                {{ $appointment->status == 'pending' ? 'selected' : '' }}>
+                                                Pending
+                                            </option>
+
+                                            <option value="confirmed"
+                                                {{ $appointment->status == 'confirmed' ? 'selected' : '' }}>
+                                                Confirmed
+                                            </option>
+
+                                            <option value="cancelled"
+                                                {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>
+                                                Cancelled
+                                            </option>
+
+                                        </select>
+
+                                    </div>
 
                                 </div>
 
@@ -294,22 +297,231 @@
                         </div>
 
                     </div>
+                @endforeach
 
-                </div>
+            @endif
 
-            @empty
+            {{-- =======================================================
+        SERVICE BOOKINGS
+    ======================================================== --}}
+            @if ($serviceAppointments->count())
 
-                <div class="col-12">
+                <div class="col-12 mt-5 mb-4">
 
-                    <div class="alert alert-warning">
-                        No appointments found.
+                    <div class="d-flex align-items-center justify-content-between">
+
+                        <h4 class="font-weight-bold text-success mb-0">
+                            Service Bookings
+                        </h4>
+
+                        <span class="badge badge-success px-3 py-2">
+                            {{ $serviceAppointments->count() }} Bookings
+                        </span>
+
                     </div>
 
+                    <hr>
+
                 </div>
-            @endforelse
+
+                @foreach ($serviceAppointments as $appointment)
+                    <div class="col-lg-3 col-md-6">
+
+                        <div class="card shadow-sm border-0 border-success h-100">
+
+                            <div class="card-body">
+
+                                {{-- TOP INFO --}}
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+
+                                    <div>
+
+                                        {{-- PATIENT --}}
+                                        <h5 class="font-weight-bold mb-1">
+                                            {{ $appointment->name }}
+                                        </h5>
+
+                                        {{-- AGE + GENDER --}}
+                                        <p class="mb-0 text-muted">
+                                            {{ $appointment->age }} Years,
+                                            {{ ucfirst($appointment->gender) }}
+                                        </p>
+
+                                    </div>
+
+                                    {{-- SERVICE IMAGE --}}
+                                    <div>
+
+                                        @if ($appointment->service->image)
+                                            <img src="{{ asset($appointment->service->image) }}"
+                                                alt="{{ $appointment->service->title }}" class="shadow-sm"
+                                                style="
+                                            width: 75px;
+                                            height: 75px;
+                                            object-fit: cover;
+                                            border-radius: 12px;
+                                            border: 3px solid #28a745;
+                                        ">
+                                        @else
+                                            <img src="{{ asset('images/default-service.jpg') }}" alt="Service"
+                                                class="shadow-sm"
+                                                style="
+                                            width: 75px;
+                                            height: 75px;
+                                            object-fit: cover;
+                                            border-radius: 12px;
+                                            border: 3px solid #28a745;
+                                        ">
+                                        @endif
+
+                                    </div>
+
+                                </div>
+
+                                {{-- SERVICE --}}
+                                <p class="mb-2">
+
+                                    <strong>
+                                        Service:
+                                    </strong>
+
+                                    {{ $appointment->service->title ?? 'N/A' }}
+
+                                </p>
+
+                                {{-- DATE + TIME --}}
+                                <div class="d-flex justify-content-between mb-3">
+
+                                    <span>
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}
+                                    </span>
+
+                                    <span>
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
+                                    </span>
+
+                                </div>
+
+                                {{-- AMOUNT --}}
+                                <h5 class="text-success font-weight-bold mb-3">
+
+                                    ৳{{ number_format($appointment->amount, 2) }}
+
+                                </h5>
+
+                                {{-- STATUS --}}
+                                <div class="d-flex align-items-center justify-content-between">
+
+                                    {{-- BADGE --}}
+                                    <div>
+
+                                        @if ($appointment->status == 'confirmed')
+                                            <span class="badge badge-success px-3 py-2">
+                                                Confirmed
+                                            </span>
+                                        @elseif($appointment->status == 'cancelled')
+                                            <span class="badge badge-danger px-3 py-2">
+                                                Cancelled
+                                            </span>
+                                        @else
+                                            <span class="badge badge-warning px-3 py-2">
+                                                Pending
+                                            </span>
+                                        @endif
+
+                                    </div>
+
+                                    {{-- STATUS SELECT --}}
+                                    <div>
+
+                                        <select class="form-control form-control-sm appointment-status"
+                                            data-id="{{ $appointment->id }}" data-current="{{ $appointment->status }}">
+
+                                            <option value="pending"
+                                                {{ $appointment->status == 'pending' ? 'selected' : '' }}>
+                                                Pending
+                                            </option>
+
+                                            <option value="confirmed"
+                                                {{ $appointment->status == 'confirmed' ? 'selected' : '' }}>
+                                                Confirmed
+                                            </option>
+
+                                            <option value="cancelled"
+                                                {{ $appointment->status == 'cancelled' ? 'selected' : '' }}>
+                                                Cancelled
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                @endforeach
+
+            @endif
 
         </div>
 
+        {{-- status change modal --}}
+        <div class="modal fade" id="statusChangeModal" tabindex="-1" role="dialog">
+
+            <div class="modal-dialog modal-dialog-centered">
+
+                <div class="modal-content border-0 shadow">
+
+                    <div class="modal-header bg-primary">
+
+                        <h5 class="modal-title">
+                            Confirm Status Change
+                        </h5>
+
+                        <button type="button" class="close text-white" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body text-center">
+
+                        <h5 id="statusChangeText">
+                            Do you want to change status?
+                        </h5>
+
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            No
+                        </button>
+
+                        <form id="statusChangeForm" method="POST">
+
+                            @csrf
+
+                            <input type="hidden" name="status" id="selectedStatus">
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-check"></i>
+                                Yes
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
         {{-- PAGINATION --}}
         <div class="mt-4 d-flex justify-content-center">
 
@@ -318,5 +530,72 @@
         </div>
 
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
+            let selectedAppointmentId = null;
+
+            document.querySelectorAll('.appointment-status')
+                .forEach(function(select) {
+
+                    select.addEventListener('change', function() {
+
+                        const appointmentId = this.dataset.id;
+
+                        const selectedStatus = this.value;
+
+                        const currentStatus = this.dataset.current;
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | MODAL TEXT
+                        |--------------------------------------------------------------------------
+                        */
+
+                        document.getElementById('statusChangeText')
+                            .innerText =
+                            `Do you want to change status to "${selectedStatus}" ?`;
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | FORM ACTION
+                        |--------------------------------------------------------------------------
+                        */
+
+                        document.getElementById('statusChangeForm')
+                            .action =
+                            `/appointments/change-status/${appointmentId}`;
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | STATUS VALUE
+                        |--------------------------------------------------------------------------
+                        */
+
+                        document.getElementById('selectedStatus')
+                            .value = selectedStatus;
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | SHOW MODAL
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $('#statusChangeModal').modal('show');
+
+                        /*
+                        |--------------------------------------------------------------------------
+                        | RESET ON CANCEL
+                        |--------------------------------------------------------------------------
+                        */
+
+                        $('#statusChangeModal').on('hidden.bs.modal', function() {
+
+                            select.value = currentStatus;
+                        });
+                    });
+                });
+
+        });
+    </script>
 @endsection
