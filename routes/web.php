@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\DoctorScheduleController;
 use App\Http\Controllers\ServiceController;
@@ -216,48 +217,16 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('services', ServiceController::class);
 
-    /*
-    |--------------------------------------------------------------------------
-    | APPOINTMENTS
-    |--------------------------------------------------------------------------
-    */
-
+    //Appointment Menu
     Route::get('appointments/cancel/{id}', [AppointmentController::class, 'appointment_cancel'])->name('appointments.cancel');
     Route::post('appointments/change-status/{id}',[AppointmentController::class, 'appointment_change'])->name('appointments.change');
-
     Route::resource('appointments', AppointmentController::class);
-
-    /*
-    |--------------------------------------------------------------------------
-    | ROLE MANAGEMENT
-    |--------------------------------------------------------------------------
-    */
+    
+    Route::resource('contacts', ContactController::class);
 
     Route::resource('roles', RoleController::class);
-
-    /*
-    |--------------------------------------------------------------------------
-    | PERMISSION MANAGEMENT
-    |--------------------------------------------------------------------------
-    */
-
     Route::resource('permissions', PermissionController::class);
-
-    Route::post(
-        '/permissions/delete-selected',
-        [PermissionController::class, 'deleteSelected']
-    )->name('permissions.deleteSelected');
-
-    /*
-    |--------------------------------------------------------------------------
-    | SYSTEM USERS
-    |--------------------------------------------------------------------------
-    */
-
+    Route::post('/permissions/delete-selected',[PermissionController::class, 'deleteSelected'])->name('permissions.deleteSelected');
     Route::resource('system_users', SystemUserController::class);
-
-    Route::post(
-        '/system-users/{user}/change-password',
-        [SystemUserController::class, 'updatePassword']
-    )->name('system_users.password.update');
+    Route::post( '/system-users/{user}/change-password',[SystemUserController::class, 'updatePassword'])->name('system_users.password.update');
 });

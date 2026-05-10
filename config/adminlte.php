@@ -154,8 +154,8 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => true,
+    'layout_fixed_navbar' => false,
+    'layout_fixed_footer' => false,
     'layout_dark_mode' => null,
 
     /*
@@ -326,38 +326,39 @@ return [
             'topnav_right' => true,
         ],
 
-        /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
 
+        /* =========================================================
+| ADMIN DASHBOARD
+========================================================= */
         [
-            'text' => 'Dashboard',
+            'text' => 'Admin Panel',
             'route' => 'dashboard.default',
             'can' => 'dashboard.default',
-            'icon' => 'fas fa-home',
-            'icon_color' => 'success',
-        ],
-        [
-            'text' => 'Doctor Dashboard',
-            'route' => 'dashboard.doctor',
-            'can' => 'dashboard.doctor',
-            'icon' => 'fas fa-home',
-            'icon_color' => 'success',
-        ],
-        [
-            'text' => 'User Dashboard',
-            'route' => 'dashboard.user',
-            'icon' => 'fas fa-home',
-            'icon_color' => 'success',
+            'icon' => 'fas fa-chart-line',
+            'icon_color' => 'primary',
         ],
 
-        /*
-    |--------------------------------------------------------------------------
-    | APPOINTMENT MANAGEMENT
-    |--------------------------------------------------------------------------
-    */
+        /* =========================================================
+| DOCTOR DASHBOARD
+========================================================= */
+        [
+            'text' => 'Doctor Workspace',
+            'route' => 'dashboard.doctor',
+            'can' => 'dashboard.doctor',
+            'icon' => 'fas fa-user-md',
+            'icon_color' => 'info',
+        ],
+
+        /* =========================================================
+| PATIENT / USER DASHBOARD
+========================================================= */
+        [
+            'text' => 'Patient Portal',
+            'route' => 'dashboard.user',
+            'icon' => 'fas fa-user-circle',
+            'icon_color' => 'success',
+        ],
+        /*Appointment Menu*/
 
         [
             'text' => 'Appointment Management',
@@ -395,7 +396,22 @@ return [
                 // ],
             ],
         ],
+        [
+            'text' => 'Contact Management',
+            'icon' => 'fas fa-address-book',
+            'icon_color' => 'primary',
 
+            'submenu' => [
+
+                [
+                    'text' => 'All Contacts',
+                    'route' => 'contacts.index',
+                    'can' => 'contacts.index',
+                    'icon' => 'fas fa-list-ul',
+                ],
+
+            ],
+        ],
         /*
     |--------------------------------------------------------------------------
     | DOCTOR MANAGEMENT

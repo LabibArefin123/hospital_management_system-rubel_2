@@ -2,7 +2,7 @@
    FILE: backend-layout.css
 ========================================================= */
 
-/* RESET */
+/* ================= RESET ================= */
 
 html,
 body {
@@ -14,32 +14,28 @@ body {
     background-color: #f4f6f9 !important;
 }
 
-/* WRAPPER */
+/* ================= WRAPPER ================= */
 
 .wrapper {
     min-height: 100vh;
     width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
     background-color: #f4f6f9 !important;
 }
 
-/* CONTENT WRAPPER */
+/* ================= CONTENT WRAPPER ================= */
 
 .content-wrapper {
     background-color: #f4f6f9 !important;
-    min-height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    min-height: 100vh;
 }
 
-/* PAGE CONTENT */
+/* ================= PAGE CONTENT ================= */
 
 .content {
     padding: 20px !important;
 }
 
-/* CONTAINER */
+/* ================= CONTAINER ================= */
 
 .container-fluid {
     width: 100%;
@@ -47,31 +43,16 @@ body {
     padding-right: 15px !important;
 }
 
-/* REMOVE WHITE GAP */
+/* ================= REMOVE MANUAL SIDEBAR MARGIN ================= */
+/* AdminLTE handles this automatically */
 
-body.sidebar-mini.layout-fixed .wrapper .content-wrapper,
-body.sidebar-mini.layout-fixed .wrapper .main-footer,
-body.sidebar-mini.layout-fixed .wrapper .main-header {
+.content-wrapper,
+.main-header,
+.main-footer {
     transition: margin-left 0.3s ease-in-out;
 }
 
-/* SIDEBAR OPEN */
-
-body:not(.sidebar-collapse) .content-wrapper,
-body:not(.sidebar-collapse) .main-header,
-body:not(.sidebar-collapse) .main-footer {
-    margin-left: 250px !important;
-}
-
-/* SIDEBAR COLLAPSED */
-
-body.sidebar-collapse .content-wrapper,
-body.sidebar-collapse .main-header,
-body.sidebar-collapse .main-footer {
-    margin-left: 4.6rem !important;
-}
-
-/* MOBILE */
+/* ================= MOBILE ================= */
 
 @media (max-width: 991.98px) {
     .content-wrapper,
@@ -81,42 +62,48 @@ body.sidebar-collapse .main-footer {
     }
 }
 
-/* CARD */
+/* ================= CARD ================= */
 
 .card {
     border-radius: 12px;
     overflow: hidden;
+    border: 0 !important;
 }
 
 .card-body {
     overflow-x: auto;
 }
 
-/* REMOVE EXTRA GAP */
+/* ================= HEADER ================= */
+
+.main-header {
+    border-bottom: 1px solid #dee2e6;
+    background: #fff;
+}
+
+/* ================= FOOTER ================= */
 
 .main-footer {
     margin-bottom: 0 !important;
     padding-bottom: 12px !important;
+    background: #fff;
 }
 
-.main-header {
-    border-bottom: 1px solid #dee2e6;
-}
-
-/* FIX SIDEBAR HEIGHT */
+/* ================= SIDEBAR ================= */
+/* REMOVE INTERNAL SIDEBAR SCROLL */
 
 .main-sidebar {
-    min-height: 100vh !important;
+    height: 100%;
+    overflow-y: visible !important;
 }
 
-/* FIX BODY */
+/* REMOVE FIXED SIDEBAR BEHAVIOR */
 
 .layout-fixed .main-sidebar {
-    top: 0;
-    bottom: 0;
+    position: fixed;
 }
 
-/* REMOVE HORIZONTAL SCROLL */
+/* ================= REMOVE EXTRA HORIZONTAL SCROLL ================= */
 
 .row {
     margin-left: -7px;
