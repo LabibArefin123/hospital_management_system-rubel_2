@@ -51,32 +51,22 @@
             </ul>
         </div>
 
-        <div class="nav-actions d-flex align-items-center gap-2">
+        @php
+            $user = auth()->user();
 
-            @php
-                $user = auth()->user();
+            // DEFAULT ROUTE
+            $dashboardRoute = 'dashboard.user';
 
-                $dashboardRoute = 'dashboard.user';
-
-                if ($user->role === 'admin') {
-                    $dashboardRoute = 'dashboard.default';
-                } elseif ($user->role === 'doctor') {
-                    $dashboardRoute = 'dashboard.doctor';
-                }
-            @endphp
-
-            @php
-                $user = auth()->user();
-
-                // DEFAULT DASHBOARD
-                $dashboardRoute = 'dashboard.user';
-
+            if ($user) {
                 if ($user->hasRole('admin')) {
                     $dashboardRoute = 'dashboard.default';
                 } elseif ($user->hasRole('doctor')) {
                     $dashboardRoute = 'dashboard.doctor';
                 }
-            @endphp
+            }
+        @endphp
+
+        <div class="nav-actions d-flex align-items-center gap-2">
 
             @auth
                 <div class="dropdown">
@@ -84,15 +74,17 @@
                     <button class="btn btn-light border dropdown-toggle d-flex align-items-center gap-2" type="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
 
-                        <span class="fw-bold">
-                            {{ $user->name }}
+                        <i class="fas fa-user-circle"></i>
+
+                        <span class="fw-semibold">
+                            {{ auth()->user()->name }}
                         </span>
 
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2">
 
-                        {{-- ================= FRONTEND ================= --}}
+                        {{-- ================= PUBLIC ================= --}}
                         <li class="px-2 py-1 text-muted small">
                             🌐 Public Area
                         </li>
@@ -138,24 +130,24 @@
                             <form method="POST" action="{{ route('user.logout') }}">
                                 @csrf
                                 <button type="submit" class="dropdown-item text-danger d-flex align-items-center gap-2">
-                                    🚪 Logout
+
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
                                 </button>
                             </form>
                         </li>
 
                     </ul>
-
                 </div>
             @endauth
 
+
             @guest
-                <!-- USER LOGIN (GOOGLE) -->
-                <button class="btn btn-light-outline" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
                     Login
                 </button>
 
-                <!-- DOCTOR PANEL LOGIN -->
-                <a href="{{ route('login') }}" class="btn btn-success-solid">
+                <a href="{{ route('login') }}" class="btn btn-success">
                     Doctor Panel
                 </a>
             @endguest
