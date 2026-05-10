@@ -23,9 +23,9 @@
         </h3>
     </div>
 
-    <div class="card-body table-responsive p-0">
+    <div class="card-body table-responsive">
 
-        <table class="table table-hover text-nowrap align-middle">
+     <table class="table table-striped table-hover align-middle" id="datatables">
             <thead class="bg-light">
                 <tr>
                     <th>#</th>

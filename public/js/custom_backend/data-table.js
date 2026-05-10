@@ -3,7 +3,16 @@
 ========================================================= */
 
 $(document).ready(function () {
-    if ($("#dataTables").length) {
-        $("#dataTables").DataTable();
+    if ($("#datatables").length) {
+        $("#datatables").DataTable({
+            responsive: true,
+            autoWidth: false,
+            ordering: true,
+            searching: true,
+            paging: true,
+            info: true,
+            lengthChange: true,
+            pageLength: 10,
+        });
     }
 });

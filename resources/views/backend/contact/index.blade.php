@@ -30,7 +30,7 @@
 
         <div class="card-body table-responsive">
 
-            <table class="table table-bordered table-hover">
+            <table class="table table-striped table-hover align-middle" id="datatables">
 
                 <thead class="bg-light">
 
