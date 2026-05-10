@@ -161,11 +161,9 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/dashboard', [DashboardController::class, 'default_dashboard'])
-        ->name('dashboard.default');
-
-    Route::get('/doctor-dashboard', [DashboardController::class, 'doctor_dashboard'])
-        ->name('dashboard.doctor');
+    Route::get('/dashboard', [DashboardController::class, 'default_dashboard']) ->name('dashboard.default');
+    Route::get('/user-dashboard', [DashboardController::class, 'user_dashboard']) ->name('dashboard.user');
+    Route::get('/doctor-dashboard', [DashboardController::class, 'doctor_dashboard'])->name('dashboard.doctor');
 
     /*
     |--------------------------------------------------------------------------

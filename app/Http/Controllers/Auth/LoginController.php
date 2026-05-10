@@ -134,7 +134,7 @@ class LoginController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        return redirect('/');
+        return redirect()->route('dashboard.user');
     }
 
     /**

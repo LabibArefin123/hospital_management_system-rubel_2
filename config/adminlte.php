@@ -346,6 +346,12 @@ return [
             'icon' => 'fas fa-home',
             'icon_color' => 'success',
         ],
+        [
+            'text' => 'User Dashboard',
+            'route' => 'dashboard.user',
+            'icon' => 'fas fa-home',
+            'icon_color' => 'success',
+        ],
 
         /*
     |--------------------------------------------------------------------------
