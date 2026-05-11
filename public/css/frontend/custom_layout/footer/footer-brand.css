@@ -1,5 +1,15 @@
 /* =========================================================
-   FILE: footer-brand.css
+   FOOTER BRAND SECTION
+========================================================= */
+
+.footer-brand {
+    border-radius: 28px;
+    padding: 0px;
+    backdrop-filter: blur(12px);
+}
+
+/* =========================================================
+   LOGO WRAPPER
 ========================================================= */
 
 .footer-logo-wrap {
@@ -10,46 +20,77 @@
 }
 
 /* =========================================================
-   FOOTER LOGO IMAGE
+   LOGO BOX
 ========================================================= */
 
-.footer-brand-logo {
-    /* FIX HUGE IMAGE ISSUE */
-    width: 200px;
-    height: 200px;
+/* =========================================================
+   LOGO BOX
+========================================================= */
 
-    /* KEEP IMAGE CLEAN */
-    object-fit: contain;
+.footer-logo-box {
+    width: 220px;
+    height: 120px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    overflow: hidden;
 
-    /* REMOVE EXTRA BG */
-    background: transparent;
-    padding: 0;
-    box-shadow: none;
-    border-radius: 0;
-
-    /* PREVENT IMAGE OVERFLOW */
-    max-width: 100%;
-    display: block;
     flex-shrink: 0;
 
     transition: 0.3s ease;
 }
 
-.footer-brand-logo:hover {
+.footer-logo-box:hover {
     transform: translateY(-3px);
 }
 
 /* =========================================================
-   BRAND TEXT
+   LOGO IMAGE
 ========================================================= */
 
-.footer-brand .footer-logo-text {
+.footer-brand-logo {
+    width: 200px;
+    height: auto;
+
+    object-fit: contain;
+
+    display: block;
+
+    transition: 0.3s ease;
+}
+
+.footer-logo-box:hover .footer-brand-logo {
+    transform: scale(1.03);
+}
+
+/* =========================================================
+   LOGO IMAGE
+========================================================= */
+
+.footer-brand-logo {
+    width: 300px;
+    height: 75px;
+    object-fit: contain;
+    transition: 0.3s ease;
+}
+
+.footer-logo-box:hover .footer-brand-logo {
+    transform: scale(1.05);
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.footer-logo-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.footer-brand .footer-logo-text h4 {
+.footer-logo-text h4 {
     margin: 0;
     font-size: 30px;
     font-weight: 800;
@@ -57,40 +98,49 @@
     line-height: 1.1;
 }
 
-.footer-brand .footer-logo-text span {
-    margin-top: 5px;
+.footer-logo-text span {
+    margin-top: 6px;
     font-size: 14px;
-    color: #047857;
+    color: #059669;
     letter-spacing: 0.3px;
 }
 
-.footer-brand .footer-description {
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.footer-description {
     font-size: 15px;
     line-height: 1.9;
     color: #065f46;
-    margin-bottom: 30px;
-    max-width: 540px;
+    margin-bottom: 28px;
 }
 
 /* =========================================================
-   MOBILE RESPONSIVE
+   MOBILE
 ========================================================= */
 
 @media (max-width: 768px) {
-    .footer-logo-wrap {
-        gap: 14px;
+    .footer-brand {
+        padding: 24px;
+    }
+
+    .footer-logo-box {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
     }
 
     .footer-brand-logo {
-        width: 65px;
-        height: 65px;
+        width: 56px;
+        height: 56px;
     }
 
-    .footer-brand .footer-logo-text h4 {
+    .footer-logo-text h4 {
         font-size: 24px;
     }
 
-    .footer-brand .footer-logo-text span {
-        font-size: 13px;
+    .footer-logo-text span {
+        font-size: 12px;
     }
 }

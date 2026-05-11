@@ -9,7 +9,10 @@
                 <div class="footer-brand">
                     <div class="footer-logo-wrap">
 
-                        <img src="{{ asset('uploads/images/original_logor.JPG') }}" alt="SusthoCare Logo" class="footer-brand-logo">
+                        <div class="footer-logo-box">
+                            <img src="{{ asset('uploads/images/original_logor.JPG') }}" alt="SusthoCare Logo"
+                                class="footer-brand-logo">
+                        </div>
                     </div>
 
                     <p class="footer-description">
@@ -17,26 +20,6 @@
                         We're committed to providing exceptional medical care
                         with cutting-edge technology and compassionate service.
                     </p>
-
-                    <div class="footer-contact">
-
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <span>+880 1234-567890</span>
-                        </div>
-
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>support@susthocare.com</span>
-                        </div>
-
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Dhaka, Bangladesh</span>
-                        </div>
-
-                    </div>
-
                 </div>
 
             </div>
