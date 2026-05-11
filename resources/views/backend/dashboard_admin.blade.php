@@ -17,10 +17,14 @@
 
             <p class="text-muted mb-0">
 
-                @if ($doctor->role == 'admin')
+                @if ($doctor->hasRole('admin'))
                     Administrator Dashboard
-                @elseif($doctor->role == 'doctor')
+                @elseif($doctor->hasRole('doctor'))
                     {{ $doctor->speciality ?? 'Doctor Panel' }}
+                {{-- @elseif($doctor->hasRole('staff'))
+                    Staff Dashboard
+                @elseif($doctor->hasRole('patient'))
+                    Patient Dashboard --}}
                 @else
                     User Dashboard
                 @endif
