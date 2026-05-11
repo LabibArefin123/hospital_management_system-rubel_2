@@ -14,7 +14,7 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
 
-public function default_dashboard()
+    public function default_dashboard()
     {
         $doctor = Auth::user();
 
@@ -44,7 +44,7 @@ public function default_dashboard()
             ->latest()
             ->paginate(8);
 
-        return view('backend.dashboard', compact(
+        return view('backend.dashboard_admin', compact(
             'doctor',
             'totalAppointments',
             'totalEarnings',

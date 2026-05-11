@@ -8,8 +8,10 @@
                 Doctor Consultations
             </h4>
 
-            <span class="badge badge-primary px-3 py-2">
+            <span class="badge badge-primary px-3 py-2" id="doctorAppointmentCount">
+
                 {{ $doctorAppointments->count() }} Appointments
+
             </span>
 
         </div>
@@ -19,7 +21,13 @@
     </div>
 
     @foreach ($doctorAppointments as $appointment)
-        <div class="col-lg-3 col-md-6 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4 appointment-card" data-type="doctor"
+            data-status="{{ strtolower($appointment->status) }}"
+            data-search="
+        {{ strtolower($appointment->name) }}
+        {{ strtolower($appointment->doctor->name ?? '') }}
+        {{ strtolower($appointment->doctor->speciality ?? '') }}
+    ">
 
             <div class="card shadow-sm border-0 h-100 rounded-lg">
 
