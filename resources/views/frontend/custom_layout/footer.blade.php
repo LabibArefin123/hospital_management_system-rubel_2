@@ -9,13 +9,7 @@
                 <div class="footer-brand">
                     <div class="footer-logo-wrap">
 
-                        <img src="{{ asset('uploads/images/logo2.png') }}" alt="SusthoCare Logo" class="footer-brand-logo">
-
-                        <div class="footer-logo-text">
-                            <h4>SusthoCare</h4>
-                            <span>Healthcare Solutions</span>
-                        </div>
-
+                        <img src="{{ asset('uploads/images/original_logor.JPG') }}" alt="SusthoCare Logo" class="footer-brand-logo">
                     </div>
 
                     <p class="footer-description">

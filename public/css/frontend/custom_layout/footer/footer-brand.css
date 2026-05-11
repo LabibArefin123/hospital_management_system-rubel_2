@@ -15,8 +15,8 @@
 
 .footer-brand-logo {
     /* FIX HUGE IMAGE ISSUE */
-    width: 85px;
-    height: 85px;
+    width: 200px;
+    height: 200px;
 
     /* KEEP IMAGE CLEAN */
     object-fit: contain;

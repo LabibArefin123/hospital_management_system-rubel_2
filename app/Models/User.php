@@ -23,17 +23,24 @@ class User extends Authenticatable
         'profile_picture',
         'google_id',
         'avatar',
+        'verification_code',
+        'verification_code_expires_at',
+        'phone_verified_at',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'verification_code',
     ];
 
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
+            'phone_verified_at' => 'datetime',
+            'verification_code_expires_at' => 'datetime',
+            'password' => 'hashed',
         ];
     }
 

@@ -35,33 +35,14 @@ Route::get('/', [FrontendController::class, 'index'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/our-doctors', [FrontendController::class, 'doctor'])
-    ->name('doctor');
+Route::get('/our-doctors', [FrontendController::class, 'doctor'])->name('doctor');
+Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])->name('doctor.show');
 
-Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])
-    ->name('doctor.show');
+Route::get('/service', [FrontendController::class, 'service'])->name('service');
+Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
 
-/*
-|--------------------------------------------------------------------------
-| SERVICES
-|--------------------------------------------------------------------------
-*/
 
-Route::get('/service', [FrontendController::class, 'service'])
-    ->name('service');
-
-Route::get('/service/{id}', [FrontendController::class, 'service_show'])
-    ->name('service.show');
-
-/*
-|--------------------------------------------------------------------------
-| APPOINTMENTS
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/our-appointments', [FrontendController::class, 'appointment'])
-    ->name('appointment');
-
+Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');
 Route::post('/appointment-store', [FrontendController::class, 'appointment_store'])
     ->middleware('auth')
     ->name('appointment.store');

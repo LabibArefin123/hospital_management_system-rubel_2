@@ -2,11 +2,8 @@
     <div class="container">
 
         <a class="navbar-brand d-flex align-items-center" href="{{ route('welcome') }}">
-            <img src="{{ asset('uploads/images/logo2.png') }}" class="brand-logo">
-            <div class="ms-2 brand-text">
-                <h6 class="mb-0">SusthoCare</h6>
-                <small>Digital Healthcare</small>
-            </div>
+            <img src="{{ asset('uploads/images/original_logor.JPG') }}" class="brand-logo">
+           
         </a>
 
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
