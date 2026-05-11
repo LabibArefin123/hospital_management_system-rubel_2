@@ -10,26 +10,38 @@
         HEADER
     ======================================================== --}}
         <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div>
 
-            <h2 class="font-weight-bold">
-                Welcome {{ $doctor->name }}
-            </h2>
+                    <h2 class="font-weight-bold">
+                        Welcome {{ $doctor->name }}
+                    </h2>
 
-            <p class="text-muted mb-0">
+                    <p class="text-muted mb-0">
 
-                @if ($doctor->hasRole('admin'))
-                    Administrator Dashboard
-                @elseif($doctor->hasRole('doctor'))
-                    {{ $doctor->speciality ?? 'Doctor Panel' }}
-                {{-- @elseif($doctor->hasRole('staff'))
-                    Staff Dashboard
-                @elseif($doctor->hasRole('patient'))
-                    Patient Dashboard --}}
-                @else
-                    User Dashboard
-                @endif
+                        @if ($doctor->hasRole('admin'))
+                            Administrator Dashboard
+                        @elseif($doctor->hasRole('doctor'))
+                            {{ $doctor->speciality ?? 'Doctor Panel' }}
+                            {{-- @elseif($doctor->hasRole('staff'))
+                                    Staff Dashboard
+                                @elseif($doctor->hasRole('patient'))
+                                    Patient Dashboard --}}
+                        @else
+                            User Dashboard
+                        @endif
 
-            </p>
+                    </p>
+                </div>
+
+                <div class="mt-2 mt-md-0">
+
+                    <span class="badge badge-info px-4 py-2">
+                        Admin Dashboard
+                    </span>
+
+                </div>
+            </div>
         </div>
 
         {{-- Card Box section --}}
@@ -67,6 +79,6 @@
         </div>
 
     </div>
-     <script src="{{ asset('js/custom_backend/dashboard_page/admin/appointment_status.js') }}"></script>
-     <script src="{{ asset('js/custom_backend/dashboard_page/admin/filter.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/dashboard_page/admin/appointment_status.js') }}"></script>
+    <script src="{{ asset('js/custom_backend/dashboard_page/admin/filter.js') }}"></script>
 @endsection
