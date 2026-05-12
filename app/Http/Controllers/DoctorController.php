@@ -42,7 +42,11 @@ class DoctorController extends Controller
 
             'name'               => 'required|string|max:255',
 
+            'username'           => 'required|string|max:255|unique:users,username',
+
             'email'              => 'required|email|unique:users,email',
+
+            'password'           => 'nullable|string|min:6',
 
             'speciality'         => 'required|string|max:255',
 
@@ -68,31 +72,11 @@ class DoctorController extends Controller
 
         /*
     |--------------------------------------------------------------------------
-    | CREATE USER ACCOUNT
-    |--------------------------------------------------------------------------
-    */
-
-        $user = User::create([
-
-            'name'      => $request->name,
-
-            'email'     => $request->email,
-
-            'password'  => Hash::make('Admin123'),
-
-            'role'      => 'doctor',
-
-        ]);
-
-        /*
-    |--------------------------------------------------------------------------
-    | CREATE DOCTOR
+    | CREATE DOCTOR FIRST
     |--------------------------------------------------------------------------
     */
 
         $doctor = new Doctor();
-
-        $doctor->user_id            = $user->id;
 
         $doctor->name               = $request->name;
 
@@ -139,16 +123,65 @@ class DoctorController extends Controller
             $doctor->image = 'uploads/images/doctor/' . $imageName;
         }
 
+        /*
+    |--------------------------------------------------------------------------
+    | SAVE DOCTOR
+    |--------------------------------------------------------------------------
+    */
+
         $doctor->save();
+
+        /*
+|--------------------------------------------------------------------------
+| CREATE USER ACCOUNT
+|--------------------------------------------------------------------------
+*/
+
+        $user = User::create([
+
+            'name'      => $request->name,
+
+            'username'  => $request->username,
+
+            'email'     => $request->email,
+
+            'password'  => Hash::make(
+                $request->password ?? 'Admin123'
+            ),
+
+        ]);
+
+        /*
+|--------------------------------------------------------------------------
+| ASSIGN SPATIE ROLE
+|--------------------------------------------------------------------------
+*/
+
+        $user->assignRole('doctor');
+        /*
+    |--------------------------------------------------------------------------
+    | UPDATE DOCTOR USER ID
+    |--------------------------------------------------------------------------
+    */
+
+        $doctor->user_id = $user->id;
+
+        $doctor->save();
+
+        /*
+    |--------------------------------------------------------------------------
+    | REDIRECT
+    |--------------------------------------------------------------------------
+    */
 
         return redirect()
             ->route('doctors.index')
             ->with(
                 'success',
-                'Doctor Added Successfully. Default Password: Admin123'
+                'Doctor Added Successfully. Login Password: ' .
+                    ($request->password ?? 'Admin123')
             );
     }
-
     /**
      * Show doctor details
      */
@@ -182,39 +215,92 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::findOrFail($id);
 
+        /*
+    |--------------------------------------------------------------------------
+    | FIND USER
+    |--------------------------------------------------------------------------
+    */
+
+        $user = User::find($doctor->user_id);
+
+        /*
+    |--------------------------------------------------------------------------
+    | VALIDATION
+    |--------------------------------------------------------------------------
+    */
+
         $request->validate([
+
             'name'               => 'required|string|max:255',
+
+            'username'           => 'required|string|max:255|unique:users,username,' . $user->id,
+
+            'email'              => 'required|email|unique:users,email,' . $user->id,
+
+            'password'           => 'nullable|string|min:6',
+
             'speciality'         => 'required|string|max:255',
+
             'image'              => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
             'success_rate'       => 'nullable|numeric',
+
             'experience_years'   => 'nullable|numeric',
+
             'total_patients'     => 'nullable|string',
+
             'qualification'      => 'nullable|string|max:255',
+
             'location'           => 'nullable|string|max:255',
+
             'consultation_fee'   => 'nullable|numeric',
+
             'availability'       => 'nullable|string|max:255',
+
             'about'              => 'nullable|string',
+
         ]);
 
+        /*
+    |--------------------------------------------------------------------------
+    | UPDATE DOCTOR
+    |--------------------------------------------------------------------------
+    */
+
         $doctor->name               = $request->name;
+
         $doctor->speciality         = $request->speciality;
+
         $doctor->success_rate       = $request->success_rate;
+
         $doctor->experience_years   = $request->experience_years;
+
         $doctor->total_patients     = $request->total_patients;
+
         $doctor->qualification      = $request->qualification;
+
         $doctor->location           = $request->location;
+
         $doctor->consultation_fee   = $request->consultation_fee;
+
         $doctor->availability       = $request->availability;
+
         $doctor->about              = $request->about;
 
         /*
-        |--------------------------------------------------------------------------
-        | Update Image
-        |--------------------------------------------------------------------------
-        */
+    |--------------------------------------------------------------------------
+    | UPDATE IMAGE
+    |--------------------------------------------------------------------------
+    */
+
         if ($request->hasFile('image')) {
 
-            // Delete old image
+            /*
+        |--------------------------------------------------------------------------
+        | DELETE OLD IMAGE
+        |--------------------------------------------------------------------------
+        */
+
             if (
                 $doctor->image &&
                 File::exists(public_path($doctor->image))
@@ -223,33 +309,97 @@ class DoctorController extends Controller
                 File::delete(public_path($doctor->image));
             }
 
-            $image = $request->file('image');
+            /*
+        |--------------------------------------------------------------------------
+        | CREATE DIRECTORY
+        |--------------------------------------------------------------------------
+        */
 
-            // Create folder if not exists
             $destinationPath = public_path('uploads/images/doctor');
 
             if (!File::exists($destinationPath)) {
+
                 File::makeDirectory($destinationPath, 0777, true, true);
             }
 
-            // Generate image name
+            /*
+        |--------------------------------------------------------------------------
+        | UPLOAD IMAGE
+        |--------------------------------------------------------------------------
+        */
+
+            $image = $request->file('image');
+
             $imageName = time() . '_' . uniqid() . '.' .
                 $image->getClientOriginalExtension();
 
-            // Move image
             $image->move($destinationPath, $imageName);
 
-            // Save image path
             $doctor->image = 'uploads/images/doctor/' . $imageName;
         }
 
+        /*
+    |--------------------------------------------------------------------------
+    | SAVE DOCTOR
+    |--------------------------------------------------------------------------
+    */
+
         $doctor->save();
+
+        /*
+    |--------------------------------------------------------------------------
+    | UPDATE USER ACCOUNT
+    |--------------------------------------------------------------------------
+    */
+
+        if ($user) {
+
+            $user->name       = $request->name;
+
+            $user->username   = $request->username;
+
+            $user->email      = $request->email;
+
+            /*
+        |--------------------------------------------------------------------------
+        | UPDATE PASSWORD IF PROVIDED
+        |--------------------------------------------------------------------------
+        */
+
+            if ($request->filled('password')) {
+
+                $user->password = Hash::make($request->password);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | SAVE USER
+            |--------------------------------------------------------------------------
+            */
+
+            $user->save();
+
+            /*
+            |--------------------------------------------------------------------------
+            | SYNC SPATIE ROLE
+            |--------------------------------------------------------------------------
+            */
+            $user->syncRoles(['doctor']);
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | REDIRECT
+    |--------------------------------------------------------------------------
+    */
 
         return redirect()
             ->route('doctors.index')
-            ->with('success', 'Doctor Updated Successfully');
+            ->with(
+                'success',
+                'Doctor Updated Successfully'
+            );
     }
-
     /**
      * Delete doctor
      */

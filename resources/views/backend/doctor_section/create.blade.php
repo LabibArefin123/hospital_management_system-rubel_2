@@ -163,7 +163,7 @@
 
                         <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <div class="form-group">
                                     <label>Doctor Email</label>
@@ -173,7 +173,7 @@
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <div class="form-group">
                                     <label>Doctor Username</label>
@@ -182,6 +182,18 @@
                                 </div>
 
                             </div>
+
+                            <div class="col-md-4 ">
+                                <label for="password">Password</label>
+                                <div class="input-group">
+                                    <input type="password" name="password" id="password" class="form-control">
+                                    <button type="button" class="btn btn-outline-secondary toggle-password"
+                                        data-target="password">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="form-group">
