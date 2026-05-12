@@ -1,9 +1,11 @@
 <div class="card card-outline card-success">
 
     <div class="card-header">
+
         <h3 class="card-title">
             Latest Appointments
         </h3>
+
     </div>
 
     <div class="card-body p-0">
@@ -11,18 +13,23 @@
         <table class="table table-hover">
 
             <thead>
+
                 <tr>
+
                     <th>Patient</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Status</th>
+
                 </tr>
+
             </thead>
 
             <tbody>
 
                 @forelse($latestAppointments as $appointment)
-                    <tr>
+                    <tr class="appointment-row" data-patient="{{ strtolower($appointment->name) }}"
+                        data-date="{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('Y-m-d') }}">
 
                         <td>
                             {{ $appointment->name }}
@@ -59,9 +66,11 @@
                 @empty
 
                     <tr>
+
                         <td colspan="4" class="text-center">
                             No appointments found
                         </td>
+
                     </tr>
                 @endforelse
 

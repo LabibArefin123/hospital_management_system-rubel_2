@@ -13,6 +13,7 @@
 
             <div class="d-flex justify-content-between align-items-center flex-wrap">
 
+                <!-- LEFT -->
                 <div>
 
                     <h2 class="font-weight-bold mb-1">
@@ -20,17 +21,30 @@
                     </h2>
 
                     <p class="text-muted mb-0">
-
                         {{ $doctor->speciality ?? 'Doctor Panel' }}
-
                     </p>
 
                 </div>
 
-                <div class="mt-2 mt-md-0">
+                <!-- RIGHT -->
+                <div class="mt-2 mt-md-0 d-flex align-items-center gap-2">
 
-                    <span class="badge badge-success px-4 py-2">
+                    <!-- FILTER BUTTON -->
+                    <button class="btn btn-outline-primary rounded-pill px-4" id="toggleFilterBtn" type="button">
+
+                        <i class="fas fa-filter me-2"></i>
+
+                        Filter
+
+                        <i class="fas fa-chevron-down ms-2" id="filterArrow"></i>
+
+                    </button>
+
+                    <!-- DASHBOARD BADGE -->
+                    <span class="badge bg-success px-4 py-2">
+
                         Doctor Dashboard
+
                     </span>
 
                 </div>
@@ -38,11 +52,11 @@
             </div>
 
         </div>
+        {{-- Card Box section --}}
+        @include('backend.dashboard.partials.top_filter')
+        @include('backend.dashboard.partials.card-box')
 
-       {{-- Card Box section --}}
-         @include('backend.dashboard.partials.card-box')
-
-       {{-- Latest Appointment section --}}
+        {{-- Latest Appointment section --}}
         @include('backend.dashboard.partials.latest_appointment')
         <div class="row">
 
@@ -144,4 +158,5 @@
 
         });
     </script>
+    <script src="{{ asset('js/custom_backend/dashboard_page/doctor/filter.js') }}"></script>
 @endsection
