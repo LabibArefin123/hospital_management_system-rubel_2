@@ -29,7 +29,7 @@ class AppointmentController extends Controller
             ->where('type', 'service');
 
         return view(
-            'backend.doctor_management.appointment_section.index',
+            'backend.appointment_section.index',
             compact(
                 'appointments',
                 'doctorAppointments',
@@ -48,7 +48,7 @@ class AppointmentController extends Controller
             ->findOrFail($id);
 
         return view(
-            'backend.doctor_management.appointment_section.show',
+            'backend.appointment_section.show',
             compact('appointment')
         );
     }

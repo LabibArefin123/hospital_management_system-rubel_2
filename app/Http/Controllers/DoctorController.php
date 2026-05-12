@@ -18,7 +18,7 @@ class DoctorController extends Controller
         $doctors = Doctor::latest()->get();
 
         return view(
-            'backend.doctor_management.doctor_section.index',
+            'backend.doctor_section.index',
             compact('doctors')
         );
     }
@@ -29,7 +29,7 @@ class DoctorController extends Controller
     public function create()
     {
         return view(
-            'backend.doctor_management.doctor_section.create'
+            'backend.doctor_section.create'
         );
     }
 
@@ -157,7 +157,7 @@ class DoctorController extends Controller
         $doctor = Doctor::findOrFail($id);
 
         return view(
-            'backend.doctor_management.doctor_section.show',
+            'backend.doctor_section.show',
             compact('doctor')
         );
     }
@@ -170,7 +170,7 @@ class DoctorController extends Controller
         $doctor = Doctor::findOrFail($id);
 
         return view(
-            'backend.doctor_management.doctor_section.edit',
+            'backend.doctor_section.edit',
             compact('doctor')
         );
     }

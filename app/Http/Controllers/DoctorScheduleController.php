@@ -18,7 +18,7 @@ class DoctorScheduleController extends Controller
             ->get();
 
         return view(
-            'backend.doctor_management.schedule_section.index',
+            'backend.schedule_section.index',
             compact('schedules')
         );
     }
@@ -31,7 +31,7 @@ class DoctorScheduleController extends Controller
         $doctors = Doctor::orderBy('name')->get();
 
         return view(
-            'backend.doctor_management.schedule_section.create',
+            'backend.schedule_section.create',
             compact('doctors')
         );
     }
@@ -68,7 +68,7 @@ class DoctorScheduleController extends Controller
             ->findOrFail($id);
 
         return view(
-            'backend.doctor_management.schedule_section.show',
+            'backend.schedule_section.show',
             compact('schedule')
         );
     }
@@ -83,7 +83,7 @@ class DoctorScheduleController extends Controller
         $doctors = Doctor::orderBy('name')->get();
 
         return view(
-            'backend.doctor_management.schedule_section.edit',
+            'backend.schedule_section.edit',
             compact('schedule', 'doctors')
         );
     }
