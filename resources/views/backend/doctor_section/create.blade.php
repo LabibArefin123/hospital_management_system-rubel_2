@@ -3,20 +3,20 @@
 @section('title', 'Create Doctor')
 
 @section('content_header')
-    <h1 class="font-weight-bold text-dark">
-        <i class="fas fa-user-md text-primary"></i>
-        Add New Doctor
-    </h1>
+    <div class="d-flex justify-content-between">
+        <h1>Add New Doctor</h1>
+        <a href="{{ route('doctors.index') }}"
+            class="btn btn-sm btn-warning d-flex align-items-center gap-1 flex-shrink-0 back-btn">
+            <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+    </div>
 @stop
 
 @section('content')
 
     <div class="row justify-content-center">
-
         <div class="col-md-12">
-
             <div class="card shadow border-0">
-
                 <div class="card-header bg-white">
                     <h3 class="card-title font-weight-bold">
                         Doctor Information
@@ -24,9 +24,7 @@
                 </div>
 
                 <form action="{{ route('doctors.store') }}" method="POST" enctype="multipart/form-data">
-
                     @csrf
-
                     <div class="card-body">
 
                         <div class="row">
@@ -43,19 +41,13 @@
                             </div>
 
                             <div class="col-md-6">
-
                                 <div class="form-group">
                                     <label>Speciality</label>
 
                                     <input type="text" name="speciality" class="form-control"
                                         placeholder="Cardiology, Neurology...">
                                 </div>
-
                             </div>
-
-
-
-
                         </div>
 
                         <div class="row">

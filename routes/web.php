@@ -20,39 +20,23 @@ use App\Http\Controllers\SystemUserController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\RoleController;
 
-/*
-|--------------------------------------------------------------------------
-| FRONTEND ROUTES
-|--------------------------------------------------------------------------
-*/
-
+//Welcome Page
 Route::get('/', [FrontendController::class, 'index'])
     ->name('welcome');
 
-/*
-|--------------------------------------------------------------------------
-| DOCTOR PAGES
-|--------------------------------------------------------------------------
-*/
-
+//Important Pages
 Route::get('/our-doctors', [FrontendController::class, 'doctor'])->name('doctor');
 Route::get('/doctor/{id}', [FrontendController::class, 'doctor_show'])->name('doctor.show');
 
 Route::get('/service', [FrontendController::class, 'service'])->name('service');
 Route::get('/service/{id}', [FrontendController::class, 'service_show'])->name('service.show');
 
-
 Route::get('/our-appointments', [FrontendController::class, 'appointment'])->name('appointment');
 Route::post('/appointment-store', [FrontendController::class, 'appointment_store'])
     ->middleware('auth')
     ->name('appointment.store');
 
-/*
-|--------------------------------------------------------------------------
-| PAYMENT
-|--------------------------------------------------------------------------
-*/
-
+//Payment Part (Optional but functional)
 Route::get('/payment/{id}', [FrontendController::class, 'payment_page'])
     ->middleware('auth')
     ->name('payment.page');
@@ -61,22 +45,12 @@ Route::post('/payment-store', [FrontendController::class, 'payment_store'])
     ->middleware('auth')
     ->name('payment.store');
 
-/*
-|--------------------------------------------------------------------------
-| CONTACT
-|--------------------------------------------------------------------------
-*/
-
+//Contact Part
 Route::get('/contact-us', [FrontendController::class, 'contact'])->name('contact');
 Route::post('/contact-store', [FrontendController::class, 'contact_store'])->name('contact.store');
 Route::post('/newsletter/subscribe', [FrontendController::class, 'newsletter_store'])->name('newsletter.store');
 
-/*
-|--------------------------------------------------------------------------
-| GOOGLE LOGIN
-|--------------------------------------------------------------------------
-*/
-
+//Google Login Part
 Route::get('/auth/google', [GoogleController::class, 'redirect'])
     ->name('google.login');
 
@@ -85,12 +59,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 Route::post('/logout-user', [GoogleController::class, 'logout'])
     ->name('user.logout');
 
-/*
-|--------------------------------------------------------------------------
-| FRONTEND PROFILE
-|--------------------------------------------------------------------------
-*/
-
+//Frontend Profile Part
 Route::middleware('auth')->group(function () {
 
     Route::get('/my-profile', function () {
@@ -99,12 +68,7 @@ Route::middleware('auth')->group(function () {
     })->name('frontend.profile');
 });
 
-/*
-|--------------------------------------------------------------------------
-| AUTH ROUTES
-|--------------------------------------------------------------------------
-*/
-
+//Auth Routes
 require __DIR__ . '/auth.php';
 
 Route::middleware('guest')->group(function () {
@@ -115,20 +79,11 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
 });
 
-/*
-|--------------------------------------------------------------------------
-| LOGOUT
-|--------------------------------------------------------------------------
-*/
-
+//Logout Routes
 Route::post('/logout', function () {
-
     Auth::logout();
-
     request()->session()->invalidate();
-
     request()->session()->regenerateToken();
-
     return redirect('/');
 })->name('logout');
 
@@ -138,45 +93,16 @@ Route::post('/logout', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
-
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
-
+Route::group(['middleware' => ['auth', 'permission']], function () {
+    //Dashboard Routes
     Route::get('/dashboard', [DashboardController::class, 'default_dashboard'])->name('dashboard.default');
     Route::get('/user-dashboard', [DashboardController::class, 'user_dashboard'])->name('dashboard.user');
     Route::get('/doctor-dashboard', [DashboardController::class, 'doctor_dashboard'])->name('dashboard.doctor');
 
-    /*
-    |--------------------------------------------------------------------------
-    | GLOBAL SEARCH
-    |--------------------------------------------------------------------------
-    */
-
-    Route::get('/global-search', [DashboardController::class, 'globalSearch'])
-        ->name('global.search');
-
-    Route::get('/search/result', [DashboardController::class, 'searchResult'])
-        ->name('search.result');
-
-    /*
-    |--------------------------------------------------------------------------
-    | USER PROFILE
-    |--------------------------------------------------------------------------
-    */
-
-    Route::get('/user_profile_show', [ProfileController::class, 'user_profile_show'])
-        ->name('user_profile_show');
-
-    Route::get('/user_profile_edit', [ProfileController::class, 'user_profile_edit'])
-        ->name('user_profile_edit');
-
-    Route::put('/user_profile_edit', [ProfileController::class, 'user_profile_update'])
-        ->name('user_profile_update');
-
+    //User Profile Routes
+    Route::get('/user_profile_show', [ProfileController::class, 'user_profile_show'])->name('user_profile_show');
+    Route::get('/user_profile_edit', [ProfileController::class, 'user_profile_edit'])->name('user_profile_edit');
+    Route::put('/user_profile_edit', [ProfileController::class, 'user_profile_update'])->name('user_profile_update');
 
     //Doctor Menu
     Route::resource('doctors', DoctorController::class);
