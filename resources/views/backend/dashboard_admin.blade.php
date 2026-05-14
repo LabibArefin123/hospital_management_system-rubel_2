@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container-fluid">        
+    <div class="container-fluid">
         @include('backend.dashboard.custom_header.admin')
         {{-- Card Box section --}}
         @include('backend.dashboard.custom_filter.admin.top_filter')
@@ -44,5 +44,5 @@
 
     </div>
     <script src="{{ asset('js/custom_backend/dashboard_page/admin/appointment_status.js') }}"></script>
-    <script src="{{ asset('js/custom_backend/dashboard_page/admin/filter.js') }}"></script>
+    <script type="module" src="{{ asset('js/custom_backend/dashboard_page/admin/dashboard-init.js') }}"></script>
 @endsection

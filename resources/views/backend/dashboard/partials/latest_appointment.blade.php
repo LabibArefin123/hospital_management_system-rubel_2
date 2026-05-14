@@ -16,6 +16,7 @@
 
                 <tr>
 
+                    <th>SL</th>
                     <th>Patient</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -29,8 +30,12 @@
 
                 @forelse($latestAppointments as $appointment)
                     <tr class="appointment-row" data-patient="{{ strtolower($appointment->name) }}"
+                        data-status="{{ strtolower($appointment->status) }}"
                         data-date="{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('Y-m-d') }}">
 
+                        <td>
+                            {{ $loop->iteration }}
+                        </td>
                         <td>
                             {{ $appointment->name }}
                         </td>

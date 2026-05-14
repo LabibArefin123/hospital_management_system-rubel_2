@@ -22,6 +22,7 @@
 
       @foreach ($serviceAppointments as $appointment)
           <div class="col-lg-3 col-md-6 mb-4 appointment-card" data-type="service"
+              data-date="{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('Y-m-d') }}"
               data-status="{{ strtolower($appointment->status) }}"
               data-search="
         {{ strtolower($appointment->name) }}
