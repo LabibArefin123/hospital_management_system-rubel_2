@@ -15,7 +15,37 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::latest()->get();
+        /*
+    |--------------------------------------------------------------------------
+    | ADMIN CAN SEE ALL DOCTORS
+    |--------------------------------------------------------------------------
+    */
+
+        if (auth()->user()->hasRole('admin')) {
+
+            $doctors = Doctor::latest()->get();
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | DOCTOR CAN SEE ONLY OWN PROFILE
+    |--------------------------------------------------------------------------
+    */ elseif (auth()->user()->hasRole('doctor')) {
+
+            $doctors = Doctor::where(
+                'user_id',
+                auth()->id()
+            )->latest()->get();
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | OTHER USERS
+    |--------------------------------------------------------------------------
+    */ else {
+
+            $doctors = collect();
+        }
 
         return view(
             'backend.doctor_section.index',
@@ -187,7 +217,36 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        $doctor = Doctor::findOrFail($id);
+        /*
+    |--------------------------------------------------------------------------
+    | ADMIN CAN VIEW ANY DOCTOR
+    |--------------------------------------------------------------------------
+    */
+
+        if (auth()->user()->hasRole('admin')) {
+
+            $doctor = Doctor::findOrFail($id);
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | DOCTOR CAN VIEW ONLY OWN PROFILE
+    |--------------------------------------------------------------------------
+    */ elseif (auth()->user()->hasRole('doctor')) {
+
+            $doctor = Doctor::where('id', $id)
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | OTHER USERS
+    |--------------------------------------------------------------------------
+    */ else {
+
+            abort(403, 'Unauthorized Access');
+        }
 
         return view(
             'backend.doctor_section.show',
