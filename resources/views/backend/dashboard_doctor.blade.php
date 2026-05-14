@@ -5,16 +5,10 @@
 @section('content')
 
     <div class="container-fluid">
-
-        {{-- =======================================================
-            HEADER
-        ======================================================== --}}
-       
         @include('backend.dashboard.custom_header.doctor')
         {{-- Card Box section --}}
-        @include('backend.dashboard.partials.top_filter')
+        @include('backend.dashboard.custom_filter.doctor.top_filter')
         @include('backend.dashboard.partials.card-box')
-
         {{-- Latest Appointment section --}}
         @include('backend.dashboard.partials.latest_appointment')
         <div class="row">

@@ -4,52 +4,16 @@
 
 @section('content')
 
-    <div class="container-fluid">
-
-        {{-- =======================================================
-        HEADER
-    ======================================================== --}}
-        <div class="mb-4">
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <div>
-
-                    <h2 class="font-weight-bold">
-                        Welcome {{ $doctor->name }}
-                    </h2>
-
-                    <p class="text-muted mb-0">
-
-                        @if ($doctor->hasRole('admin'))
-                            Administrator Dashboard
-                        @elseif($doctor->hasRole('doctor'))
-                            {{ $doctor->speciality ?? 'Doctor Panel' }}
-                            {{-- @elseif($doctor->hasRole('staff'))
-                                    Staff Dashboard
-                                @elseif($doctor->hasRole('patient'))
-                                    Patient Dashboard --}}
-                        @else
-                            User Dashboard
-                        @endif
-
-                    </p>
-                </div>
-
-                <div class="mt-2 mt-md-0">
-
-                    <span class="badge badge-info px-4 py-2">
-                        Admin Dashboard
-                    </span>
-
-                </div>
-            </div>
-        </div>
+    <div class="container-fluid">        
+        @include('backend.dashboard.custom_header.admin')
+        {{-- Card Box section --}}
+        @include('backend.dashboard.custom_filter.admin.top_filter')
 
         {{-- Card Box section --}}
         @include('backend.dashboard.partials.card-box')
 
         {{-- Latest Appointment section --}}
         @include('backend.dashboard.partials.latest_appointment')
-        @include('backend.dashboard.partials.filter_section')
         <div class="row">
 
             @php

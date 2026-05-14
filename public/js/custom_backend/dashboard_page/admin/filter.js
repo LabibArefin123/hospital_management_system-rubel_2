@@ -1,9 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
     /*
+    |--------------------------------------------------------------------------
+    | FILTER TOGGLE
+    |--------------------------------------------------------------------------
+    */
+
+    const toggleFilterBtn = document.getElementById("toggleFilterBtn");
+
+    const adminFilterSection = document.getElementById("adminFilterSection");
+
+    const filterArrow = document.getElementById("filterArrow");
+
+    if (toggleFilterBtn && adminFilterSection) {
+        toggleFilterBtn.addEventListener("click", function () {
+            /*
             |--------------------------------------------------------------------------
-            | STATUS CHANGE MODAL
+            | TOGGLE FILTER
             |--------------------------------------------------------------------------
             */
+
+            adminFilterSection.classList.toggle("d-none");
+
+            /*
+            |--------------------------------------------------------------------------
+            | ARROW ROTATION
+            |--------------------------------------------------------------------------
+            */
+
+            if (adminFilterSection.classList.contains("d-none")) {
+                filterArrow.classList.remove("fa-chevron-up");
+
+                filterArrow.classList.add("fa-chevron-down");
+            } else {
+                filterArrow.classList.remove("fa-chevron-down");
+
+                filterArrow.classList.add("fa-chevron-up");
+            }
+        });
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | STATUS CHANGE MODAL
+    |--------------------------------------------------------------------------
+    */
 
     document.querySelectorAll(".appointment-status").forEach(function (select) {
         select.addEventListener("change", function () {
@@ -30,12 +70,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /*
-            |--------------------------------------------------------------------------
-            | LIVE FILTER
-            |--------------------------------------------------------------------------
-            */
+    |--------------------------------------------------------------------------
+    | FILTER ELEMENTS
+    |--------------------------------------------------------------------------
+    */
 
     const searchInput = document.getElementById("dashboardSearch");
+
+    const patientInput = document.getElementById("searchPatient");
+
+    const dateFilter = document.getElementById("appointmentDateFilter");
 
     const typeFilter = document.getElementById("appointmentTypeFilter");
 
@@ -51,8 +95,18 @@ document.addEventListener("DOMContentLoaded", function () {
         "serviceAppointmentCount",
     );
 
+    /*
+    |--------------------------------------------------------------------------
+    | FILTER FUNCTION
+    |--------------------------------------------------------------------------
+    */
+
     function filterAppointments() {
         const search = searchInput.value.toLowerCase();
+
+        const patient = patientInput.value.toLowerCase();
+
+        const date = dateFilter.value;
 
         const type = typeFilter.value.toLowerCase();
 
@@ -63,26 +117,46 @@ document.addEventListener("DOMContentLoaded", function () {
         let visibleServiceCount = 0;
 
         cards.forEach(function (card) {
-            const cardSearch = card.dataset.search;
+            const cardSearch = (card.dataset.search || "").toLowerCase();
 
-            const cardType = card.dataset.type;
+            const cardPatient = (card.dataset.patient || "").toLowerCase();
 
-            const cardStatus = card.dataset.status;
+            const cardDate = card.dataset.date || "";
 
-            let matchSearch = cardSearch.includes(search);
+            const cardType = (card.dataset.type || "").toLowerCase();
 
-            let matchType = type === "" || cardType === type;
+            const cardStatus = (card.dataset.status || "").toLowerCase();
 
-            let matchStatus = status === "" || cardStatus === status;
+            const matchSearch = cardSearch.includes(search);
 
-            if (matchSearch && matchType && matchStatus) {
+            const matchPatient = cardPatient.includes(patient);
+
+            const matchDate = date === "" || cardDate === date;
+
+            const matchType = type === "" || cardType === type;
+
+            const matchStatus = status === "" || cardStatus === status;
+
+            if (
+                matchSearch &&
+                matchPatient &&
+                matchDate &&
+                matchType &&
+                matchStatus
+            ) {
+                /*
+                |--------------------------------------------------------------------------
+                | SHOW CARD
+                |--------------------------------------------------------------------------
+                */
+
                 card.style.display = "block";
 
                 /*
-                        |--------------------------------------------------------------------------
-                        | COUNT UPDATE
-                        |--------------------------------------------------------------------------
-                        */
+                |--------------------------------------------------------------------------
+                | COUNT UPDATE
+                |--------------------------------------------------------------------------
+                */
 
                 if (cardType === "doctor") {
                     visibleDoctorCount++;
@@ -92,37 +166,72 @@ document.addEventListener("DOMContentLoaded", function () {
                     visibleServiceCount++;
                 }
             } else {
+                /*
+                |--------------------------------------------------------------------------
+                | HIDE CARD
+                |--------------------------------------------------------------------------
+                */
+
                 card.style.display = "none";
             }
         });
 
         /*
-                |--------------------------------------------------------------------------
-                | UPDATE BADGES
-                |--------------------------------------------------------------------------
-                */
+        |--------------------------------------------------------------------------
+        | UPDATE BADGES
+        |--------------------------------------------------------------------------
+        */
 
-        doctorCountElement.innerText = `${visibleDoctorCount} Appointments`;
+        if (doctorCountElement) {
+            doctorCountElement.innerText = `${visibleDoctorCount} Appointments`;
+        }
 
-        serviceCountElement.innerText = `${visibleServiceCount} Bookings`;
+        if (serviceCountElement) {
+            serviceCountElement.innerText = `${visibleServiceCount} Bookings`;
+        }
     }
 
-    searchInput.addEventListener("keyup", filterAppointments);
+    /*
+    |--------------------------------------------------------------------------
+    | EVENTS
+    |--------------------------------------------------------------------------
+    */
 
-    typeFilter.addEventListener("change", filterAppointments);
+    if (searchInput) {
+        searchInput.addEventListener("keyup", filterAppointments);
+    }
 
-    statusFilter.addEventListener("change", filterAppointments);
+    if (patientInput) {
+        patientInput.addEventListener("keyup", filterAppointments);
+    }
+
+    if (dateFilter) {
+        dateFilter.addEventListener("change", filterAppointments);
+    }
+
+    if (typeFilter) {
+        typeFilter.addEventListener("change", filterAppointments);
+    }
+
+    if (statusFilter) {
+        statusFilter.addEventListener("change", filterAppointments);
+    }
 
     /*
-            |--------------------------------------------------------------------------
-            | RESET FILTER
-            |--------------------------------------------------------------------------
-            */
+    |--------------------------------------------------------------------------
+    | RESET FILTER
+    |--------------------------------------------------------------------------
+    */
 
-    document
-        .getElementById("resetDashboardFilter")
-        .addEventListener("click", function () {
+    const resetButton = document.getElementById("resetDashboardFilter");
+
+    if (resetButton) {
+        resetButton.addEventListener("click", function () {
             searchInput.value = "";
+
+            patientInput.value = "";
+
+            dateFilter.value = "";
 
             typeFilter.value = "";
 
@@ -130,4 +239,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
             filterAppointments();
         });
+    }
 });

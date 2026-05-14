@@ -272,78 +272,35 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $doctor = Doctor::findOrFail($id);
-
-        /*
-    |--------------------------------------------------------------------------
-    | FIND USER
-    |--------------------------------------------------------------------------
-    */
-
+        $doctor = Doctor::findOrFail($id); 
         $user = User::find($doctor->user_id);
-
-        /*
-    |--------------------------------------------------------------------------
-    | VALIDATION
-    |--------------------------------------------------------------------------
-    */
-
+        // Form Validation 
         $request->validate([
-
             'name'               => 'required|string|max:255',
-
             'username'           => 'required|string|max:255|unique:users,username,' . $user->id,
-
             'email'              => 'required|email|unique:users,email,' . $user->id,
-
             'password'           => 'nullable|string|min:6',
-
             'speciality'         => 'required|string|max:255',
-
             'image'              => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-
             'success_rate'       => 'nullable|numeric',
-
             'experience_years'   => 'nullable|numeric',
-
             'total_patients'     => 'nullable|string',
-
             'qualification'      => 'nullable|string|max:255',
-
             'location'           => 'nullable|string|max:255',
-
             'consultation_fee'   => 'nullable|numeric',
-
             'availability'       => 'nullable|string|max:255',
-
             'about'              => 'nullable|string',
-
         ]);
 
-        /*
-    |--------------------------------------------------------------------------
-    | UPDATE DOCTOR
-    |--------------------------------------------------------------------------
-    */
-
         $doctor->name               = $request->name;
-
         $doctor->speciality         = $request->speciality;
-
         $doctor->success_rate       = $request->success_rate;
-
         $doctor->experience_years   = $request->experience_years;
-
         $doctor->total_patients     = $request->total_patients;
-
         $doctor->qualification      = $request->qualification;
-
         $doctor->location           = $request->location;
-
         $doctor->consultation_fee   = $request->consultation_fee;
-
         $doctor->availability       = $request->availability;
-
         $doctor->about              = $request->about;
 
         /*
@@ -397,26 +354,11 @@ class DoctorController extends Controller
             $doctor->image = 'uploads/images/doctor/' . $imageName;
         }
 
-        /*
-    |--------------------------------------------------------------------------
-    | SAVE DOCTOR
-    |--------------------------------------------------------------------------
-    */
-
         $doctor->save();
-
-        /*
-    |--------------------------------------------------------------------------
-    | UPDATE USER ACCOUNT
-    |--------------------------------------------------------------------------
-    */
-
+        //Update User Account Information
         if ($user) {
-
             $user->name       = $request->name;
-
             $user->username   = $request->username;
-
             $user->email      = $request->email;
 
             /*
