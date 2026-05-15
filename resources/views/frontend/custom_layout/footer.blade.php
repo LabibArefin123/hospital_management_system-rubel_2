@@ -99,21 +99,26 @@
                     </p>
 
                     <form action="{{ route('newsletter.store') }}" method="POST">
+
                         @csrf
 
-                        <input type="email" name="email" value="{{ old('email') }}"
-                            class="form-control mb-2 @error('email') is-invalid @enderror"
+                        <input type="email" name="newsletter_email" value="{{ old('newsletter_email') }}"
+                            class="form-control mb-2 @error('newsletter_email') is-invalid @enderror"
                             placeholder="Enter your email">
 
                         {{-- ERROR MESSAGE --}}
-                        @error('email')
+                        @error('newsletter_email')
                             <div class="alert alert-danger py-1 px-2 small">
+
                                 {{ $message }}
+
                             </div>
                         @enderror
 
                         <button type="submit" class="btn btn-primary w-100">
+
                             Subscribe
+
                         </button>
 
                     </form>

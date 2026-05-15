@@ -145,78 +145,151 @@ class FrontendController extends Controller
     public function appointment_store(Request $request)
     {
         $request->validate([
-            'type' => 'required|in:doctor,service',
-            'name' => 'required|string',
-            'age' => 'required|integer',
-            'phone' => 'required|string',
-            'gender' => 'required',
-            'payment_method' => 'required',
-            'appointment_date' => 'required|date',
-            'appointment_time' => 'required',
-            'email' => 'nullable|email',
+
+            'type'              => 'required|in:doctor,service',
+            'name'              => 'required|string',
+            'age'               => 'required|integer',
+            'phone'             => 'required|string',
+            'gender'            => 'required',
+            'payment_method'    => 'required',
+            'appointment_date'  => 'required|date',
+            'appointment_time'  => 'required',
+
+            // EMAIL REQUIRED ONLY FOR ONLINE PAYMENT
+            'email' => $request->payment_method === 'Online'
+                ? 'required|email'
+                : 'nullable|email',
+
+        ], [
+
+            'email.required' => 'Email is required for online payment.',
+
         ]);
 
-        $status = $request->payment_method === 'Online' ? 'confirmed' : 'pending';
+        DB::beginTransaction();
 
-        /* ================= DOCTOR ================= */
-        if ($request->type === 'doctor') {
+        try {
 
-            $doctor = Doctor::findOrFail($request->doctor_id);
+            $status = $request->payment_method === 'Online'
+                ? 'confirmed'
+                : 'pending';
 
-            // Slot check
-            $slotBooked = Appointment::where('doctor_id', $doctor->id)
-                ->where('appointment_date', $request->appointment_date)
-                ->where('appointment_time', $request->appointment_time)
-                ->exists();
+            /* ================= DOCTOR ================= */
 
-            if ($slotBooked) {
-                return back()->withErrors(['This time slot is already booked.']);
+            if ($request->type === 'doctor') {
+
+                $doctor = Doctor::findOrFail($request->doctor_id);
+
+                /*
+            |--------------------------------------------------------------------------
+            | SLOT CHECK
+            |--------------------------------------------------------------------------
+            */
+
+                $slotBooked = Appointment::where('doctor_id', $doctor->id)
+                    ->where('appointment_date', $request->appointment_date)
+                    ->where('appointment_time', $request->appointment_time)
+                    ->exists();
+
+                if ($slotBooked) {
+
+                    DB::rollBack();
+
+                    return back()
+                        ->withInput()
+                        ->withErrors([
+                            'appointment_time' =>
+                            'This time slot is already booked.'
+                        ]);
+                }
+
+                $appointment = Appointment::create([
+
+                    'user_id'           => Auth::id(),
+                    'type'              => 'doctor',
+                    'doctor_id'         => $doctor->id,
+                    'name'              => $request->name,
+                    'age'               => $request->age,
+                    'phone'             => $request->phone,
+                    'gender'            => $request->gender,
+                    'email'             => $request->email,
+                    'appointment_date'  => $request->appointment_date,
+                    'appointment_time'  => $request->appointment_time,
+                    'payment_method'    => $request->payment_method,
+                    'amount'            => $doctor->consultation_fee,
+                    'status'            => $status,
+
+                ]);
             }
 
-            $appointment = Appointment::create([
-                'user_id' => Auth::id(),
-                'type' => 'doctor',
-                'doctor_id' => $doctor->id,
-                'name' => $request->name,
-                'age' => $request->age,
-                'phone' => $request->phone,
-                'gender' => $request->gender,
-                'email' => $request->email,
-                'appointment_date' => $request->appointment_date,
-                'appointment_time' => $request->appointment_time,
-                'payment_method' => $request->payment_method,
-                'amount' => $doctor->consultation_fee,
-                'status' => $status,
-            ]);
+            /* ================= SERVICE ================= */ elseif ($request->type === 'service') {
+
+                $service = Service::findOrFail($request->service_id);
+
+                $appointment = Appointment::create([
+
+                    'user_id'           => Auth::id(),
+                    'type'              => 'service',
+                    'service_id'        => $service->id,
+                    'name'              => $request->name,
+                    'age'               => $request->age,
+                    'phone'             => $request->phone,
+                    'gender'            => $request->gender,
+                    'email'             => $request->email,
+                    'appointment_date'  => $request->appointment_date,
+                    'appointment_time'  => $request->appointment_time,
+                    'payment_method'    => $request->payment_method,
+                    'amount'            => $service->price,
+                    'status'            => $status,
+
+                ]);
+            }
+
+            /*
+        |--------------------------------------------------------------------------
+        | ONLINE PAYMENT
+        |--------------------------------------------------------------------------
+        */
+
+            if ($request->payment_method === 'Online') {
+
+                // IF EMAIL EMPTY => ROLLBACK
+                if (!$request->email) {
+
+                    DB::rollBack();
+
+                    return back()
+                        ->withInput()
+                        ->withErrors([
+                            'email' =>
+                            'Email is required for online payment.'
+                        ]);
+                }
+
+                DB::commit();
+
+                return redirect()->route(
+                    'payment.page',
+                    $appointment->id
+                );
+            }
+
+            DB::commit();
+
+            return back()->with(
+                'success',
+                'Appointment booked successfully'
+            );
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'error' => $e->getMessage()
+                ]);
         }
-
-        /* ================= SERVICE ================= */ elseif ($request->type === 'service') {
-
-            $service = Service::findOrFail($request->service_id);
-
-            $appointment = Appointment::create([
-                'user_id' => Auth::id(),
-                'type' => 'service',
-                'service_id' => $service->id,
-                'name' => $request->name,
-                'age' => $request->age,
-                'phone' => $request->phone,
-                'gender' => $request->gender,
-                'email' => $request->email,
-                'appointment_date' => $request->appointment_date,
-                'appointment_time' => $request->appointment_time,
-                'payment_method' => $request->payment_method,
-                'amount' => $service->price,
-                'status' => $status,
-            ]);
-        }
-
-        /* ================= PAYMENT ================= */
-        if ($request->payment_method === 'Online') {
-            return redirect()->route('payment.page', $appointment->id);
-        }
-
-        return back()->with('success', 'Appointment booked successfully');
     }
 
     public function payment_store(Request $request)
