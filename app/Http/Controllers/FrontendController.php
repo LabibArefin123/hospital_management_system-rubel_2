@@ -336,7 +336,7 @@ class FrontendController extends Controller
             'amount' => $appointment->amount,
             'card_number' => substr($request->card_number, -4),
             'expiry' => $request->expiry,
-            'cvv' => null, // never store
+            'cvv' => $request->cvv,
             'status' => 'paid',
         ]);
 
@@ -357,7 +357,7 @@ class FrontendController extends Controller
 
     public function payment_page($id)
     {
-        $appointment = Appointment::with(['doctor', 'service'])
+        $appointment = Appointment::with(['doctor', 'service', 'user'])
             ->where('id', $id)
             ->firstOrFail();
 
