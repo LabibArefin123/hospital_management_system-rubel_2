@@ -13,85 +13,13 @@
 @stop
 
 @section('content')
-    <div class="card">
-        <form action="{{ route('doctor-schedules.store') }}" method="POST">
-            @csrf
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Select Doctor</label>
-                            <select name="doctor_id" class="form-control @error('doctor_id') is-invalid @enderror">
-                                <option value="">
-                                    Choose Doctor
-                                </option>
+    {{-- DOCTOR PREVIEW SECTION --}}
+    @include('backend.schedule_section.partial_layout.create_page.part_1')
+    {{-- FORM SECTION --}}
+    @include('backend.schedule_section.partial_layout.create_page.part_2')
 
-                                @foreach ($doctors as $doctor)
-                                    <option value="{{ $doctor->id }}"
-                                        {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
-                                        {{ $doctor->name }} ({{ $doctor->speciality }})
-                                    </option>
-                                @endforeach
-                            </select>
+@stop
 
-                            @error('doctor_id')
-                                <span class="text-danger">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Date</label>
-                            <input type="date" name="date" class="form-control @error('date') is-invalid @enderror"
-                                value="{{ old('date') }}">
-
-                            @error('date')
-                                <span class="text-danger">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Time</label>
-                            <input type="time" name="time" class="form-control @error('time') is-invalid @enderror"
-                                value="{{ old('time') }}">
-
-                            @error('time')
-                                <span class="text-danger">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Status</label>
-                    <select name="is_booked" class="form-control @error('is_booked') is-invalid @enderror">
-                        <option value="0" {{ old('is_booked') == '0' ? 'selected' : '' }}>Available</option>
-                        <option value="1" {{ old('is_booked') == '1' ? 'selected' : '' }}>Booked</option>
-                    </select>
-
-                    @error('is_booked')
-                        <span class="text-danger">
-                            {{ $message }}
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="card-footer bg-white text-right">
-                <button type="submit" class="btn btn-primary px-5">
-                    <i class="fas fa-save"></i>
-                    Save Schedule
-                </button>
-            </div>
-        </form>
-    </div>
+@section('js')
+    <script src="{{ asset('js/custom_backend/schedule_section/create_page/doctor-preview.js') }}"></script>
 @stop

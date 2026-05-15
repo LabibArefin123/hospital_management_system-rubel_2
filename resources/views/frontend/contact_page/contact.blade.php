@@ -142,7 +142,7 @@
                     <!-- Visit -->
                     <div class="info-card">
                         <h5>Visit Our Clinic</h5>
-                        <p>📍 Mirpur DOHS, Dhaka</p>
+                        <p>📍 Dhaka, Bangladesh</p>
                         <p>📞 017XXXXXXXX</p>
                         <p>✉ info@susthocare.com</p>
                     </div>
