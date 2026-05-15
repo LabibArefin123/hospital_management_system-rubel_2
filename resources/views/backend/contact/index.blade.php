@@ -3,121 +3,36 @@
 @section('title', 'Contact Messages')
 
 @section('content_header')
-    <h1 class="font-weight-bold">
-        Contact Messages
-    </h1>
-@stop
 
-@section('content')
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-    <div class="card shadow-sm border-0">
+        <h1 class="font-weight-bold mb-2 mb-md-0">
 
-        <div class="card-header bg-white">
+            Contact Messages
 
-            <div class="d-flex justify-content-between align-items-center">
+        </h1>
 
-                <h3 class="card-title font-weight-bold">
-                    All Messages
-                </h3>
+        <button id="toggleFilterBtn" class="btn btn-primary">
 
-                <span class="badge badge-primary p-2">
-                    Total: {{ $contacts->count() }}
-                </span>
+            <i class="fas fa-filter mr-1"></i>
 
-            </div>
+            Filter
 
-        </div>
+            <i id="filterArrow" class="fas fa-chevron-down ml-1"></i>
 
-        <div class="card-body table-responsive">
-
-            <table class="table table-striped table-hover align-middle" id="datatables">
-
-                <thead class="bg-light">
-
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Department</th>
-                        <th>Service</th>
-                        <th>Date</th>
-                        <th width="140">Action</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @forelse($contacts as $key => $contact)
-                        <tr>
-
-                            <td>{{ $key + 1 }}</td>
-
-                            <td>
-                                <strong>{{ $contact->name }}</strong>
-                                <br>
-                                <small class="text-muted">
-                                    {{ $contact->email ?? 'No Email' }}
-                                </small>
-                            </td>
-
-                            <td>{{ $contact->phone }}</td>
-
-                            <td>
-                                {{ $contact->department ?? 'N/A' }}
-                            </td>
-
-                            <td>
-                                {{ $contact->service ?? 'N/A' }}
-                            </td>
-
-                            <td>
-                                {{ $contact->created_at->format('d M Y') }}
-                            </td>
-
-                            <td>
-
-                                <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-info btn-sm">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-
-                                <form action="{{ route('contacts.destroy', $contact->id) }}" method="POST"
-                                    class="d-inline">
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this message?')">
-
-                                        <i class="fas fa-trash"></i>
-
-                                    </button>
-
-                                </form>
-
-                            </td>
-
-                        </tr>
-
-                    @empty
-
-                        <tr>
-                            <td colspan="7" class="text-center text-muted">
-                                No messages found
-                            </td>
-                        </tr>
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
-            <div class="mt-3">
-                {{ $contacts->links() }}
-            </div>
-
-        </div>
+        </button>
 
     </div>
 
+@stop
+
+@section('content')
+    {{--  FILTER SECTION --}}
+    @include('backend.contact.partial_layout.part_1')
+    {{--  TABLE SECTION --}}
+    @include('backend.contact.partial_layout.part_2')
+@stop
+
+@section('js')
+    <script src="{{ asset('js/custom_backend/contact_section/contact-filter.js') }}"></script>
 @stop

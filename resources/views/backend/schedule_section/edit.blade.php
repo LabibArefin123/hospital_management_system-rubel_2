@@ -9,11 +9,8 @@
         </h3>
 
         <a href="{{ route('doctor-schedules.index') }}" class="back-btn btn btn-sm btn-secondary">
-
             <i class="fas fa-arrow-left"></i>
-
             Back
-
         </a>
     </div>
 @stop
