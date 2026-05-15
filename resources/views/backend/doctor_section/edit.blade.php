@@ -84,5 +84,4 @@
     <script>
         bsCustomFileInput.init();
     </script>
-
 @stop

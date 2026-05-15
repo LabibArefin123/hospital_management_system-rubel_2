@@ -1,7 +1,3 @@
-/* =========================================================
-   BACK PAGE CONFIRMATION
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", function () {
     let formChanged = false;
     let nextUrl = "";
@@ -55,12 +51,4 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = nextUrl;
         });
     }
-
-    // Browser refresh/close confirm
-    window.addEventListener("beforeunload", function (e) {
-        if (formChanged) {
-            e.preventDefault();
-            e.returnValue = "";
-        }
-    });
 });
