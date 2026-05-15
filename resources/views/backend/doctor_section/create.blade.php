@@ -59,7 +59,7 @@
                                 <i class="fas fa-image mr-1"></i>
                                 Add Image
                             </button>
-                            <input type="hidden" name="image" id="finalDoctorImage" value="{{ old('image') }}">
+                            <input type="file" name="image" id="doctorImageInput" class="d-none" accept="image/*">
                         </div>
 
                         <div class="card-footer bg-white text-right">

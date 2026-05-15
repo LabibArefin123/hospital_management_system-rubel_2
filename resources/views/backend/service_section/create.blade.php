@@ -44,14 +44,14 @@
                     Save
                 </button>
             </div>
-
         </form>
+
+        @include('backend.service_section.custom_modal.create_page.image_upload_modal')
+
+        @include('backend.service_section.custom_modal.create_page.replace_upload_modal')
 
     </div>
 
-    @include('backend.service_section.custom_modal.create_page.image_upload_modal')
-
-    @include('backend.service_section.custom_modal.create_page.replace_upload_modal')
 
 @stop
 

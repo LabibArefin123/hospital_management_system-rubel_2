@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let selectedFile = null;
-
-    let currentImage = document.getElementById("oldImagePreview")?.src || null;
+    let currentImage = null;
 
     const openBtn = document.getElementById("openImageModal");
 
@@ -17,11 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const shapeEl = document.getElementById("imageShape");
 
-    const finalInput = document.getElementById("finalDoctorImage");
-
     /*
     |--------------------------------------------------------------------------
-    | BLOCK FORM SUBMIT (IMPORTANT)
+    | BLOCK ENTER SUBMIT
     |--------------------------------------------------------------------------
     */
 
@@ -37,17 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*
     |--------------------------------------------------------------------------
-    | OPEN MODAL
+    | OPEN FILE PICKER
     |--------------------------------------------------------------------------
     */
 
     openBtn?.addEventListener("click", function () {
-        $("#imageUploadModal").modal("show");
+        input.click();
     });
 
     /*
     |--------------------------------------------------------------------------
-    | IMAGE PREVIEW
+    | IMAGE CHANGE
     |--------------------------------------------------------------------------
     */
 
@@ -56,27 +52,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!file) return;
 
-        selectedFile = file;
-
         const reader = new FileReader();
 
         reader.onload = function (event) {
             preview.src = event.target.result;
+
+            currentImage = event.target.result;
 
             const img = new Image();
 
             img.onload = function () {
                 dimEl.innerText = `${img.width} x ${img.height}`;
 
-                shapeEl.innerText =
-                    img.width > img.height
-                        ? "Landscape"
-                        : img.width < img.height
-                          ? "Portrait"
-                          : "Square";
+                if (img.width > img.height) {
+                    shapeEl.innerText = "Landscape";
+                } else if (img.width < img.height) {
+                    shapeEl.innerText = "Portrait";
+                } else {
+                    shapeEl.innerText = "Square";
+                }
             };
 
             img.src = event.target.result;
+
+            /*
+            |--------------------------------------------------------------------------
+            | SHOW COMPARE MODAL
+            |--------------------------------------------------------------------------
+            */
+
+            document.getElementById("newImagePreview").src =
+                event.target.result;
+
+            document.getElementById("oldImagePreview").src = currentImage || "";
+
+            $("#replaceImageModal").modal("show");
         };
 
         reader.readAsDataURL(file);
@@ -88,69 +98,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*
     |--------------------------------------------------------------------------
-    | SAVE IMAGE (OPEN COMPARE MODAL ONLY)
-    |--------------------------------------------------------------------------
-    */
-
-    document
-        .getElementById("saveImageBtn")
-        ?.addEventListener("click", function () {
-            if (!selectedFile) {
-                alert("Please select an image");
-
-                return;
-            }
-
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                document.getElementById("newImagePreview").src =
-                    e.target.result;
-
-                document.getElementById("oldImagePreview").src =
-                    currentImage || "";
-
-                $("#imageUploadModal").modal("hide");
-
-                $("#replaceImageModal").modal("show");
-            };
-
-            reader.readAsDataURL(selectedFile);
-        });
-
-    /*
-    |--------------------------------------------------------------------------
-    | CONFIRM REPLACE (NO FORM SUBMIT)
+    | CONFIRM IMAGE
     |--------------------------------------------------------------------------
     */
 
     document
         .getElementById("confirmReplaceBtn")
         ?.addEventListener("click", function () {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                finalInput.value = e.target.result;
-
-                currentImage = e.target.result;
-
-                $("#replaceImageModal").modal("hide");
-            };
-
-            reader.readAsDataURL(selectedFile);
+            $("#replaceImageModal").modal("hide");
         });
 
     /*
     |--------------------------------------------------------------------------
-    | CANCEL RESET
+    | CANCEL IMAGE
     |--------------------------------------------------------------------------
     */
 
     document
         .getElementById("cancelImageBtn")
         ?.addEventListener("click", function () {
-            selectedFile = null;
-
             input.value = "";
 
             preview.src = "";
@@ -162,5 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             dimEl.innerText = "-";
 
             shapeEl.innerText = "-";
+
+            $("#replaceImageModal").modal("hide");
         });
 });
