@@ -28,10 +28,51 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Instructions</label>
-                    <input type="text" name="instructions[]" class="form-control mb-2">
-                    <input type="text" name="instructions[]" class="form-control mb-2">
-                    <input type="text" name="instructions[]" class="form-control">
+
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+
+                        <label class="mb-0">
+
+                            Instructions
+
+                        </label>
+
+                        <button type="button" id="addInstructionBtn" class="btn btn-sm btn-success">
+
+                            <i class="fas fa-plus"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div id="instructionWrapper">
+
+                        {{-- INPUT ITEM --}}
+                        <div class="instruction-item mb-2">
+
+                            <div class="input-group">
+
+                                <input type="text" name="instructions[]" class="form-control"
+                                    placeholder="Enter instruction">
+
+                                <div class="input-group-append">
+
+                                    <button type="button" class="btn btn-danger removeInstructionBtn">
+
+                                        <i class="fas fa-minus"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                       
+
+                    </div>
+
                 </div>
 
                 <div class="form-group">
@@ -48,4 +89,7 @@
         </form>
 
     </div>
+@stop
+@section('js')
+    <script src="{{ asset('js/custom_backend/service_section/create_page/instruction-repeat.js') }}"></script>
 @stop
