@@ -26,11 +26,27 @@
                     @csrf
 
                     <div class="card-body">
+                        {{-- ERRORS --}}
+                        @if ($errors->any())
+
+                            <div class="alert alert-danger">
+
+                                <ul class="mb-0">
+
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+
+                                </ul>
+
+                            </div>
+
+                        @endif
                         @include('backend.doctor_section.partial_layout.create_page.part_1')
                         @include('backend.doctor_section.partial_layout.create_page.part_2')
                         @include('backend.doctor_section.partial_layout.create_page.part_3')
                         @include('backend.doctor_section.partial_layout.create_page.part_4')
-                       
+
                         <div class="form-group">
                             <label>About Doctor</label>
                             <textarea name="about" rows="5" class="form-control" placeholder="Write doctor profile..."></textarea>
@@ -52,9 +68,9 @@
                                 Save Doctor
                             </button>
                         </div>
+                        @include('backend.doctor_section.custom_modal.create_page.image_upload_modal')
+                        @include('backend.doctor_section.custom_modal.create_page.replace_upload_modal')
                 </form>
-                @include('backend.doctor_section.custom_modal.create_page.image_upload_modal')
-                @include('backend.doctor_section.custom_modal.create_page.replace_upload_modal')
             </div>
         </div>
     </div>

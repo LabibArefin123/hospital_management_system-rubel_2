@@ -272,7 +272,7 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $doctor = Doctor::findOrFail($id); 
+        $doctor = Doctor::findOrFail($id);
         $user = User::find($doctor->user_id);
         // Form Validation 
         $request->validate([
@@ -310,47 +310,26 @@ class DoctorController extends Controller
     */
 
         if ($request->hasFile('image')) {
-
-            /*
-        |--------------------------------------------------------------------------
-        | DELETE OLD IMAGE
-        |--------------------------------------------------------------------------
-        */
-
+            /*Delete Old Image */
             if (
                 $doctor->image &&
                 File::exists(public_path($doctor->image))
             ) {
-
                 File::delete(public_path($doctor->image));
             }
 
-            /*
-        |--------------------------------------------------------------------------
-        | CREATE DIRECTORY
-        |--------------------------------------------------------------------------
-        */
-
+            /*Create Directory */
             $destinationPath = public_path('uploads/images/doctor');
-
             if (!File::exists($destinationPath)) {
-
                 File::makeDirectory($destinationPath, 0777, true, true);
             }
 
-            /*
-        |--------------------------------------------------------------------------
-        | UPLOAD IMAGE
-        |--------------------------------------------------------------------------
-        */
-
+            /*Upload Image */
             $image = $request->file('image');
-
             $imageName = time() . '_' . uniqid() . '.' .
                 $image->getClientOriginalExtension();
 
             $image->move($destinationPath, $imageName);
-
             $doctor->image = 'uploads/images/doctor/' . $imageName;
         }
 
@@ -361,38 +340,15 @@ class DoctorController extends Controller
             $user->username   = $request->username;
             $user->email      = $request->email;
 
-            /*
-        |--------------------------------------------------------------------------
-        | UPDATE PASSWORD IF PROVIDED
-        |--------------------------------------------------------------------------
-        */
-
+            /*Update Password If Provided */
             if ($request->filled('password')) {
 
                 $user->password = Hash::make($request->password);
             }
-
-            /*
-            |--------------------------------------------------------------------------
-            | SAVE USER
-            |--------------------------------------------------------------------------
-            */
-
             $user->save();
-
-            /*
-            |--------------------------------------------------------------------------
-            | SYNC SPATIE ROLE
-            |--------------------------------------------------------------------------
-            */
+            /* Sync Spatie Role */
             $user->syncRoles(['doctor']);
         }
-
-        /*
-    |--------------------------------------------------------------------------
-    | REDIRECT
-    |--------------------------------------------------------------------------
-    */
 
         return redirect()
             ->route('doctors.index')
@@ -407,8 +363,9 @@ class DoctorController extends Controller
     public function destroy($id)
     {
         $doctor = Doctor::findOrFail($id);
+        $user = User::find($doctor->user_id);
 
-        // Delete image
+        /*Delete Image*/
         if (
             $doctor->image &&
             File::exists(public_path($doctor->image))
@@ -416,11 +373,19 @@ class DoctorController extends Controller
 
             File::delete(public_path($doctor->image));
         }
-
+        
         $doctor->delete();
+
+        /*Delete Related User*/
+        if ($user) {
+            $user->delete();
+        }
 
         return redirect()
             ->route('doctors.index')
-            ->with('success', 'Doctor Deleted Successfully');
+            ->with(
+                'success',
+                'Doctor and User Deleted Successfully'
+            );
     }
 }
