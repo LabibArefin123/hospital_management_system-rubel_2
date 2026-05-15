@@ -11,8 +11,6 @@
         <div class="container text-center">
             <h2>Our Medical Experts</h2>
             <p>Find your ideal doctor by name or specialization</p>
-
-            <!-- SEARCH -->
             <input type="text" id="doctorSearch" placeholder="Search doctor or specialization...">
         </div>
     </section>
@@ -21,11 +19,11 @@
     <section class="doctor-section py-5">
         <div class="container">
             <div class="doctor-grid" id="doctorGrid">
-
                 @forelse($doctors as $doctor)
                     <div class="doctor-card">
                         <div class="doctor-img">
-                            <img src="{{ asset($doctor->image) }}" alt="{{ $doctor->name }}">
+                            <img src="{{ asset($doctor->image ? $doctor->image : 'uploads/images/default.jpg') }}"
+                                alt="{{ $doctor->name }}">
                         </div>
 
                         <h5>{{ $doctor->name }}</h5>

@@ -9,7 +9,8 @@
                  <div class="profile-left">
 
                      <div class="profile-img">
-                         <img src="{{ asset($doctor->image) }}">
+                         <img src="{{ asset($doctor->image ? $doctor->image : 'uploads/images/default.jpg') }}"
+                             alt="{{ $doctor->name }}">
                      </div>
 
                      <div class="profile-stats">
